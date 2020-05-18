@@ -1,0 +1,68 @@
+---
+title: "MTBLS1582"
+author: "Scharfenberg, Micha Devi, Gerd Balcke, Steffen Neumann"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reading mzTab-M
+
+```{r MSnbase}
+
+library(MSnbase)
+
+setwd("/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582")
+fl <- "Height_NRGneg_2020471011.mzTab"
+
+mtbls1582mztab <- MzTab(fl)
+
+sm <- smallMolecules(mtbls1582mztab)
+smiles <- sm["smiles"]
+inchi <- sm["inchi"]
+
+## Alternatively:
+# sm$smiles
+# sm$inchi
+
+mf <- moleculeFeatures(mtbls1582mztab)
+rt <- mf[,"retention_time_in_seconds"]
+mz <- mf[,"exp_mass_to_charge"]
+
+ecols <- grep("abundance_assay", names(mf))
+e <- as.matrix(mf[, ecols])
+
+mt <- metadata(mtbls1582mztab)
+mt <- unlist(mt)
+
+assaynames <- mt[grep("^assay\\[[0-9]*\\]$", names(mt))]
+filenames <- mt[grep("^ms_run\\[[0-9]*\\]-location$", names(mt))]
+
+## Replace actual assay names
+colnames(e) <- assaynames[sub("abundance_", "", colnames(e))]
+
+## MS/MS parts
+library(MsBackendMsp)
+
+be <- MsBackendMsp()
+
+## Import a single file.
+setwd("/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582")
+fl2 <- "20203121416_spectra_NRGneg.msp"
+fl3 <- list.files(path=getwd(), pattern=fl2, full.names = TRUE)
+res1 <- backendInitialize(be, fl3)
+
+n1 <- length(res1) ## Result: 16206 
+
+```
+
+
+
+
+```{r sessionInfo}
+sessionInfo()
+```
+

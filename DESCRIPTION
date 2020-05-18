@@ -1,15 +1,35 @@
 Package: MetClassNetR
-Title: What the Package Does (One Line, Title Case)
+Title: Access, analysis and networking of Metabolomics Data
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Authors@R: c(
+           person(given = "Steffen", family = "Neumann",
+           email = "sneumann@ipb-halle.de",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           comment = c(ORCID = "0000-0002-7899-7192")),
+           person(given = "Michael", family = "Witting",
+           email = "michael.witting@helmholtz-muenchen.de",
+           role = "ctb")
+           )
+Author: Colin A. Smith <csmith@scripps.edu>,
+    Steffen Neumann <sneumann@ipb-halle.de>,
+    Michael Witting <michael.witting@helmholtz-muenchen.de>
+Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
+Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
+Depends:
+    Spectra (>= 0.5.0),
+    MSnbase
+Imports:
+    methods    
+Suggests:
+    testthat,
+    knitr (>= 1.1.0),
+    roxygen2,
+    BiocStyle (>= 2.5.19),
+    rmarkdown
+Remotes:
+   RforMassSpectrometry/Spectra
+   sneumann/MsBackendMsp
+License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
