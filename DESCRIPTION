@@ -1,6 +1,6 @@
 Package: MetClassNetR
 Title: Access, analysis and networking of Metabolomics Data
-Version: 0.0.0.9000
+Version: 0.0.0.9010
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -17,6 +17,7 @@ Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
 Depends:
     Spectra (>= 0.5.0),
+    nontarget,
     MSnbase
 Imports:
     methods    
