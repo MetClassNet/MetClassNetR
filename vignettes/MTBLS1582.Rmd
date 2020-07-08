@@ -11,115 +11,90 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Reading mzTab-M
 
-```{r MSnbase}
-
+```{r read_MS1}
 library(MSnbase)
 
-setwd("/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582")
-fl <- "Height_NRGneg_2020471011.mzTab"
-
+fl <- "/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582/Height_NRGneg_2020471011.mzTab"
 mtbls1582mztab <- MzTab(fl)
 
+## Extract objects from mzTab-M
+mt <- unlist(metadata(mtbls1582mztab))
 sm <- smallMolecules(mtbls1582mztab)
-smiles <- sm["smiles"]
-inchi <- sm["inchi"]
-
-## Alternatively:
-# sm$smiles
-# sm$inchi
-
 mf <- moleculeFeatures(mtbls1582mztab)
-rt <- mf[,"retention_time_in_seconds"]
-mz <- mf[,"exp_mass_to_charge"]
 
-ecols <- grep("abundance_assay", names(mf))
-e <- as.matrix(mf[, ecols])
-
-mt <- metadata(mtbls1582mztab)
-mt <- unlist(mt)
-
+## Extract assay and file names
 assaynames <- mt[grep("^assay\\[[0-9]*\\]$", names(mt))]
 filenames <- mt[grep("^ms_run\\[[0-9]*\\]-location$", names(mt))]
 
-## Replace actual assay names
+## Extract feature definitions
+featid <- mf$SMF_ID
+rt <- mf$retention_time_in_seconds
+mz <- mf$exp_mass_to_charge
+
+## Extract some chemistry
+smiles <- sm$smiles
+inchi <- sm$inchi
+
+## Extract data matrix
+## and replace actual assay names
+
+ecols <- grep("abundance_assay", names(mf))
+e <- as.matrix(mf[, ecols])
 colnames(e) <- assaynames[sub("abundance_", "", colnames(e))]
 
+```
+
+```{r read_MS2}
 ## MS/MS parts
 library(MsBackendMsp)
-
 be <- MsBackendMsp()
 
 ## Import a single file.
-setwd("/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582")
-fl2 <- "20203121416_spectra_NRGneg.msp"
-fl3 <- list.files(path=getwd(), pattern=fl2, full.names = TRUE)
-res1 <- backendInitialize(be, fl3)
+fl2 <- "/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582/20203121416_spectra_NRGneg.msp"
+msms <- backendInitialize(be, fl2)
 
-n1 <- length(res1) ## Result: 16206 
+## Paranoid check
+if (length(msms) != nrow(e)) {
+  stop("Different number of features in MS1 and MS2")
+}
 
+```
+
+```{r save3envihomolog}
+
+write.csv(cbind("m/z"=mz, "dummy"=999, "RT"=rt)[1:111,],
+          file="MTBLS1582-envihomolog.csv",
+          row.names=FALSE)
+
+# 
+# https://www.envihomolog.eawag.ch/
+# F=results-peaks-MTBLS1582-envihomolog.csv cat $F | grep -v '"0"'| egrep 'mz|["/]611["/]' | cut -d "," -f 2 --complement  | column -t -s, | tr -d \" | expand
+
+# F=results-peaks-MTBLS1582-envihomolog.csv cat $F | grep -v '"0"'| egrep 'mz|["/]611["/]' | cut -d "," -f 2 --complement  | column -t -s, | tr -d \"
 ```
 
 ```{r homSeries0}
 library(nontarget)
 
-######################################################
-# (0) load required data: ############################
-# (0.1) HRMS peak list & remove satelite peaks: ######
-data(peaklist);
-peaklist<-rm.sat(peaklist,dmz=0.3,drt=0.1,intrat=0.015,spar=0.8,corcut=-1000,plotit=TRUE);
-peaklist<-peaklist[peaklist[,4],1:3];
-
-# (0.2) list of adducts - package enviPat ############
+# (0.2) list of adducts/isotopes - package enviPat ############
 data(adducts);
-# (0.3) list of isotopes - package enviPat ###########
 data(isotopes);
 
-## Debug:
-# peaklist <- peaklist[1:500,]
-
 ## Use MTBLS1582 peaklist
-#peaklist <- cbind(mass=mz, intensity=e[,1], rt=rt)
+peaklist <- data.frame(mass=mz, intensity=e[,1], rt=rt)
+
 ```
 
-```{r homSeries1}
-######################################################
-# (1) run isotope pattern grouping ###################
-# (1.1) define isotopes and charge argument ##########
-iso<-make.isos(isotopes,
-	use_isotopes=c("13C","15N"), # "34S", "37Cl","81Br","41K","13C","15N","34S","37Cl","81Br","41K"),
-	use_charges=c(1,1)) #,1,1,1,1,2,2,2,2,2,2))
-# (1.2) run isotope grouping #########################
-pattern<-pattern.search(
-  peaklist,
-  iso,
-  cutint=1000000, ## Critical line "against" Error: cannot allocate vector of size 2336.0 Gb
-  rttol=c(-0.05,0.05),
-  mztol=2,
-  mzfrac=0.1,
-  ppm=TRUE,
-  inttol=0.2,
-  rules=c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE),
-  deter=FALSE,
-  entry=5
-);
-# (1.3) plot results #################################
-plotisotopes(pattern);
-plotdefect(pattern,elements=c("N"));
-```
-
-```{r homSeries2}
+```{r nontarget-AdductSearch}
 ######################################################
 # (2.1) run grouping of peaks for different adducts ##
 # of the same candidate molecule #####################
-adduct<-adduct.search(
-  peaklist,
+adduct<-adduct.search(peaklist,
   adducts,
-  rttol=0.05,
-  mztol=3,
-  ppm=TRUE,
-  use_adducts=c("M+K","M+H","M+Na","M+NH4"),
-  ion_mode="positive"
-);
+  rttol=2,
+  mztol=5, ppm=TRUE,
+  use_adducts=c("M-H", "M+FA-H", "M+Hac-H"), 
+                ion_mode="negative");
 # (2.2) plot results #################################
 plotadduct(adduct);
 
@@ -129,8 +104,10 @@ plotadduct(adduct);
 ######################################################
 # (3) show single pattern group and its relation #####
 # to adduct groups ###################################
-plotall(pattern,adduct);
-plotgroup(pattern,adduct,groupID=1,massrange=10,allmass=FALSE);
+
+# pattern didn't compute
+#plotall(pattern,adduct);
+#plotgroup(pattern,adduct,groupID=1,massrange=10,allmass=FALSE);
 
 ```
 
@@ -141,16 +118,12 @@ homol<-homol.search(
 	isotopes,	
 	elements=c("C","H","O"),
 	use_C=TRUE,
-	minmz=5,
-	maxmz=120,
-	minrt=-1,
-	maxrt=2,
+	minmz=5, 	maxmz=50,
+	minrt=5,  maxrt=60,
 	ppm=TRUE,
-	mztol=3.5,
-    rttol=0.5,
-	minlength=5,
+	mztol=5,  rttol=5,
+	minlength=4,
 	mzfilter=FALSE,
-	vec_size=3E6,
 	spar=.45,
 	R2=.98,
 	plotit=FALSE
@@ -162,26 +135,16 @@ plothomol(homol,xlim=FALSE,ylim=FALSE,plotlegend=TRUE);
 
 ```{r homSeries5}
 # (5.1) Combine grouping results to components #######
-comp<-combine(
-	pattern,
-	adduct,
-	homol,
-	dont=FALSE,
-	rules=c(TRUE,FALSE,FALSE)
-);
+#comp<-combine(
+#	pattern,
+#	adduct,
+#	homol,
+#	dont=FALSE,
+#	rules=c(TRUE,FALSE,FALSE)
+#);
 # (5.2) plot results ################################# 
-plotisotopes(comp);
-plotcomp(comp,compoID=1,peakID=FALSE);
-```
-
-```{r homSeries6}
-######################################################
-# (6) Select data from interactive plot ##############
-# ms.filter( component=comp,x="mz",y="dm",xlim=FALSE,
-# ylim=FALSE,rm.comp=TRUE,plot.comp=TRUE,rm.noncomp=FALSE,
-# select.polygon="inside",res=100,filter.for="raw" );
-######################################################
-
+#plotisotopes(comp);
+#plotcomp(comp,compoID=1,peakID=FALSE);
 ```
 
 ```{r sessionInfo}
