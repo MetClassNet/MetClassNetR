@@ -100,51 +100,48 @@ plotadduct(adduct);
 
 ```
 
-```{r homSeries3}
-######################################################
-# (3) show single pattern group and its relation #####
-# to adduct groups ###################################
-
-# pattern didn't compute
-#plotall(pattern,adduct);
-#plotgroup(pattern,adduct,groupID=1,massrange=10,allmass=FALSE);
-
-```
-
-```{r homSeries4}
+```{r nontarget-searchHomologueSeries}
 # (4.1) Screen for homologue series ##################
-homol<-homol.search(
-	peaklist,
-	isotopes,	
-	elements=c("C","H","O"),
-	use_C=TRUE,
-	minmz=5, 	maxmz=50,
-	minrt=5,  maxrt=60,
-	ppm=TRUE,
-	mztol=5,  rttol=5,
-	minlength=4,
-	mzfilter=FALSE,
-	spar=.45,
-	R2=.98,
-	plotit=FALSE
-)
+homol <- homol.search(peaklist,
+                      isotopes,		elements=c("C","H","O"), use_C=TRUE,
+                      minmz=5, 	maxmz=50,
+                      minrt=5,  maxrt=60,
+                      ppm=TRUE,
+                      mztol=5,  rttol=5,
+                      minlength=4,
+                      mzfilter=FALSE,
+                      spar=.45, 	R2=.98,
+                      plotit=FALSE)
 # (4.2) Plot results #################################
 plothomol(homol,xlim=FALSE,ylim=FALSE,plotlegend=TRUE);
 
 ```
 
-```{r homSeries5}
-# (5.1) Combine grouping results to components #######
-#comp<-combine(
-#	pattern,
-#	adduct,
-#	homol,
-#	dont=FALSE,
-#	rules=c(TRUE,FALSE,FALSE)
-#);
-# (5.2) plot results ################################# 
-#plotisotopes(comp);
-#plotcomp(comp,compoID=1,peakID=FALSE);
+```{r graph_export}
+library(tibble)
+library(dplyr)
+library(igraph)
+
+library(visNetwork) # for visNetwork() and friends
+library(networkD3)  # for saveNetwork()
+
+nl <- as_tibble(peaklist)
+
+el <- as_tibble(homol[["Peaks in homologue series"]]) %>% 
+    filter(`to ID` != "0") %>% select (c("peak ID", "to ID", 
+                                         "m/z increment", "RT increment"))
+
+g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+
+## Write to File
+write_graph(g, "/tmp/g.gml", "gml")
+
+## Some Plotting
+data <- toVisNetworkData(g)
+vn <- visNetwork(nodes = data$nodes, 
+                 edges = data$edges)
+vn
+saveNetwork(vn, "/tmp/vn.html")
 ```
 
 ```{r sessionInfo}
