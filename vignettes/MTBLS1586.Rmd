@@ -1,0 +1,57 @@
+---
+title: "MTBLS1586"
+author: "Salzer, Witting"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reading mzTab-M
+
+```{r read_MS1}
+library(MSnbase)
+
+
+
+```
+
+```{r read_MS2}
+## MS/MS parts
+
+
+```
+
+```{r save3envihomolog}
+
+```
+
+```{r homSeries0}
+
+
+```
+
+```{r nontarget-AdductSearch}
+
+```
+
+```{r homSeries3}
+
+
+```
+
+```{r homSeries4}
+
+
+```
+
+```{r homSeries5}
+
+```
+
+```{r sessionInfo}
+sessionInfo()
+```
+
