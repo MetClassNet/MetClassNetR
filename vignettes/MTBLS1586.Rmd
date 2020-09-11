@@ -12,23 +12,21 @@ output: html_document
 library(tidyverse)
 library(devtools)
 ## Install adjusted MetNet package
-# install_github("MetClassNet/MetNet") does not work yet
+#install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
 library(MetNet)
 library(igraph)
-library(reshape2)
 library(Hmisc)
 
 maf_file_pos <- 'm_mtbls291_POS_mass_spectrometry_v2_maf.tsv' # MTBLS maf file
 transformations_file <- 'Lipid_table.csv' # mass-difference file
 # wd contains MTBLS file and mass-difference file
 wd_maf <- '/Users/Liesa4/Library/Mobile Documents/com~apple~CloudDocs/Promotion/R/Projects/MTBLS291/'
-wd_MetNet_functions <- '/Users/Liesa4/Library/Mobile Documents/com~apple~CloudDocs/Promotion/R/Projects/HLH30_lipids/MetNet_MetClassNet_functions.R' #adjusted MetNet functions
-source(wd_MetNet_functions)
+
 
 # read files
 setwd(wd_maf)
 transformations <- read.csv(transformations_file) %>% select(group, formula, mass) %>% as.data.frame()
-metabolites_pos  <- read.table(file = maf_file_pos, sep = "\t", header = TRUE)
+metabolites_pos  <- read_tsv(file = maf_file_pos, col_names = T)
 
 ## Rename columns to fit for MetNet
 ## and discard the unneeded columns
@@ -42,8 +40,7 @@ metabolites_pos <- metabolites_pos %>% rename(mz = mass_to_charge) %>%
 metabolites_names <- metabolites_pos %>% select(manualAnnotation, mz, RT)
 ## Matrix containing mz, RT and samples 
 metabolites_pos <- metabolites_pos  %>%  select(mz, RT,everything(), -manualAnnotation) %>% as.matrix()
-class(metabolites_pos) <- "numeric"
-
+#class(metabolites_pos) <- "numeric"
 ```
 
 
@@ -68,38 +65,9 @@ plot(plot_list_f)
 ### Add manual annotatation 
 
 ```{r manual_annotation}
-# Function to add annotation names
-annotaionNames <- function (list, names) {
-  Var1_names <- c()
-  
-  for (i in 1:length(list$Var1)) {
-    
-    
-    value <- names[row.names(names) == list$Var1[i], "manualAnnotation"]
-    value <- as.character(value)
-    Var1_names <- c(Var1_names, value)
-    
-  }  
-  Var2_names <- c()
-  
-  for (i in 1:length(list$Var2)) {
-    
-    
-    value <- names[row.names(names) == list$Var2[i], "manualAnnotation"]
-    value <- as.character(value)
-    Var2_names <- c(Var2_names, value)
-    
-  }
-  
-  
-  list$Var1_annotation <- Var1_names
-  list$Var2_annotation <- Var2_names
-  
-  return(list)
-}
 # Add manual annotations to mass-difference adjacency list
 annotationList <- annotaionNames(list = struct_list, names = metabolites_names)
-annotationList
+
 # Filter for manual annotations
 annotationFiltered <- filter(annotationList, is.na(annotationList$Var1_annotation) == F, is.na(annotationList$Var2_annotation) == F, annotationList$Var1_annotation != "", annotationList$Var2_annotation != "")
 ```
@@ -126,46 +94,51 @@ args_thr <- list("pearson" = 0.95, "spearman" = 0.95, threshold = 1)
 stat_adj_thr <- threshold(statistical = stat_adj_l, type = "threshold", 
                           args = args_thr)
 
+#### Does not work yet!!
 
 # Threshold arguments for p values 
 # Values below set to '1'
-args_thr_p <- list("pearson" = 0.05, "spearman" = 0.05, threshold = 1)
+#args_thr_p <- list("pearson" = 0.05, "spearman" = 0.05, threshold = 1)
 # Thresholding by p value
-stat_adj_thr_p <- threshold(statistical = stat_adj_l_p, type = "threshold_p", 
-                            args = args_thr_p)
+#stat_adj_thr_p <- threshold(statistical = stat_adj_l_p, type = "threshold_p", 
+#                           args = args_thr_p)
 ```
 
 
 ## Combine mass-difference and correlation network
 ```{r combine}
 # Combine mass difference network and correlation network by thresholded pearson correlation
-cons_adj <- combine(structural = struct_adj, statistical = stat_adj_thr_p, model = "pearson", weighted_statistical = stat_adj_l_p)
+#cons_adj <- combine(structural = struct_adj, statistical = stat_adj_thr_p, model = "pearson", weighted_statistical = stat_adj_l_p)
+
 # Combine mass difference network and correlation network by thresholded combination of pearson and spearman correlation
 cons_adj_std <- combine(structural = struct_adj, statistical = stat_adj_thr, model = "combined")
 
+
+## does not work yet
 # Create a list from combined adjacency matrix
-comb_p_list <- adjacency_list(x = cons_adj, from = "combine")
+#comb_p_list <- adjacency_list(x = cons_adj_std, from = "combine")
 # Summary of the list
-sum_comb_p_list <- sum_mass(comb_p_list)
+#sum_comb_p_list <- sum_mass(comb_p_list)
 # Plot the summary
-plot_comblist <- ggplot(sum_comb_p_list, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + coord_flip() +labs(title = "Numbers of determined mass differences - HLH30 lipid data ", subtitle = "(positive ionization) 
-  Filtered: p-value < 0.05")
-plot(plot_comblist) 
+#plot_comblist <- ggplot(sum_comb_p_list, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + coord_flip() +labs(title = "Numbers of determined mass differences - HLH30 lipid data ", subtitle = "(positive ionization) 
+#Filtered: p-value < 0.05")
+#plot(plot_comblist) 
 # For big data: display only values above 500
-sumlistcomb_filtered <- filter(sum_comb_p_list, sum_comb_p_list$Counts >= 500)
-plot_comblist_f <- ggplot(sumlistcomb_filtered, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + 
-  coord_flip() + scale_y_continuous(breaks = seq(0, 6000, 500)) + 
-  labs(title = "Numbers of determined mass differences - HLH30 lipid data", subtitle = "(positive ionization)
-  Filtered: p-value < 0.05 & Counts > 500")
-plot(plot_comblist_f)
+#sumlistcomb_filtered <- filter(sum_comb_p_list, sum_comb_p_list$Counts >= 500)
+#plot_comblist_f <- ggplot(sumlistcomb_filtered, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + 
+#  coord_flip() + scale_y_continuous(breaks = seq(0, 6000, 500)) + 
+#  labs(title = "Numbers of determined mass differences - HLH30 lipid data", subtitle = "(positive ionization)
+#  Filtered: p-value < 0.05 & Counts > 500")
+#plot(plot_comblist_f)
 ```
 
 ## Export networks to gml format 
 ```{r export2gml}
+## does not work yet
 # Mass difference network to gml
-gml <- exportNet2gml(struct_adj, from = "structural", adjacency_list = struct_list)
-# Correlation network to gml (including p values)
-gml <- exportNet2gml(stat_adj_l_p, from = "statistical+p", adjacency_list = adj_stat_p)
-# Combined network to gml
-gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
+#gml <- exportNet2gml(struct_adj, from = "structural", adjacency_list = struct_list)
+## Correlation network to gml (including p values)
+#gml <- exportNet2gml(stat_adj_l_p, from = "statistical+p", adjacency_list = adj_stat_p)
+## Combined network to gml
+#gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
 ```
