@@ -28,6 +28,7 @@ qfeat_structural <- function(x, transformation, ...) {
 #'
 #' @param x `QFeature`
 #'
+
 qfeat_statistical <- function(x, model, p = F, ...) {
   feat_int <- assay(x[["pos"]]) %>% as.matrix() 
   
