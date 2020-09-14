@@ -53,6 +53,46 @@ qfeat_statistical <- function(x, model, p = F, ...) {
 #'
 #' @param x `QFeature`
 #'
-qfeat_homol <- function(x, ...) {
-
+qfeat_homol <- function(x, 
+                        elements=c("C","H","O"), use_C=TRUE,
+                        minmz=5, 	maxmz=50,
+                        minrt=5,  maxrt=60,
+                        ppm=TRUE,
+                        mztol=5,  rttol=5,
+                        minlength=4,
+                        mzfilter=FALSE,
+                        spar=.45, 	R2=.98, ...) {
+  
+  feat_int <- assay(x[["pos"]]) %>% as.data.frame()
+  feat_names <- rowData(x[["pos"]]) %>% as.data.frame()
+  
+  ## Extract feature definitions
+  featid <- feat_names$database_identifier
+  rt <- feat_names$retention_time
+  mz <- feat_names$mass_to_charge
+  
+  # (0.2) list of isotopes - package enviPat ############
+  data(isotopes)
+  
+  ## Use peaklist
+  peaklist <- data.frame(mass=mz, intensity=feat_int[,1], rt=rt)
+  
+  
+  homol <- nontarget::homol.search(peaklist,
+                                   isotopes,		elements=elements, use_C=use_C,
+                                   minmz=minmz, 	maxmz=maxmz,
+                                   minrt=minrt,  maxrt=maxrt,
+                                   ppm=ppm,
+                                   mztol=mztol,  rttol=rttol,
+                                   minlength=minlength,
+                                   mzfilter=mzfilter,
+                                   spar=spar, 	R2=R2,
+                                   plotit=FALSE)
+  
+  #(4.2) Plot results 
+  nontarget::plothomol(homol,xlim=FALSE,ylim=FALSE,plotlegend=TRUE)
+  
+  return(homol)
 }
+
+
