@@ -4,81 +4,20 @@
 \alias{qfeat_homol}
 \title{Homologue series extraction from QFeatures input}
 \usage{
-qfeat_homol(
-  x,
-  elements = c("C", "H", "O"),
-  use_C = TRUE,
-  minmz,
-  maxmz,
-  minrt,
-  maxrt,
-  ppm = TRUE,
-  mztol = 5,
-  rttol = 5,
-  minlength = 4,
-  mzfilter = FALSE,
-  spar = 0.45,
-  R2 = 0.98,
-  ...
-)
+qfeat_homol(x, assay_name, ...)
 }
 \arguments{
 \item{x}{\code{QFeatures} file}
 
-\item{elements}{FALSE or chemical elements in the changing units of the homologue
-series, e.g. c("C","H") for alkane chains. Used to restrict search.
-By default set to c("C","H","O").}
+\item{assay_name}{\code{Character}, define which assay needs to be extracted from QFeature input
+e.g. "pos".}
 
-\item{use_C}{For elements: take element ratio to C-atoms into account? Used to restrict search.
-By default set to TRUE.
-
-@param minmz
-Defines the lower limit of the m/z window to search homologue series peaks,
-relative to the m/z of the one peak to search from. Absolute m/z value \link{u}.
-
-@param maxmz
-Defines the upper limit of the m/z window to search homologue series peaks,
-relative to the m/z of the one peak to search from. Absolute m/z value \link{u}.
-
-@param minrt
-Defines the lower limit of the retention time (RT) window to look for
-other ho- mologue peaks, relative to the RT of the one peak to search from,
-i.e., RT+minrt. For decreasing RT with increasing HS mass, use negative
-values of minrt.
-
-@param maxrt
-Defines the upper limit of the RT window to look for other homologue peaks,
-relative to the RT of the one peak to search from, i.e., RT+maxrt. See \code{minrt}.
-
-@param ppm
-Should mztol be set in ppm (TRUE, default) or in absolute m/z \link{u} (FALSE)?
-
-@param mztol
-m/z tolerance setting: +/- value by which the m/z of a peak may vary from
-its expected value. If parameter ppm=TRUE (see below) given in ppm,
-otherwise, if ppm=FALSE, in absolute m/z \link{u}. Default is 5.
-
-@param rttol
-Retention time (RT) tolerance by which the RT between two adjacent pairs of
-a homologue series is allowed to differ. Units as given in column 3 of
-peaklist argument, e.g. \link{min}. Default is 5.
-
-@param minlength
-Minimum number of peaks in a homologue series. Default is 4.
-
-@param mzfilter
-Vector of numerics to filter for homologue series with specific m/z
-differences of their repeating units, given the tolerances in mztol.
-Mind charge z! Default is FALSE.
-
-@param spar
-Smoothing parameter, typically (but not necessarily) in (0,1).
-Default 0.45.
-
-@param R2
-FALSE or 0<numeric<=1. Coefficient of determination for cubic smoothing
-spline fits of m/z versus retention time; homologue series with lower R2 are
-rejected. See smooth.spline. Default 0.98.}
+\item{...}{Insert here parameter from \code{homol.search} function from \code{nontarget}package.
+(https://cran.r-project.org/web/packages/nontarget/index.html)
+Define parameters needed at \code{homol.search} as \code{elements}, \code{use_C},
+\code{minmx}, \code{maxmz}, \code{minrt}, \code{maxrt}, \code{ppm}, \code{mztol}, \code{rttol}, \code{minlenght},
+\code{mzfilter}, \code{spar}, \code{R2}.
+For further information see Help page of \code{?homol.search}.}
 }
 \description{
 The function \code{qfeat_homol} uses the input from \code{QFeatures} and uses dynamic

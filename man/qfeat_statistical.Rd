@@ -4,19 +4,24 @@
 \alias{qfeat_statistical}
 \title{Create a list of correlation matrices from QFeatures input}
 \usage{
-qfeat_statistical(x, model, p = F, ...)
+qfeat_statistical(x, assay_name, ...)
 }
 \arguments{
-\item{x}{\code{QFeatures} file}
+\item{x}{\code{QFeatures} file
 
-\item{model}{\code{character} vector containing the methods that will be used
+@param assay_name
+\code{Character}, define which assay needs to be extracted from QFeature input
+e.g. "pos".
+
+@param ...
+Insert here parameter from \code{statistical} function from \code{MetNet}package.
+(https://github.com/MetClassNet/MetNet)
+\code{model} is a \code{character} vector containing the methods that will be used
 (\code{"lasso"}, \code{"randomForest"}, \code{"clr"}, \code{"aracne"}, \code{"pearson"},
 \code{"pearson_partial"}, \code{"pearson_semipartial"}, \code{"spearman"},
 \code{"spearman_partial"}, \code{"spearman_semipartial"}, \code{"bayes"})
-\code{data.frame}, containing the columns \code{"group"}
-(https://github.com/MetClassNet/MetNet).}
-
-\item{p}{\code{logical}, by default is set to FALSE.}
+\code{data.frame}, containing the columns \code{"group"}.
+\code{p}is \code{logical}, by default is set to FALSE. `}
 }
 \description{
 The function \code{qfeat_statistical} uses the input from \code{QFeatures} and creates an

@@ -4,16 +4,22 @@
 \alias{qfeat_structural}
 \title{Create m/z difference adjacency matrix from QFeatures input}
 \usage{
-qfeat_structural(x, transformation, ppm = 10, ...)
+qfeat_structural(x, assay_name, ...)
 }
 \arguments{
-\item{x}{\code{QFeatures} file}
+\item{x}{\code{QFeatures} file
 
-\item{transformation}{\code{data.frame}, containing the columns \code{"group"},
+@param assay_name
+\code{Character}, define which assay needs to be extracted from QFeature input
+e.g. "pos".}
+
+\item{...}{Insert here parameter from \code{structural} function from \code{MetNet}package.
+(https://github.com/MetClassNet/MetNet)
+\code{transformation} is a  \code{data.frame}, containing the columns \code{"group"},
 and \code{"mass"} that will be used for detection of transformation of
-(functional) groups (https://github.com/MetClassNet/MetNet)}
-
-\item{ppm}{\code{numeric}, mass accuracy of m/z features in parts per million (ppm)}
+(functional) groups
+Parameter \code{ppm}is \code{numeric}, mass accuracy of m/z features in
+parts per million (ppm)}
 }
 \description{
 The function \code{qfeat_structural} uses the input from \code{QFeatures} and creates an
