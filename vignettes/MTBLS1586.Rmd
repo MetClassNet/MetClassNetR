@@ -1,57 +1,200 @@
 ---
-title: "MTBLS1586"
+title: "MTBLS291" #"MTBLS1586" not found (?)
 author: "Salzer, Witting"
-date: "5/18/2020"
+date: "8/7/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+#MetNet
+## Define paths and load maf
 
-## Reading mzTab-M
+```{r read maf}
+library(tidyverse)
+library(devtools)
+#install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
+library(MetNet)
+#install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+#library(MetClassNetR)
+library(QFeatures)
 
-```{r read_MS1}
-library(MSnbase)
-
-
-
-```
-
-```{r read_MS2}
-## MS/MS parts
-
-
-```
-
-```{r save3envihomolog}
-
-```
-
-```{r homSeries0}
+maf_file_pos <- 'm_mtbls291_POS_mass_spectrometry_v2_maf.tsv' # MTBLS maf file
+transformations_file <- 'Lipid_table.csv' # mass-difference file
+# wd contains MTBLS file and mass-difference file
+wd_maf <- '/Users/Liesa4/Library/Mobile Documents/com~apple~CloudDocs/Promotion/R/Projects/MTBLS291/'
 
 
-```
+# read files
+setwd(wd_maf)
+transformations <- read.csv(transformations_file) %>% select(group, formula, mass) %>% as.data.frame()
+data_df <- read_tsv(file = maf_file_pos, col_names = T)
 
-```{r nontarget-AdductSearch}
+# make QFeature file
+data_qF <- readQFeatures(data_df, ecol = 22:ncol(data_df), name = "pos")
 
 ```
 
-```{r homSeries3}
 
+
+## Mass difference Network
+```{r mass_difference}
+# Create mass difference network
+massdiff <- qfeat_structural(x = data_qF, 
+                 assay_name = "pos", 
+                 transformation = transformations, 
+                 ppm = 10)
+
+# Create list of adjacency matrix
+massdiff_l <- adjacency_list(x=massdiff, 
+                             from = "structural")
+
+# Summary of the list
+sum_mz <- summary_mz(adjacency_list = massdiff_l)
+
+# for big data: filter for counts higher 1000
+sum_mz_f <- summary_mz(adjacency_list = massdiff_l,
+                     filter = 1000)
 
 ```
 
-```{r homSeries4}
 
+### Add manual annotatation 
+
+```{r manual_annotation}
+# Add manual annotations to mass-difference adjacency list
+#name_l <- annotaionNames(list = massdiff_l, names = #### QFeature)
+
+# Filter for manual annotations
+#annotationFiltered <- filter(annotationList, is.na(annotationList$Var1_annotation) == F, is.na(annotationList$Var2_annotation) == F, annotationList$Var1_annotation != "", annotationList$Var2_annotation != "")
 
 ```
 
-```{r homSeries5}
 
+
+
+## Correlation network
+```{r correlation}
+# Correlation network using pearson and spearman correlation
+pears_corr <- qfeat_statistical(x = data_qF, 
+                                assay_name = "pos", 
+                                model = c("pearson"))
+
+# Create list from correlation acjacency matrix 
+pears_l <- adjacency_list(x = pears_corr, 
+                          from = "statistical")
+
+
+
+# Correlation network using pearson and spearman correlation
+# Positive, negative and p values are displayed
+pears_corr_p <- qfeat_statistical(x = data_qF, 
+                                assay_name = "pos", 
+                                model = c("pearson"),
+                                p = TRUE)
+
+pears_p_l <- adjacency_list(x = pears_corr_p, 
+                          from = "statistical")
+```
+### Threshold for correlation
+```{r threshold}
+# Threshold arguments for correlation values 
+# Values above set to '1'
+#args_thr <- list("pearson" = 0.95, "spearman" = 0.95, threshold = 1)
+# Thresholding by correlation value
+#corr_thr <- threshold(statistical = pears_corr, 
+#                     type = "threshold", 
+#                     args = args_thr)
+
+#### Does not work yet!!
+
+# Threshold arguments for p values 
+# Values below set to '1'
+#args_thr_p <- list("pearson" = 0.05, "spearman" = 0.05, threshold = 1)
+# Thresholding by p value
+#stat_adj_thr_p <- threshold(statistical = stat_adj_l_p, type = "threshold_p", 
+#                           args = args_thr_p)
 ```
 
-```{r sessionInfo}
-sessionInfo()
+
+
+## Combine mass-difference and correlation network
+```{r combine}
+# Combine mass difference network and correlation network by thresholded pearson correlation
+#cons_adj <- combine(structural = struct_adj, statistical = stat_adj_thr_p, model = "pearson", weighted_statistical = stat_adj_l_p)
+
+# Combine mass difference network and correlation network by thresholded combination of pearson and spearman correlation
+#cons <- combine(structural = struct_adj, statistical = stat_adj_thr, model = "combined")
+
+
+## does not work yet
+# Create a list from combined adjacency matrix
+#comb_p_list <- adjacency_list(x = cons_adj_std, from = "combine")
+# Summary of the list
+#sum_comb_p_list <- sum_mass(comb_p_list)
+# Plot the summary
+#plot_comblist <- ggplot(sum_comb_p_list, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + coord_flip() +labs(title = "Numbers of determined mass differences - HLH30 lipid data ", subtitle = "(positive ionization) 
+#Filtered: p-value < 0.05")
+#plot(plot_comblist) 
+# For big data: display only values above 500
+#sumlistcomb_filtered <- filter(sum_comb_p_list, sum_comb_p_list$Counts >= 500)
+#plot_comblist_f <- ggplot(sumlistcomb_filtered, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + 
+#  coord_flip() + scale_y_continuous(breaks = seq(0, 6000, 500)) + 
+#  labs(title = "Numbers of determined mass differences - HLH30 lipid data", subtitle = "(positive ionization)
+#  Filtered: p-value < 0.05 & Counts > 500")
+#plot(plot_comblist_f)
 ```
+
+
+## Export networks to gml format 
+```{r export2gml}
+## does not work yet
+# Mass difference network to gml
+#gml <- exportNet2gml(struct_adj, from = "structural", adjacency_list = struct_list)
+## Correlation network to gml (including p values)
+#gml <- exportNet2gml(stat_adj_l_p, from = "statistical+p", adjacency_list = adj_stat_p)
+## Combined network to gml
+#gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
+```
+
+#Homologue Series
+```{r homolseries}
+library(nontarget)
+library(igraph)
+
+homol <- qfeat_homol(x = data_qF, assay_name = "pos",
+                      elements=c("C","H","O"), use_C=TRUE,
+                      minmz=5, 	maxmz=50,
+                      minrt=5,  maxrt=60,
+                      ppm=TRUE,
+                      mztol=5,  rttol=5,
+                      minlength=4,
+                      mzfilter=FALSE,
+                      spar=.45, 	R2=.98,
+                      plotit=FALSE)
+```
+
+```{r graph_export}
+library(tibble)
+library(dplyr)
+library(igraph)
+library(visNetwork) # for visNetwork() and friends
+library(networkD3)  # for saveNetwork()
+
+
+el <- as_tibble(homol[["Peaks in homologue series"]]) %>% 
+    filter(`to ID` != "0") %>% select (c("peak ID", "to ID", 
+                                         "m/z increment", "RT increment"))
+
+g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+
+## Write to File
+write_graph(g, "/tmp/g.gml", "gml")
+
+## Some Plotting
+data <- toVisNetworkData(g)
+vn <- visNetwork(nodes = data$nodes, 
+                 edges = data$edges)
+vn
+saveNetwork(vn, "/tmp/vn.html")
+```
+
 
