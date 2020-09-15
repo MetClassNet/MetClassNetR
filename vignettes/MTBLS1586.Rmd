@@ -1,39 +1,97 @@
 ---
-title: "MTBLS291" #"MTBLS1586" not found (?)
-author: "Salzer, Witting"
-date: "8/7/2020"
-output: html_document
+title: "Description and usage of MetClassNetR: MTBLS1586"
+output:
+    BiocStyle::html_document:
+        toc_float: true
+vignette: >
+    %\VignetteIndexEntry{Description and usage of Description and usage of genedataRutils}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+    %\VignettePackage{Spectra}
+    %\VignetteDepends{Spectra,BiocStyle}
 ---
 
-#MetNet
-## Define paths and load maf
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
+BiocStyle::markdown()
+```
 
-```{r read maf}
+```{r, echo = FALSE, message = FALSE}
+library(BiocStyle)
+```
+
+# Introduction
+
+XXX (Description of MTBLS1586)
+
+## Load required libries
+
+```{r setup}
+# installation of additional packages
+# install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
+# install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+
+# load required libraries
 library(tidyverse)
 library(devtools)
-#install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
 library(MetNet)
-#install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
-#library(MetClassNetR)
+library(MetClassNetR)
 library(QFeatures)
+library(Spectra)
+library(MsCoreUtils)
+library(MsBackendMgf)
+```
 
-maf_file_pos <- 'm_mtbls291_POS_mass_spectrometry_v2_maf.tsv' # MTBLS maf file
+## Reading of MS1 data
+
+XXX
+
+```{r ms1_data}
+# Metabolights MAF files
+pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
+neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
+
+# read data
+pos_data <- read_tsv(pos_maf, col_names = TRUE)
+neg_data <- read_tsv(neg_maf, col_names = TRUE)
+
+# create QFeature object
+mtbls1586_qf_pos <- readQFeatures(pos_data, ecol = 23:ncol(pos_data), fnames = 22, name = "mtbls1586_pos")
+mtbls1586_qf_neg <- readQFeatures(neg_data, ecol = 23:ncol(neg_data), name = "mtbls1586_neg")
+```
+
+## Reading of MS2 data
+
+YYY
+
+```{r ms2_data, echo=FALSE}
+# get MS2 data in .mgf files
+pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
+neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
+
+# load MS2 data 
+ms2_spectra_pos <- Spectra::Spectra(pos_mgf,
+                           source = MsBackendMgf(),
+                           backend = MsBackendDataFrame())
+
+ms2_spectra_neg <- Spectra::Spectra(neg_mgf,
+                           source = MsBackendMgf(),
+                           backend = MsBackendDataFrame())
+```
+
+## Reading of transformation file
+
+ZZZ
+
+```{r}
 transformations_file <- 'Lipid_table.csv' # mass-difference file
-# wd contains MTBLS file and mass-difference file
-wd_maf <- '/Users/Liesa4/Library/Mobile Documents/com~apple~CloudDocs/Promotion/R/Projects/MTBLS291/'
-
-
-# read files
-setwd(wd_maf)
 transformations <- read.csv(transformations_file) %>% select(group, formula, mass) %>% as.data.frame()
-data_df <- read_tsv(file = maf_file_pos, col_names = T)
-
-# make QFeature file
-data_qF <- readQFeatures(data_df, ecol = 22:ncol(data_df), name = "pos")
-
 ```
 
 
+
+## Quality check of input
+
+ZZZ
 
 ## Mass difference Network
 ```{r mass_difference}
@@ -197,4 +255,8 @@ vn
 saveNetwork(vn, "/tmp/vn.html")
 ```
 
+
+```{r ms2_network}
+
+```
 
