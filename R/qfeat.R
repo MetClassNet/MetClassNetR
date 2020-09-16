@@ -49,19 +49,19 @@
 #' ####### To be added
 #'
 #' @export
-qfeat_structural <- function(x, assay_name, ...) {
+qfeat_structural <- function(x, assay_name = "features", ...) {
 
   feat_int <- as.data.frame(assay(x[[assay_name]]))
   feat_names <- as.data.frame(rowData(x[[assay_name]]))
+
   feat_names <- feat_names[,c("metabolite_identification", "mz", "rtime")]
   colnames(feat_names) <- c("manualAnnotation", "mz", "RT")
 
-  feat <- merge(feat_int, feat_names, by = "row.names", sort = F, all=T )
+  feat <- merge(feat_int, feat_names, by = "row.names", sort = FALSE, all=TRUE)
   feat <- subset(feat, select = - c(Row.names))
 
-  mass_diff <- MetNet::structural(x = feat, ...)
+  MetNet::structural(x = feat, ...)
 
-  return(mass_diff)
 }
 
 
@@ -135,14 +135,12 @@ qfeat_structural <- function(x, assay_name, ...) {
 #' ####### To be added
 #'
 #' @export
-qfeat_statistical <- function(x, assay_name, ...) {
+qfeat_statistical <- function(x, assay_name = "features", ...) {
+
   feat_int <- as.matrix(assay(x[[assay_name]]))
 
+  MetNet::statistical(feat_int, ...)
 
-    corr <- MetNet::statistical(feat_int, ...)
-
-
-  return(corr)
 }
 
 
@@ -210,30 +208,37 @@ qfeat_statistical <- function(x, assay_name, ...) {
 #' ####### To be added
 #'
 #' @export
-qfeat_homol <- function(x, assay_name, ...) {
+qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
 
   feat_int <- as.data.frame(assay(x[[assay_name]]))
   feat_names <- as.data.frame(rowData(x[[assay_name]]))
 
-
   ## Extract feature definitions
   featid <- feat_names$database_identifier
-  rt <- feat_names$retention_time
-  mz <- feat_names$mass_to_charge
+  rt <- feat_names$rtime
+  mz <- feat_names$mz
 
   data(isotopes)
 
   ## Use peaklist
-  peaklist <- data.frame(mass=mz, intensity=feat_int[,1], rt=rt)
-
+  peaklist <- data.frame(mass=mz,
+                         intensity=feat_int[,1],
+                         rt=rt)
 
   homol <- nontarget::homol.search(peaklist,
-                                   isotopes,		...)
+                                   isotopes,
+                                   ...)
 
   #(4.2) Plot results
-  nontarget::plothomol(homol,xlim=FALSE,ylim=FALSE,plotlegend=TRUE)
+  if(plot) {
 
-  return(homol)
+    nontarget::plothomol(homol,
+                         xlim=FALSE,
+                         ylim=FALSE,
+                         plotlegend=TRUE)
+
+  }
+
+  homol
+
 }
-
-
