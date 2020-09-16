@@ -26,7 +26,7 @@ spec_molNetwork <- function(x, methods = c("ndotproduct"), ...) {
 
   }
 
-  if(!length(x$uniqueID) == length(x)) {
+  if(!length(unique(x$uniqueID)) == length(x)) {
 
     stop("Spectra shall contain only unique entries!")
 
@@ -36,7 +36,7 @@ spec_molNetwork <- function(x, methods = c("ndotproduct"), ...) {
 
   for(method in methods) {
 
-    adj_spec <- compareSpectra(x,
+    adj_spec <- Spectra::compareSpectra(x,
                                FUN = get(method),
                                ...)
 
