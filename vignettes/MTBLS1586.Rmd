@@ -23,16 +23,19 @@ library(BiocStyle)
 
 XXX (Description of MTBLS1586)
 
+# Setup
+
 ## Load required libries
 
-```{r setup}
+<code>MetClassNetR</code> integrates functions from different libraries.
+
+```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
-# install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
-# install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+# devtools::install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
+# devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
 
 # load required libraries
 library(tidyverse)
-library(devtools)
 library(MetNet)
 library(MetClassNetR)
 library(QFeatures)
@@ -43,27 +46,49 @@ library(MsBackendMgf)
 
 ## Reading of MS1 data
 
-XXX
+MS1 data is read from Metabolights MAF or mzTab-M files into a <code>QFeatures</code>
+object.
 
-```{r ms1_data}
+```{r ms1, message=FALSE}
 # Metabolights MAF files
 pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
 neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
 
-# read data
-pos_data <- read_tsv(pos_maf, col_names = TRUE)
-neg_data <- read_tsv(neg_maf, col_names = TRUE)
-
 # create QFeature object
-mtbls1586_qf_pos <- readQFeatures(pos_data, ecol = 23:ncol(pos_data), fnames = 22, name = "mtbls1586_pos")
-mtbls1586_qf_neg <- readQFeatures(neg_data, ecol = 23:ncol(neg_data), name = "mtbls1586_neg")
+mtbls1586_qf_pos <- readMaf(file(pos_maf),
+                                  ecol = 23:64,
+                                  fnames = 22,
+                                  name = "mtbls1586_pos",
+                                  sep = "\t")
+
+mtbls1586_qf_neg <- readMaf(file(neg_maf),
+                                  ecol = 23:64,
+                                  fnames = 22,
+                                  name = "mtbls1586_neg",
+                                  sep = "\t")
 ```
+
+
+Addition assay and sample data???
+
+```{r ms1_metadata, message = FALSE, warning=FALSE}
+# pos_assay <- system.file("extdata/MTBLS1586/a_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.txt", package = "MetClassNetR")
+# pos_sample <-
+# 
+# pos_assay_data <- read_tsv(pos_assay, col_names = TRUE)
+# 
+# mtbls1586_qf_pos$sampleName <- pos_assay_data$`Sample Name`
+# 
+# colData(mtbls1586_qf_pos)
+```
+
+
 
 ## Reading of MS2 data
 
-YYY
+MS2 data is read from a .mgf or .msp file into a <code>Spectra</code> object.
 
-```{r ms2_data, echo=FALSE}
+```{r ms2, message=FALSE, warning=FALSE}
 # get MS2 data in .mgf files
 pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
 neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
@@ -78,13 +103,22 @@ ms2_spectra_neg <- Spectra::Spectra(neg_mgf,
                            backend = MsBackendDataFrame())
 ```
 
+
+Adjust variables in spectraVariables()
+
+```{r}
+ms2_spectra_pos$uniqueID <- ms2_spectra_pos$CLUSTER_ID
+ms2_spectra_pos$CLUSTER_ID <- NULL
+```
+
+
 ## Reading of transformation file
 
 ZZZ
 
-```{r}
-transformations_file <- 'Lipid_table.csv' # mass-difference file
-transformations <- read.csv(transformations_file) %>% select(group, formula, mass) %>% as.data.frame()
+```{r transformation}
+transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", package = "MetClassNetR")
+transformations <- read_csv(transformations_file, col_names = TRUE) %>% as.data.frame()
 ```
 
 
@@ -93,13 +127,23 @@ transformations <- read.csv(transformations_file) %>% select(group, formula, mas
 
 ZZZ
 
+## Setup for networks
+
+AAA
+
+```{r}
+master <- list()
+```
+
+# Analysis
+
 ## Mass difference Network
 ```{r mass_difference}
 # Create mass difference network
-massdiff <- qfeat_structural(x = data_qF, 
-                 assay_name = "pos", 
-                 transformation = transformations, 
-                 ppm = 10)
+massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
+                             assay_name = "mtbls1586_pos",
+                             transformation = transformations,
+                             ppm = 10)
 
 # Create list of adjacency matrix
 massdiff_l <- adjacency_list(x=massdiff, 
@@ -112,10 +156,13 @@ sum_mz <- summary_mz(adjacency_list = massdiff_l)
 sum_mz_f <- summary_mz(adjacency_list = massdiff_l,
                      filter = 1000)
 
+# append mass difference network
+master <- c(master, massdiff)
+
 ```
 
 
-### Add manual annotatation 
+## Add manual annotatation 
 
 ```{r manual_annotation}
 # Add manual annotations to mass-difference adjacency list
@@ -127,32 +174,39 @@ sum_mz_f <- summary_mz(adjacency_list = massdiff_l,
 ```
 
 
-
-
 ## Correlation network
+
+ABC
+
 ```{r correlation}
 # Correlation network using pearson and spearman correlation
-pears_corr <- qfeat_statistical(x = data_qF, 
-                                assay_name = "pos", 
+pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
+                             assay_name = "mtbls1586_pos", 
                                 model = c("pearson"))
 
 # Create list from correlation acjacency matrix 
 pears_l <- adjacency_list(x = pears_corr, 
                           from = "statistical")
 
-
+master <- c(master, pears_corr)
 
 # Correlation network using pearson and spearman correlation
 # Positive, negative and p values are displayed
-pears_corr_p <- qfeat_statistical(x = data_qF, 
-                                assay_name = "pos", 
+pears_corr_p <- qfeat_statistical(x = mtbls1586_qf_pos,
+                             assay_name = "mtbls1586_pos",
                                 model = c("pearson"),
                                 p = TRUE)
 
-pears_p_l <- adjacency_list(x = pears_corr_p, 
-                          from = "statistical")
+master <- c(master, pears_corr_p)
+# 
+# pears_p_l <- adjacency_list(x = pears_corr_p,
+#                             from = "statistical")
 ```
-### Threshold for correlation
+
+## Threshold for correlation
+
+ABC
+
 ```{r threshold}
 # Threshold arguments for correlation values 
 # Values above set to '1'
@@ -175,6 +229,9 @@ pears_p_l <- adjacency_list(x = pears_corr_p,
 
 
 ## Combine mass-difference and correlation network
+
+ABC ()
+
 ```{r combine}
 # Combine mass difference network and correlation network by thresholded pearson correlation
 #cons_adj <- combine(structural = struct_adj, statistical = stat_adj_thr_p, model = "pearson", weighted_statistical = stat_adj_l_p)
@@ -202,7 +259,53 @@ pears_p_l <- adjacency_list(x = pears_corr_p,
 ```
 
 
+## Homologue Series
+
+ABC
+
+
+```{r homolseries}
+# library(nontarget)
+# library(igraph)
+# 
+# homol <- qfeat_homol(x = mtbls1586_qf_pos,
+#                              assay_name = "mtbls1586_pos",
+#                       elements=c("C","H","O"), use_C=TRUE,
+#                       minmz=5, 	maxmz=50,
+#                       minrt=5,  maxrt=60,
+#                       ppm=TRUE,
+#                       mztol=5,  rttol=5,
+#                       minlength=4,
+#                       mzfilter=FALSE,
+#                       spar=.45, 	R2=.98,
+#                       plotit=FALSE)
+```
+
+
+## MS2 similarity network
+
+ABS
+
+```{r ms2_network}
+
+# costum matching function
+#specNrow <-  function(x, y, ...) nrow(x)
+
+# this is work around until Spectra is getting fixed
+mydotproduct <- function(x, y, type = NA, ...) MsCoreUtils::ndotproduct(x, y, ...)
+
+# test with multiple functions
+ms2_similarity <- spec_molNetwork(ms2_spectra_pos,
+                                  methods = c("mydotproduct"),
+                                  tolerance = 0.005,
+                                  type = "inner")
+```
+
+
 ## Export networks to gml format 
+
+XXX
+
 ```{r export2gml}
 ## does not work yet
 # Mass difference network to gml
@@ -213,50 +316,32 @@ pears_p_l <- adjacency_list(x = pears_corr_p,
 #gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
 ```
 
-#Homologue Series
-```{r homolseries}
-library(nontarget)
-library(igraph)
-
-homol <- qfeat_homol(x = data_qF, assay_name = "pos",
-                      elements=c("C","H","O"), use_C=TRUE,
-                      minmz=5, 	maxmz=50,
-                      minrt=5,  maxrt=60,
-                      ppm=TRUE,
-                      mztol=5,  rttol=5,
-                      minlength=4,
-                      mzfilter=FALSE,
-                      spar=.45, 	R2=.98,
-                      plotit=FALSE)
-```
 
 ```{r graph_export}
-library(tibble)
-library(dplyr)
-library(igraph)
-library(visNetwork) # for visNetwork() and friends
-library(networkD3)  # for saveNetwork()
-
-
-el <- as_tibble(homol[["Peaks in homologue series"]]) %>% 
-    filter(`to ID` != "0") %>% select (c("peak ID", "to ID", 
-                                         "m/z increment", "RT increment"))
-
-g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
-
-## Write to File
-write_graph(g, "/tmp/g.gml", "gml")
-
-## Some Plotting
-data <- toVisNetworkData(g)
-vn <- visNetwork(nodes = data$nodes, 
-                 edges = data$edges)
-vn
-saveNetwork(vn, "/tmp/vn.html")
+# library(tibble)
+# library(dplyr)
+# library(igraph)
+# library(visNetwork) # for visNetwork() and friends
+# library(networkD3)  # for saveNetwork()
+# 
+# 
+# el <- as_tibble(homol[["Peaks in homologue series"]]) %>% 
+#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID", 
+#                                          "m/z increment", "RT increment"))
+# 
+# g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+# 
+# ## Write to File
+# write_graph(g, "/tmp/g.gml", "gml")
+# 
+# ## Some Plotting
+# data <- toVisNetworkData(g)
+# vn <- visNetwork(nodes = data$nodes, 
+#                  edges = data$edges)
+# vn
+# saveNetwork(vn, "/tmp/vn.html")
 ```
 
 
-```{r ms2_network}
 
-```
 
