@@ -1,0 +1,72 @@
+group,formula,mass
+Acetone (-H),C3H5O,57.0340397826
+Acetotacetate (-H2O),C4H4O2,84.0211293726
+Acetylation (-H),C2H3O2,59.0133043405
+Acetylation (-H2O),C2H2O,42.0105646863
+Biotinyl (-H),C10H15N2O3S,243.0803380482
+Biotinyl (-H2O),C10H14N2O2S,226.077598394
+C2H2,C2H2,26.0156500642
+C6H10O5,C6H10O5,162.0528234315
+C6H10O6,C6H10O6,178.0477380536
+Carbamoyl P transfer (-H2PO4),CH2ON,44.0136386915
+Carboxylation,CO2,43.9898292442
+CHO2,CHO2,44.9976542763
+Co-enzyme A (-H),C21H34N7O16P3S,765.0995583014
+Co-enzyme A (-H2O),C21H33N7O15P3S,748.0968186472
+Condensation/dehydration,H2O,18.0105646863
+D-ribose (-H2O) (ribosylation),C5H8O4,132.0422587452
+Diphosphate,H3O6P2,160.9404858489
+Disaccharide (-H2O) #1,C12H20O10,324.105649
+Disaccharide (-H2O) #2,C12H20O11,340.1005614851
+Ethyl addition (-H2O),C2H4,28.0313001284
+Formic Acid (-H2O),CO,27.9949146221
+Glyoxylate (-H2O),C2O2,55.9898292442
+Hydrogenation/dehydrogenation,H2,2.0156500642
+Hydroxylation (-H),O,15.9949146221
+Inorganic phosphate,P,30.97376151
+Inositol (-H),C6H11O6,
+Isoprene addition (-H),C5H7,67.0547752247
+Ketol group (-H2O),C2H2O,42.0105646863
+Malonyl group (-H2O),C3H2O3,86.0003939305
+Methyl addition (-H2O),CH2,
+Monosaccharide (-H2O),C6H10O5,162.0528234315
+Palmitoylation (-H2O),C16H30O,238.2296655851
+Phosphate,HPO3,79.9663304084
+Primary amine,NH2,16.0187240694
+Pyrophosphate,PP,61.94752302
+Secondary amine,NH,15.0108990373
+Serine,C3H5NO2,87.0320284099
+Sulfate (-H2O),SO3,79.9568145563
+Tertiary amine,N,14.0030740052
+Trisaccharide (-H2O),C18H30O15,486.1584702945
+Urea addition (-H),CH3N2O,59.0245377288
+Ethanol amine (-H2O),C2H5N,43.04220
+C 7:0 FA Hydrolysis/ Esterification (-H2O),C7H12O,112.0888
+C 8:0 FA Hydrolysis/ Esterification (-H2O),C8H14O,126.1045
+C 9:0 FA Hydrolysis/ Esterification (-H2O),C9H16O,140.1201
+C 10:0 FA Hydrolysis/ Esterification (-H2O),C10H18O,154.1358
+C 11:0 FA Hydrolysis/ Esterification (-H2O),C11H20O,168.1514
+C 12:0 FA Hydrolysis/ Esterification (-H2O),C12H22O,182.1671
+C 13:0 FA Hydrolysis/ Esterification (-H2O),C13H24O,196.1827
+C 14:0 FA Hydrolysis/ Esterification (-H2O),C14H26O,210.1984
+C 15:0 FA Hydrolysis/ Esterification (-H2O),C15H28O,224.2140
+C 16:0 FA Hydrolysis/ Esterification (-H2O),C16H30O,238.2297
+C 17:0 FA Hydrolysis/ Esterification (-H2O),C17H32O,252.2453
+C 18:0 FA Hydrolysis/ Esterification (-H2O),C18H34O,266.2610
+C 19:0 FA Hydrolysis/ Esterification (-H2O),C19H36O,280.2766
+C 20:0 FA Hydrolysis/ Esterification (-H2O),C20H38O,294.2923
+C 21:0 FA Hydrolysis/ Esterification (-H2O),C21H40O,308.3079
+C 22:0 FA Hydrolysis/ Esterification (-H2O),C22H42O,322.3236
+C 23:0 FA Hydrolysis/ Esterification (-H2O),C23H44O,336.3392
+C 24:0 FA Hydrolysis/ Esterification (-H2O),C24H46O,350.3549
+C 7:1 FA Hydrolysis/ Esterification (-H2O),C7H10O,110.0732
+Maradolipids (Diacyltrehalose -2H2O),C12H18O11,338.0849
+Phosphocholine (-H2O),C5H13NO3P,166.0633
+Choline (-H2O),C5H12N,86.09697
+Triglyceride (Glycerol - 3H2O),C3H2,38.01565
+Diglyceride (Glycerol - 2H2O),C3H4O,56.02621
+Monoacylglycerol (Glycerol - H2O),C3H6O2,74.03678
+Propyl addition (-H2O),C3H6,42.04695
+Butyl addition (-H2O),C4H4,52.03130
+sphingosine (-H2O),C18H35NO,281.2719
+sphingosine (-2H2O),C18H33N,263.2613
