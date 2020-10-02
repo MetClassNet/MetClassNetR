@@ -1,3 +1,47 @@
+#'
+#'
+#' @export
+fillSpectra <- function(QFeatures, Spectra) {
+
+  checkQFeatures(QFeatures)
+  checkSpectra(Spectra)
+
+  # switch backends
+  Spectra <- setBackend(Spectra, MsBackendDataFrame())
+
+  ms1_data <- rowData(QFeatures[[1]])
+  ms2_data <- spectraData(Spectra, c("id"))
+
+  diff_ids <- setdiff(ms1_data$id, ms2_data$id)
+
+  for(id in diff_ids) {
+
+    # get information
+    precursorMz <- ms1_data[ms1_data$id == id,"mz"]
+    rtime <- ms1_data[ms1_data$id == id,"rtime"]
+
+    spd <- DataFrame(
+      msLevel = c(2L),
+      polarity = c(NA_integer_),
+      precursorMz = as.numeric(precursorMz),
+      rtime = rtime,
+      id = id)
+
+    ## Assign m/z and intensity values.
+    spd$mz <- list(c())
+    spd$intensity <- list(c())
+
+    sps <- Spectra::Spectra(spd, backend = MsBackendDataFrame())
+
+    Spectra <- c(Spectra, sps)
+
+  }
+
+  Spectra
+
+}
+
+
 #' @title Calculate molecular network from MS2 data
 #'
 #' @name spec_molNetwork

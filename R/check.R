@@ -3,9 +3,15 @@
 #' @export
 checkQFeatures <- function(x) {
 
-  if(!all(c("rtime", "mz") %in% rowDataNames(x)[[1]])) {
+  if(length(rowDataNames(mtbls1586_qf_neg)) > 1) {
 
-    stop("Missing minimal column header: 'rtime', 'mz'")
+    stop("Currently only QFeatures with a single assay are supported")
+
+  }
+
+  if(!all(c("rtime", "mz", "id") %in% rowDataNames(x)[[1]])) {
+
+    stop("Missing minimal column header: 'rtime', 'mz', 'id'")
 
   }
 
