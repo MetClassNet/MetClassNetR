@@ -103,14 +103,29 @@ ms2_spectra_neg <- Spectra::Spectra(neg_mgf,
                            backend = MsBackendDataFrame())
 ```
 
+## Sanity checks
 
-Adjust variables in spectraVariables()
+check data (namespace of ids etc...)
 
 ```{r}
-ms2_spectra_pos$uniqueID <- ms2_spectra_pos$CLUSTER_ID
-ms2_spectra_pos$CLUSTER_ID <- NULL
-```
+# check minimal requirements
+checkQFeatures(mtbls1586_qf_neg)
+checkQFeatures(mtbls1586_qf_pos)
+checkSpectra(ms2_spectra_neg)
+checkSpectra(ms2_spectra_pos)
 
+# check if MS1 and MS2 share the same ID namespace
+# positive ionization
+checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
+
+# fill spectra
+ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
+ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
+
+# check namespace again
+checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
+checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
+```
 
 ## Reading of transformation file
 
