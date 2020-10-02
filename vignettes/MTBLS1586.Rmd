@@ -178,7 +178,7 @@ master <- c(master, massdiff)
 
 ABC
 
-```{r correlation}
+```{r correlation, warning=FALSE, error=FALSE}
 # Correlation network using pearson and spearman correlation
 pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos", 
