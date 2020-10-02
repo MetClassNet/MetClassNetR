@@ -69,21 +69,6 @@ mtbls1586_qf_neg <- readMaf(file(neg_maf),
 ```
 
 
-Addition assay and sample data???
-
-```{r ms1_metadata, message = FALSE, warning=FALSE}
-# pos_assay <- system.file("extdata/MTBLS1586/a_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.txt", package = "MetClassNetR")
-# pos_sample <-
-# 
-# pos_assay_data <- read_tsv(pos_assay, col_names = TRUE)
-# 
-# mtbls1586_qf_pos$sampleName <- pos_assay_data$`Sample Name`
-# 
-# colData(mtbls1586_qf_pos)
-```
-
-
-
 ## Reading of MS2 data
 
 MS2 data is read from a .mgf or .msp file into a <code>Spectra</code> object.
@@ -117,7 +102,12 @@ checkSpectra(ms2_spectra_pos)
 # check if MS1 and MS2 share the same ID namespace
 # positive ionization
 checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
+checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
+```
 
+MS2 spectra can be filled with empty spectra to have a complete list of spectra for all the features
+
+```{r}
 # fill spectra
 ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
 ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
@@ -126,6 +116,7 @@ ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
 checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
 checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 ```
+
 
 ## Reading of transformation file
 
