@@ -3,7 +3,7 @@
 #' @export
 checkQFeatures <- function(x) {
 
-  if(length(rowDataNames(mtbls1586_qf_neg)) > 1) {
+  if(length(rowDataNames(x)) > 1) {
 
     stop("Currently only QFeatures with a single assay are supported")
 
