@@ -4,7 +4,7 @@
 \alias{qfeat_homol}
 \title{Homologue series extraction from QFeatures input}
 \usage{
-qfeat_homol(x, assay_name, ...)
+qfeat_homol(x, assay_name = "features", plot = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{QFeatures} file}
