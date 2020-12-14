@@ -41,6 +41,35 @@ inchi <- sm$inchi
 ecols <- grep("abundance_assay", names(mf))
 e <- as.matrix(mf[, ecols])
 colnames(e) <- assaynames[sub("abundance_", "", colnames(e))]
+```
+
+```{r mzTab2Qfeature}
+library(MSnbase) 
+library(QFeatures) 
+
+fl <- "/vol/bioinvindex/Submissions/MTBLS1582/MTBLS1582/Height_NRGneg_2020471011.mzTab"
+mtbls1582mztab <- MzTab(fl)
+
+## Extract objects from mzTab-M
+mt <- unlist(metadata(mtbls1582mztab))
+mf <- moleculeFeatures(mtbls1582mztab)
+
+## Extract assay names
+assaynames <- mt[grep("^assay\\[[0-9]*\\]$", names(mt))]
+
+## Extract data matrix
+## and replace actual assay names
+
+ecols <- grep("abundance_assay", names(mf))
+
+## Fix assay names with information from Metadata MTD section
+colnames(mf)[ecols] <- assaynames[sub("abundance_", "", colnames(mf[, ecols]))]
+
+## Convert to QFeature
+data_qF <- readQFeatures(mf, ecol = ecols, fname = "SMF_ID", name = "pos")
+
+#head(assay(data_qF[["pos"]]))
+#head(rowData(data_qF[["pos"]]))
 
 ```
 

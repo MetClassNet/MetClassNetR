@@ -28,7 +28,7 @@ Suggests:
     BiocStyle (>= 2.5.19),
     rmarkdown
 Remotes:
-   RforMassSpectrometry/Spectra
+   RforMassSpectrometry/Spectra,
    sneumann/MsBackendMsp
 License: Artistic-2.0
 Encoding: UTF-8

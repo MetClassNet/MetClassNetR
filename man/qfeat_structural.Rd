@@ -4,7 +4,7 @@
 \alias{qfeat_structural}
 \title{Create m/z difference adjacency matrix from QFeatures input}
 \usage{
-qfeat_structural(x, assay_name, ...)
+qfeat_structural(x, assay_name = "features", ...)
 }
 \arguments{
 \item{x}{\code{QFeatures} file
