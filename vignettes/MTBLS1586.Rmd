@@ -32,7 +32,7 @@ XXX (Description of MTBLS1586)
 ```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
 # devtools::install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
-# devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+#devtools::install_github("MetClassNet/MetClassNetR") 
 
 # load required libraries
 library(tidyverse)
@@ -42,6 +42,7 @@ library(QFeatures)
 library(Spectra)
 library(MsCoreUtils)
 library(MsBackendMgf)
+library(igraph)
 ```
 
 ## Reading of MS1 data
@@ -314,9 +315,10 @@ XXX
 ```{r export2gml}
 ## does not work yet
 # Mass difference network to gml
-#gml <- exportNet2gml(struct_adj, from = "structural", adjacency_list = struct_list)
-## Correlation network to gml (including p values)
-#gml <- exportNet2gml(stat_adj_l_p, from = "statistical+p", adjacency_list = adj_stat_p)
+exportNet2gml(x = massdiff_l,file = "mzdiff")
+## Correlation network to gml (pearson, whithout p values)
+exportNet2gml(x = pears_l,file = "pears")
+
 ## Combined network to gml
 #gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
 ```
