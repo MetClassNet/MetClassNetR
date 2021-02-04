@@ -53,8 +53,8 @@ exportNet2gml <- function (x, file, select = F, ...) {
   }
 
   net <- igraph::graph_from_data_frame(x, directed = TRUE, vertices = NULL)
-  igraph::E(net)$sourceID <-  as.character(x$Var1)
-  igraph::E(net)$targetID <-  as.character(x$Var2)
+  igraph::E(net)$sourceName <-  as.character(x$Var1)
+  igraph::E(net)$targetName <-  as.character(x$Var2)
   fl <- paste(file, ".gml", sep="")
   igraph::write_graph(net, file = fl, format = c("gml"))
 }
@@ -115,8 +115,8 @@ exportAttributes2gml <- function (x, file, select = F, names, ...) {
   }
 
   net <- igraph::graph_from_data_frame(x, directed = TRUE, vertices = row.names(names))
-  igraph::E(net)$sourceID <-  as.character(x$Var1)
-  igraph::E(net)$targetID <-  as.character(x$Var2)
+  igraph::E(net)$sourceName <-  as.character(x$Var1)
+  igraph::E(net)$targetName <-  as.character(x$Var2)
   net <-  set_vertex_attr(graph = net, name = "mz", value = as.character(names$mz))
   net <-  set_vertex_attr(graph = net, name = "rt", value = as.character(names$RT))
   net <-  set_vertex_attr(graph = net, name = "manualAnnotation", value = as.character(names$manualAnnotation))
