@@ -84,8 +84,8 @@ spec_molNetwork <- function(x, methods = c("ndotproduct"), ...) {
                                FUN = get(method),
                                ...)
 
-    colnames(adj_spec) <- x$uniqueID
-    rownames(adj_spec) <- x$uniqueID
+    colnames(adj_spec) <- x$id
+    rownames(adj_spec) <- x$id
 
     ## add object to l
     new_index <- length(l) + 1
