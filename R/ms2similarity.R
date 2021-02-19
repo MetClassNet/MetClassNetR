@@ -1,3 +1,24 @@
+#' @name spec_adjacency_list
+#'
+#' @aliases spec_adjacency_list
+#'
+#' @title Create an adjacency list from spectral similarity matrix
+#'
+#' @description
+#' The function `spec_adjacency_list` creates an adjacency lists from
+#' spectral similarity matrix and is comparable to MetNet function adjacency_list()
+#'
+#' @param x
+#' `data.frame` adjacency matrix
+#'
+#'
+#' @return
+#' `data.frame` adjacency list
+#'
+#' @author Liesa Salzer, \email{liesa.salzer@@helmholtz-muenchen.de}
+#'
+#' @examples
+#'  ######  example to be added!
 #'
 #'
 #' @export
