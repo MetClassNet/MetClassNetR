@@ -251,7 +251,7 @@ homol <- qfeat_homol(x = mtbls1586_qf_pos,
 
 ## MS2 similarity network
 
-ABS
+Spectral similarity network is created using some example spectra.
 
 ```{r ms2_network}
 # costum matching function
@@ -260,8 +260,8 @@ ABS
 # this is work around until Spectra is getting fixed
 mydotproduct <- function(x, y, type = NA, ...) MsCoreUtils::ndotproduct(x, y, ...)
 
-# test with multiple functions
-ms2_similarity <- spec_molNetwork(ms2_spectra_pos,
+# test with some example spectra
+ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
                                   methods = "mydotproduct",
                                   tolerance = 0.005,
                                   type = "inner")
@@ -271,7 +271,7 @@ ms2_similarity_l <- spec_adjacency_list(ms2_similarity)
 ```
 
 
-## Export networks to gml format 
+# Export networks to gml format 
 
 Created networks are exported and saved as .gml file in the current working-directory. Feature Ids will be stored as additional name in node attributes. All the other information from the adjacency-lists will be stores as edge-attributes. It might also be defined which columns of the adjacency-list should be stored, by using the <code>select</code> option in the <code>exportNet2gml</code>-function.
 
@@ -302,17 +302,17 @@ exportAttributes2gml(attributes, file = "attributes_mtbls1586_pos", names = feat
 
 ```
 
-Export of homologous series 
+Export of homologous series
 ```{r graph_export}
-
-el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
-    filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
-                                         "m/z increment", "RT increment"))
-
-g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
-
-## Write to File
-write_graph(g, "/tmp/g.gml", "gml")
+## Does not work yet?? 
+# el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
+#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
+#                                          "m/z increment", "RT increment"))
+# 
+# g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+# 
+# ## Write to File
+# write_graph(g, "/tmp/g.gml", "gml")
 
 ```
 
