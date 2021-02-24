@@ -58,6 +58,7 @@ qfeat_structural <- function(x, assay_name = "features", ...) {
   colnames(feat_names) <- c("manualAnnotation", "mz", "RT")
 
   feat <- merge(feat_int, feat_names, by = "row.names", sort = FALSE, all=TRUE)
+  row.names(feat) <- feat$"Row.names"
   feat <- subset(feat, select = - c(Row.names))
 
   MetNet::structural(x = feat, ...)
@@ -242,3 +243,53 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   homol
 
 }
+
+#' @name qfeat_annotation
+#'
+#' @aliases qfeat_annotaion
+#'
+#' @title Annotation of Qfeatures
+#'
+#' @description
+#' The function `qfeat_annotation` uses the input from `QFeatures` and creates an
+#' adjacency list adding manual annotations using `annotaionNames` from the `MetNet` package.
+#'
+#' @param x
+#' `QFeatures` file
+#'
+#'  @param assay_name
+#'  `Character`, define which assay needs to be extracted from QFeature input
+#'  e.g. "pos".
+#'
+#' @param ...
+#'  Insert here parameter from `annotationNames` function from `MetNet`package.
+#'  (https://github.com/MetClassNet/MetNet)
+#'  `list` is the adjacency list, and `names` is a dataframe containing the feature names as rows,
+#'   mz values, RT values and annotations in columns
+#'
+#' @import
+#' `MetNet`
+#' `QFeatures`
+#'
+#' @details
+#'
+#'
+#' @return
+#'
+#'
+#' @author Liesa Salzer,  \email{liesa.salzer@@helmholtz-muenchen.de}
+#'
+#' @examples
+#' ####### To be added
+#'
+#' @export
+qfeat_annotation <- function(x, assay_name = "features", list, ...) {
+
+  feat_names <- as.data.frame(rowData(x[[assay_name]]))
+  feat_names <- feat_names[,c("metabolite_identification", "mz", "rtime")]
+  colnames(feat_names) <- c("manualAnnotation", "mz", "RT")
+
+  names = feat_names
+  MetNet::annotaionNames(list= list, names = names, ...)
+}
+
