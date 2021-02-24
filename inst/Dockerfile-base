@@ -29,6 +29,8 @@ RUN R -e 'BiocManager::install("MsCoreUtils")'
 RUN R -e 'install(c("dplyr", "igraph", "networkD3", "tibble", "tidyverse", "visNetwork"))'
 
 RUN R -e 'library(devtools); install_github("rformassspectrometry/MsBackendMgf")'
+RUN R -e 'library(devtools); install_github("MetClassNet/MetNet", ref = "devel_Liesa")'
 
+RUN R -e 'install("Hmisc")'
 
 
