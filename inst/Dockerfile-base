@@ -8,29 +8,5 @@ RUN apt-get -y update && apt-get -y install wget
 
 ADD inst/install.R /tmp
 RUN R -e "source('/tmp/install.R')"
-RUN R -e 'BiocManager::install(c("Spectra", "MSnbase"))'
-
-RUN R -e 'BiocManager::install("MetNet")'
-
-RUN R -e 'install("nontarget")'
-
-RUN R -e 'BiocManager::install("QFeatures")'
-RUN R -e 'library(devtools); install_github("sneumann/MsBackendMsp")'
-
-RUN R -e 'BiocManager::install("HDF5Array")'
-
-RUN R -e 'library(devtools); install_github("rformassspectrometry/QFeatures")'
-
-RUN R -e 'install(c("rmarkdown", "knitr"))'
-RUN R -e 'BiocManager::install("BiocStyle")'
-
-RUN R -e 'BiocManager::install("MsCoreUtils")'
-
-RUN R -e 'install(c("dplyr", "igraph", "networkD3", "tibble", "tidyverse", "visNetwork"))'
-
-RUN R -e 'library(devtools); install_github("rformassspectrometry/MsBackendMgf")'
-RUN R -e 'library(devtools); install_github("MetClassNet/MetNet", ref = "devel_Liesa")'
-
-RUN R -e 'install("Hmisc")'
 
 
