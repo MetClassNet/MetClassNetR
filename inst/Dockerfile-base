@@ -1,0 +1,29 @@
+FROM bioconductor/bioconductor_docker:devel
+
+MAINTAINER Steffen Neumann <sneumann@ipb-halle.de>
+
+LABEL Description="MetClassNet R environment."
+
+RUN apt-get -y update && apt-get -y install wget
+
+ADD inst/install.R /tmp
+RUN R -e "source('/tmp/install.R')"
+RUN R -e 'BiocManager::install(c("Spectra", "MSnbase"))'
+
+RUN R -e 'BiocManager::install("MetNet")'
+
+RUN R -e 'install("nontarget")'
+
+RUN R -e 'BiocManager::install("QFeatures")'
+RUN R -e 'library(devtools); install_github("sneumann/MsBackendMsp")'
+
+RUN R -e 'BiocManager::install("HDF5Array")'
+
+RUN R -e 'library(devtools); install_github("rformassspectrometry/QFeatures")'
+
+
+
+
+
+
+
