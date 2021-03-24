@@ -64,13 +64,13 @@ fillSpectra <- function(QFeatures, Spectra) {
 spec_molNetwork <- function(x, methods = c("ndotproduct"), ...) {
 
   # sanity checks
-  if(!"uniqueID" %in% spectraVariables(x)) {
+  if(!"id" %in% spectraVariables(x)) {
 
-    stop("Spectra does not contain uniqueID column!")
+    stop("Spectra does not contain id column!")
 
   }
 
-  if(!length(unique(x$uniqueID)) == length(x)) {
+  if(!length(unique(x$id)) == length(x)) {
 
     stop("Spectra shall contain only unique entries!")
 
@@ -84,8 +84,8 @@ spec_molNetwork <- function(x, methods = c("ndotproduct"), ...) {
                                FUN = get(method),
                                ...)
 
-    colnames(adj_spec) <- x$uniqueID
-    rownames(adj_spec) <- x$uniqueID
+    colnames(adj_spec) <- x$id
+    rownames(adj_spec) <- x$id
 
     ## add object to l
     new_index <- length(l) + 1

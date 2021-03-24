@@ -28,11 +28,12 @@ XXX (Description of MTBLS1586)
 ## Load required libries
 
 <code>MetClassNetR</code> integrates functions from different libraries.
+Install current version of <code>MetClassNetR</code> and additional <code>MetNet</code> functions from developmental branches. After Installation re-load R and load required libraries.
 
 ```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
-# devtools::install_github("MetClassNet/MetNet", ref = "devel_Liesa") 
-# devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+#devtools::install_github("MetClassNet/MetNet", ref = "devel_Liesa") # note: Re-load R studio after installation
+ #devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
 
 # load required libraries
 library(tidyverse)
@@ -42,12 +43,16 @@ library(QFeatures)
 library(Spectra)
 library(MsCoreUtils)
 library(MsBackendMgf)
+library(igraph)
+library(tibble)
+library(visNetwork) # for visNetwork() and friends
+library(networkD3)  # for saveNetwork()
 ```
 
 ## Reading of MS1 data
 
 MS1 data is read from Metabolights MAF or mzTab-M files into a <code>QFeatures</code>
-object.
+object. Information about the mass-to-charge (mz) ratio and retention times (RT) were extracted from the MAF/ mzTab-M file and stored into the <code>QFeatures</code>-object. The data from positive and negative ionization mode are stored in two different <code>QFeatures</code>-objects. 
 
 ```{r ms1, message=FALSE}
 # Metabolights MAF files
@@ -98,21 +103,16 @@ checkQFeatures(mtbls1586_qf_neg)
 checkQFeatures(mtbls1586_qf_pos)
 checkSpectra(ms2_spectra_neg)
 checkSpectra(ms2_spectra_pos)
-
-# check if MS1 and MS2 share the same ID namespace
-# positive ionization
-checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
-checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 ```
 
-MS2 spectra can be filled with empty spectra to have a complete list of spectra for all the features
+<code>checkIDNamespace</code> sanity check will fail if Ids between <code>QFeatures</code> and <code>Spectra</code> are not matching.Therefore, MS2 spectra can be filled with empty spectra to have a complete list of spectra for all the features.
 
 ```{r}
 # fill spectra
 ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
 ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
 
-# check namespace again
+# check namespace 
 checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
 checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 ```
@@ -120,11 +120,13 @@ checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 
 ## Reading of transformation file
 
-ZZZ
+The mass-difference network is calculated using the <code>MetNet</code> package. Here, all calculated mass-differences between all pairs of features are compared to a transformation-list, containing different biochemical reactions and their corresponding mass difference. Required columns are "group" and "mass". Additional columns as "formula" can be added.
+The transformation-list needs to be provided by the user. An example can be found in the system files. 
 
 ```{r transformation}
 transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", package = "MetClassNetR")
 transformations <- read_csv(transformations_file, col_names = TRUE) %>% as.data.frame()
+transformations[1:5,]
 ```
 
 
@@ -135,7 +137,7 @@ ZZZ
 
 ## Setup for networks
 
-AAA
+The <code>master</code>-list will contain all types of experimental networks that have been created in this workflow. 
 
 ```{r}
 master <- list()
@@ -144,6 +146,9 @@ master <- list()
 # Analysis
 
 ## Mass difference Network
+The mass-difference network is calculated using the <code>MetNet</code> package. All mass-differences between all pairs of features are calculated and are compared to the <code>transformation</code>-list. This <code>transformation</code>-list contains different biochemical reactions and their corresponding mass difference. Only if the mass-difference between two features matches to a mass-difference in the transformation file, within a certain <code>ppm</code>-range, it will be displayed. Different to the original <code>MetNet</code>-functions, not only the name of the mass-difference but also the value itself will be displayed as output adjacency matrix.
+The adjacency matrix will be than transformed to a list using the <code>adjacency_list</code>. 
+
 ```{r mass_difference}
 # Create mass difference network
 massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
@@ -154,7 +159,12 @@ massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
 # Create list of adjacency matrix
 massdiff_l <- adjacency_list(x=massdiff, 
                              from = "structural")
+massdiff_l[25:30,]
+```
 
+A summary of the current data-set on the present mass-difference distribution is provided using the <code>summary_mz</code>-function. This function stores the summary as data.frame, which is also plotted. Depending on the size of the data, it might be useful to <code>filter</code> the number of determined mass-differences, e.g. by 1000 counts.
+
+```{r}
 # Summary of the list
 sum_mz <- summary_mz(adjacency_list = massdiff_l)
 
@@ -169,20 +179,22 @@ master <- c(master, massdiff)
 
 
 ## Add manual annotatation 
+A <code>QFeatures</code>-object stores various information on LC-MS/MS data. Also, annotations and possible database identifiers are present in a <code>QFeatures</code>-object. In order to add the annotations to the adjacency-list, <code>qfeat_annotation</code> is applied. It extracts the annotations, if any present, and adds them to the desired adjacency-list, for example the list from the mass-difference network. In order to check if the annotations match the mass-difference, a filter is applied so that only features remains that have annotations in both features. 
 
 ```{r manual_annotation}
 # Add manual annotations to mass-difference adjacency list
-#name_l <- annotaionNames(list = massdiff_l, names = #### QFeature)
+name_l <- qfeat_annotation(x = mtbls1586_qf_pos, assay_name = "mtbls1586_pos", list = massdiff_l)
 
 # Filter for manual annotations
-#annotationFiltered <- filter(annotationList, is.na(annotationList$Var1_annotation) == F, is.na(annotationList$Var2_annotation) == F, annotationList$Var1_annotation != "", annotationList$Var2_annotation != "")
+annotationFiltered <- filter(name_l, is.na(name_l$Var1_annotation) == F, is.na(name_l$Var2_annotation) == F, name_l$Var1_annotation != "", name_l$Var2_annotation != "")
+annotationFiltered[25:30,]
 
 ```
 
 
 ## Correlation network
 
-ABC
+Correlation networks will be calculated using functionality from the <code>MetNet</code> package. <code>qfeat_statistical</code> uses the <code>QFeatures</code>-Object as input and extracts the feature intensity in order to calculate correlations from the <code>statistical</code>-funtcion from <code>MetNet</code>. <code>MetNet</code> implemented various models that can be applied to calculate correlations, e.g. pearson, spearman, partial-pearson, and many more which might also be selected. After generating the correlation adjacency-matrix, it will also be transformed to a list. 
 
 ```{r correlation, warning=FALSE, error=FALSE}
 # Correlation network using pearson and spearman correlation
@@ -193,77 +205,26 @@ pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
 # Create list from correlation acjacency matrix 
 pears_l <- adjacency_list(x = pears_corr, 
                           from = "statistical")
+pears_l[25:30,]
 
-master <- c(master, pears_corr)
+```
 
+Compared to the original <code>MetNet</code> package, additional functionality have been added to calculate also negative correlation values for pearson and spearman correlations. Moreover, the corresponding p-value will be calculated and displayed in the adjacency-list. 
+
+```{r, warning=FALSE, error=FALSE}
 # Correlation network using pearson and spearman correlation
 # Positive, negative and p values are displayed
 pears_corr_p <- qfeat_statistical(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos",
                                 model = c("pearson"),
                                 p = TRUE)
+pears_p_l <- adjacency_list(x = pears_corr_p,
+                            from = "statistical")
+pears_p_l[25:30,]
 
 master <- c(master, pears_corr_p)
-# 
-# pears_p_l <- adjacency_list(x = pears_corr_p,
-#                             from = "statistical")
+
 ```
-
-## Threshold for correlation
-
-ABC
-
-```{r threshold}
-# Threshold arguments for correlation values 
-# Values above set to '1'
-#args_thr <- list("pearson" = 0.95, "spearman" = 0.95, threshold = 1)
-# Thresholding by correlation value
-#corr_thr <- threshold(statistical = pears_corr, 
-#                     type = "threshold", 
-#                     args = args_thr)
-
-#### Does not work yet!!
-
-# Threshold arguments for p values 
-# Values below set to '1'
-#args_thr_p <- list("pearson" = 0.05, "spearman" = 0.05, threshold = 1)
-# Thresholding by p value
-#stat_adj_thr_p <- threshold(statistical = stat_adj_l_p, type = "threshold_p", 
-#                           args = args_thr_p)
-```
-
-
-
-## Combine mass-difference and correlation network
-
-ABC ()
-
-```{r combine}
-# Combine mass difference network and correlation network by thresholded pearson correlation
-#cons_adj <- combine(structural = struct_adj, statistical = stat_adj_thr_p, model = "pearson", weighted_statistical = stat_adj_l_p)
-
-# Combine mass difference network and correlation network by thresholded combination of pearson and spearman correlation
-#cons <- combine(structural = struct_adj, statistical = stat_adj_thr, model = "combined")
-
-
-## does not work yet
-# Create a list from combined adjacency matrix
-#comb_p_list <- adjacency_list(x = cons_adj_std, from = "combine")
-# Summary of the list
-#sum_comb_p_list <- sum_mass(comb_p_list)
-# Plot the summary
-#plot_comblist <- ggplot(sum_comb_p_list, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + coord_flip() +labs(title = "Numbers of determined mass differences - HLH30 lipid data ", subtitle = "(positive ionization) 
-#Filtered: p-value < 0.05")
-#plot(plot_comblist) 
-# For big data: display only values above 500
-#sumlistcomb_filtered <- filter(sum_comb_p_list, sum_comb_p_list$Counts >= 500)
-#plot_comblist_f <- ggplot(sumlistcomb_filtered, aes(x=Type, y=Counts)) + geom_bar(stat = "identity") + theme_minimal() + 
-#  coord_flip() + scale_y_continuous(breaks = seq(0, 6000, 500)) + 
-#  labs(title = "Numbers of determined mass differences - HLH30 lipid data", subtitle = "(positive ionization)
-#  Filtered: p-value < 0.05 & Counts > 500")
-#plot(plot_comblist_f)
-```
-
 
 ## Homologue Series
 
@@ -271,26 +232,26 @@ ABC
 
 
 ```{r homolseries}
-# library(nontarget)
-# library(igraph)
-# 
-# homol <- qfeat_homol(x = mtbls1586_qf_pos,
-#                              assay_name = "mtbls1586_pos",
-#                       elements=c("C","H","O"), use_C=TRUE,
-#                       minmz=5, 	maxmz=50,
-#                       minrt=5,  maxrt=60,
-#                       ppm=TRUE,
-#                       mztol=5,  rttol=5,
-#                       minlength=4,
-#                       mzfilter=FALSE,
-#                       spar=.45, 	R2=.98,
-#                       plotit=FALSE)
+library(nontarget)
+library(igraph)
+
+homol <- qfeat_homol(x = mtbls1586_qf_pos,
+                             assay_name = "mtbls1586_pos",
+                      elements=c("C","H","O"), use_C=TRUE,
+                      minmz=5, 	maxmz=50,
+                      minrt=5,  maxrt=60,
+                      ppm=TRUE,
+                      mztol=5,  rttol=5,
+                      minlength=4,
+                      mzfilter=FALSE,
+                      spar=.45, 	R2=.98,
+                      plotit=FALSE)
 ```
 
 
 ## MS2 similarity network
 
-ABS
+Spectral similarity network is created using some example spectra.
 
 ```{r ms2_network}
 # costum matching function
@@ -299,52 +260,60 @@ ABS
 # this is work around until Spectra is getting fixed
 mydotproduct <- function(x, y, type = NA, ...) MsCoreUtils::ndotproduct(x, y, ...)
 
-# test with multiple functions
-ms2_similarity <- spec_molNetwork(ms2_spectra_pos,
-                                  methods = c("mydotproduct"),
+# test with some example spectra
+ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
+                                  methods = "mydotproduct",
                                   tolerance = 0.005,
                                   type = "inner")
+
+ms2_similarity_l <- spec_adjacency_list(ms2_similarity)
+
 ```
 
 
-## Export networks to gml format 
+# Export networks to gml format 
 
-XXX
+Created networks are exported and saved as .gml file in the current working-directory. Feature Ids will be stored as additional name in node attributes. All the other information from the adjacency-lists will be stores as edge-attributes. It might also be defined which columns of the adjacency-list should be stored, by using the <code>select</code> option in the <code>exportNet2gml</code>-function.
 
-```{r export2gml}
+```{r export2gml, eval=FALSE}
 ## does not work yet
-# Mass difference network to gml
-#gml <- exportNet2gml(struct_adj, from = "structural", adjacency_list = struct_list)
-## Correlation network to gml (including p values)
-#gml <- exportNet2gml(stat_adj_l_p, from = "statistical+p", adjacency_list = adj_stat_p)
-## Combined network to gml
-#gml <- exportNet2gml(cons_adj, from = "combine", adjacency_list = comb_p_list)
+exportNet2gml(x = massdiff_l, file = "mzdiff")
+
+## Correlation network to gml (pearson, whithout p values)
+exportNet2gml(x = pears_l, file = "pears")
+
+## Spectral similarity network2gml
+exportNet2gml(x = ms2_similarity_l, file = "similarity")
+
 ```
 
+Additionally, attributes may be exported as .gml attribute-file using <code>exportAttributes2gml</code>. Edge attributes are prepared by merging the adjacency-lists from mass-difference and correlation-networks. Node attributes are generated by extraction additional information as annotation, mz, and RT values from the <code>QFeatures</code>-object. 
 
+```{r, eval=FALSE}
+# Create and export attribute file 
+attributes <- merge(pears_p_l, massdiff_l, by = c("Var1", "Var2"))
+
+  feat_names <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
+  feat_names <- feat_names[,c("metabolite_identification", "mz", "rtime")]
+  colnames(feat_names) <- c("manualAnnotation", "mz", "RT")
+
+  
+exportAttributes2gml(attributes, file = "attributes_mtbls1586_pos", names = feat_names)
+
+```
+
+Export of homologous series
 ```{r graph_export}
-# library(tibble)
-# library(dplyr)
-# library(igraph)
-# library(visNetwork) # for visNetwork() and friends
-# library(networkD3)  # for saveNetwork()
-# 
-# 
-# el <- as_tibble(homol[["Peaks in homologue series"]]) %>% 
-#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID", 
+## Does not work yet?? 
+# el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
+#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
 #                                          "m/z increment", "RT increment"))
 # 
 # g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
 # 
 # ## Write to File
 # write_graph(g, "/tmp/g.gml", "gml")
-# 
-# ## Some Plotting
-# data <- toVisNetworkData(g)
-# vn <- visNetwork(nodes = data$nodes, 
-#                  edges = data$edges)
-# vn
-# saveNetwork(vn, "/tmp/vn.html")
+
 ```
 
 
