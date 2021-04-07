@@ -202,10 +202,13 @@ pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos", 
                                 model = c("pearson"))
 
-# Create list from correlation acjacency matrix 
-pears_l <- adjacency_list(x = pears_corr, 
-                          from = "statistical")
-pears_l[25:30,]
+source("vignette_helper.R") ## Overwrite threshhold()
+pears_threshold <- threshold(statistical = pears_corr,
+                             type = "threshold",
+                             args = list("pearson" = 0.95, threshold = 1))
+pears_threshold_l <- adjacency_list(x = pears_threshold,
+                                    from = "statistical")
+exportNet2gml(x = pears_threshold_l, file = "pears_treshold")
 
 ```
 
@@ -275,12 +278,12 @@ ms2_similarity_l <- spec_adjacency_list(ms2_similarity)
 
 Created networks are exported and saved as .gml file in the current working-directory. Feature Ids will be stored as additional name in node attributes. All the other information from the adjacency-lists will be stores as edge-attributes. It might also be defined which columns of the adjacency-list should be stored, by using the <code>select</code> option in the <code>exportNet2gml</code>-function.
 
-```{r export2gml, eval=FALSE}
+```{r export2gml, eval=TRUE}
 ## does not work yet
 exportNet2gml(x = massdiff_l, file = "mzdiff")
 
 ## Correlation network to gml (pearson, whithout p values)
-exportNet2gml(x = pears_l, file = "pears")
+exportNet2gml(x = pears_threshold_l, file = "pears")
 
 ## Spectral similarity network2gml
 exportNet2gml(x = ms2_similarity_l, file = "similarity")
