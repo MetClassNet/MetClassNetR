@@ -208,7 +208,7 @@ pears_threshold <- threshold(statistical = pears_corr,
                              args = list("pearson" = 0.95, threshold = 1))
 pears_threshold_l <- adjacency_list(x = pears_threshold,
                                     from = "statistical")
-exportNet2gml(x = pears_threshold_l, file = "pears_treshold")
+#exportNet2gml(x = pears_threshold_l, file = "pears_treshold")
 
 ```
 
@@ -308,14 +308,14 @@ exportAttributes2gml(attributes, file = "attributes_mtbls1586_pos", names = feat
 Export of homologous series
 ```{r graph_export}
 ## Does not work yet?? 
-# el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
-#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
-#                                          "m/z increment", "RT increment"))
-# 
-# g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
-# 
-# ## Write to File
-# write_graph(g, "/tmp/g.gml", "gml")
+el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
+    filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
+                                         "m/z increment", "RT increment"))
+
+g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+
+## Write to File
+write_graph(g, "homol.gml", "gml")
 
 ```
 
