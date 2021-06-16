@@ -1,4 +1,4 @@
-#' @name spec_adjacency_list
+#' @name spec_df
 #'
 #' @aliases spec_df
 #'
