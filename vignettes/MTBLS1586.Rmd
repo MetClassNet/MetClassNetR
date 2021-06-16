@@ -33,7 +33,7 @@ Install current version of <code>MetClassNetR</code> and additional <code>MetNet
 ```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
 #devtools::install_github("tnaake/MetNet") # note: Re-load R studio after installation
-#devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
+devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
 
 # load required libraries
 library(tidyverse)
