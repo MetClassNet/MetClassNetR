@@ -1,12 +1,12 @@
 #' @name spec_adjacency_list
 #'
-#' @aliases spec_adjacency_list
+#' @aliases spec_df
 #'
-#' @title Create an adjacency list from spectral similarity matrix
+#' @title Create a `data.frame` from spectral similarity matrix
 #'
 #' @description
-#' The function `spec_adjacency_list` creates an adjacency lists from
-#' spectral similarity matrix and is comparable to MetNet function adjacency_list()
+#' The function `spec_df` creates a `data.frame` from
+#' spectral similarity matrix
 #'
 #' @param x
 #' `data.frame` adjacency matrix
@@ -22,7 +22,7 @@
 #'
 #'
 #' @export
-spec_adjacency_list <- function(x){
+spec_df <- function(x){
 
   x[[1]][upper.tri(x[[1]])] <- ''
 
@@ -32,7 +32,7 @@ spec_adjacency_list <- function(x){
     filter(value != "NaN" )
 
 
-  colnames(simil) <- c("Var1", "Var2", "value")
+  colnames(simil) <- c("Row", "Col", "value")
 
   return(simil)
 }

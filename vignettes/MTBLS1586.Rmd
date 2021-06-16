@@ -32,8 +32,8 @@ Install current version of <code>MetClassNetR</code> and additional <code>MetNet
 
 ```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
-#devtools::install_github("MetClassNet/MetNet", ref = "devel_Liesa") # note: Re-load R studio after installation
- #devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
+#devtools::install_github("tnaake/MetNet") # note: Re-load R studio after installation
+#devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
 
 # load required libraries
 library(tidyverse)
@@ -147,7 +147,7 @@ master <- list()
 
 ## Mass difference Network
 The mass-difference network is calculated using the <code>MetNet</code> package. All mass-differences between all pairs of features are calculated and are compared to the <code>transformation</code>-list. This <code>transformation</code>-list contains different biochemical reactions and their corresponding mass difference. Only if the mass-difference between two features matches to a mass-difference in the transformation file, within a certain <code>ppm</code>-range, it will be displayed. Different to the original <code>MetNet</code>-functions, not only the name of the mass-difference but also the value itself will be displayed as output adjacency matrix.
-The adjacency matrix will be than transformed to a list using the <code>adjacency_list</code>. 
+The adjacency matrix will be than transformed to a <code>data.frame</code>. 
 
 ```{r mass_difference}
 # Create mass difference network
@@ -156,21 +156,24 @@ massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
                              transformation = transformations,
                              ppm = 10)
 
-# Create list of adjacency matrix
-massdiff_l <- adjacency_list(x=massdiff, 
-                             from = "structural")
-massdiff_l[25:30,]
+# Create data.frame of adjacency matrix
+massdiff_df <- as.data.frame(massdiff)
+  
+massdiff_df[5:10,]
 ```
 
 A summary of the current data-set on the present mass-difference distribution is provided using the <code>summary_mz</code>-function. This function stores the summary as data.frame, which is also plotted. Depending on the size of the data, it might be useful to <code>filter</code> the number of determined mass-differences, e.g. by 1000 counts.
 
 ```{r}
 # Summary of the list
-sum_mz <- summary_mz(adjacency_list = massdiff_l)
+mz_sum <- mz_summary(massdiff)
 
-# for big data: filter for counts higher 1000
-sum_mz_f <- summary_mz(adjacency_list = massdiff_l,
-                     filter = 1000)
+
+# for big data: filter for counts e.g. higher 1000
+sum_mz_f <- mz_summary(massdiff, filter = 1000)
+
+# some visualizations
+mz_vis(sum_mz_f)
 
 # append mass difference network
 master <- c(master, massdiff)
@@ -178,23 +181,28 @@ master <- c(master, massdiff)
 ```
 
 
-## Add manual annotatation 
+## Add annotatation 
 A <code>QFeatures</code>-object stores various information on LC-MS/MS data. Also, annotations and possible database identifiers are present in a <code>QFeatures</code>-object. In order to add the annotations to the adjacency-list, <code>qfeat_annotation</code> is applied. It extracts the annotations, if any present, and adds them to the desired adjacency-list, for example the list from the mass-difference network. In order to check if the annotations match the mass-difference, a filter is applied so that only features remains that have annotations in both features. 
 
 ```{r manual_annotation}
-# Add manual annotations to mass-difference adjacency list
-name_l <- qfeat_annotation(x = mtbls1586_qf_pos, assay_name = "mtbls1586_pos", list = massdiff_l)
+# Add annotations to mass-difference adjacency matrix
+rowData(massdiff) <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
 
-# Filter for manual annotations
-annotationFiltered <- filter(name_l, is.na(name_l$Var1_annotation) == F, is.na(name_l$Var2_annotation) == F, name_l$Var1_annotation != "", name_l$Var2_annotation != "")
-annotationFiltered[25:30,]
+# display annotation for the feature "Cluster_3201"
+rowData(massdiff)["Cluster_3201", ]
+
+massdiff_anno <- as.data.frame(rowData(massdiff))
+
+# Filter for present annotations
+anno_filter <- filter(massdiff_anno, massdiff_anno$metabolite_identification != "")
+anno_filter[25:30,]
 
 ```
 
 
 ## Correlation network
 
-Correlation networks will be calculated using functionality from the <code>MetNet</code> package. <code>qfeat_statistical</code> uses the <code>QFeatures</code>-Object as input and extracts the feature intensity in order to calculate correlations from the <code>statistical</code>-funtcion from <code>MetNet</code>. <code>MetNet</code> implemented various models that can be applied to calculate correlations, e.g. pearson, spearman, partial-pearson, and many more which might also be selected. After generating the correlation adjacency-matrix, it will also be transformed to a list. 
+Correlation networks will be calculated using functionality from the <code>MetNet</code> package. <code>qfeat_statistical</code> uses the <code>QFeatures</code>-Object as input and extracts the feature intensity in order to calculate correlations from the <code>statistical</code>-funtcion from <code>MetNet</code>. <code>MetNet</code> implemented various models that can be applied to calculate correlations, e.g. pearson, spearman, partial-pearson, and many more which might also be selected. After generating the correlation adjacency-matrix, it will also be transformed to a <code>data.frame</code> 
 
 ```{r correlation, warning=FALSE, error=FALSE}
 # Correlation network using pearson and spearman correlation
@@ -202,29 +210,13 @@ pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos", 
                                 model = c("pearson"))
 
-# Create list from correlation acjacency matrix 
-pears_l <- adjacency_list(x = pears_corr, 
-                          from = "statistical")
-pears_l[25:30,]
+# Create data.frame from correlation adjacency matrix 
+pears_df <- as.data.frame(pears_corr)
+pears_df[25:30,]
 
+master <- c(master, pears_corr)
 ```
 
-Compared to the original <code>MetNet</code> package, additional functionality have been added to calculate also negative correlation values for pearson and spearman correlations. Moreover, the corresponding p-value will be calculated and displayed in the adjacency-list. 
-
-```{r, warning=FALSE, error=FALSE}
-# Correlation network using pearson and spearman correlation
-# Positive, negative and p values are displayed
-pears_corr_p <- qfeat_statistical(x = mtbls1586_qf_pos,
-                             assay_name = "mtbls1586_pos",
-                                model = c("pearson"),
-                                p = TRUE)
-pears_p_l <- adjacency_list(x = pears_corr_p,
-                            from = "statistical")
-pears_p_l[25:30,]
-
-master <- c(master, pears_corr_p)
-
-```
 
 ## Homologue Series
 
@@ -266,7 +258,7 @@ ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
                                   tolerance = 0.005,
                                   type = "inner")
 
-ms2_similarity_l <- spec_adjacency_list(ms2_similarity)
+ms2_similarity_df <- spec_df(ms2_similarity)
 
 ```
 
@@ -276,14 +268,17 @@ ms2_similarity_l <- spec_adjacency_list(ms2_similarity)
 Created networks are exported and saved as .gml file in the current working-directory. Feature Ids will be stored as additional name in node attributes. All the other information from the adjacency-lists will be stores as edge-attributes. It might also be defined which columns of the adjacency-list should be stored, by using the <code>select</code> option in the <code>exportNet2gml</code>-function.
 
 ```{r export2gml, eval=FALSE}
-## does not work yet
-exportNet2gml(x = massdiff_l, file = "mzdiff")
+## Mass-difference network to gml
+# note: only first 10 features are exported
+exportNet2gml(x = massdiff_df[1:10,], file = "mzdiff")
 
-## Correlation network to gml (pearson, whithout p values)
-exportNet2gml(x = pears_l, file = "pears")
+## Correlation network to gml
+# note: only first 10 features are exported
+exportNet2gml(x = pears_df[1:10,], file = "pears")
 
 ## Spectral similarity network2gml
-exportNet2gml(x = ms2_similarity_l, file = "similarity")
+# note: only first 10 features are exported
+exportNet2gml(x = ms2_similarity_df[1:10,], file = "similarity")
 
 ```
 
@@ -291,15 +286,16 @@ Additionally, attributes may be exported as .gml attribute-file using <code>expo
 
 ```{r, eval=FALSE}
 # Create and export attribute file 
-attributes <- merge(pears_p_l, massdiff_l, by = c("Var1", "Var2"))
+attributes <- merge(pears_df, massdiff_df, by = c("Row", "Col"))
 
-  feat_names <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
-  feat_names <- feat_names[,c("metabolite_identification", "mz", "rtime")]
-  colnames(feat_names) <- c("manualAnnotation", "mz", "RT")
+# Prepare annotation file 
+feat_anno <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
+feat_anno <- feat_anno[,c("metabolite_identification", "mz", "rtime")]
+colnames(feat_anno) <- c("Annotation", "mz", "RT")
 
   
-exportAttributes2gml(attributes, file = "attributes_mtbls1586_pos", names = feat_names)
-
+# note: only first 10 features are exported
+exportAttributes2gml(attributes[1:10,], file = "attributes_mtbls1586_pos", anno = feat_anno)
 ```
 
 Export of homologous series
