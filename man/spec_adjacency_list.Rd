@@ -2,9 +2,10 @@
 % Please edit documentation in R/ms2similarity.R
 \name{spec_adjacency_list}
 \alias{spec_adjacency_list}
-\title{Create an adjacency list from spectral similarity matrix}
+\alias{spec_df}
+\title{Create a \code{data.frame} from spectral similarity matrix}
 \usage{
-spec_adjacency_list(x)
+spec_df(x)
 }
 \arguments{
 \item{x}{\code{data.frame} adjacency matrix}
@@ -13,8 +14,8 @@ spec_adjacency_list(x)
 \code{data.frame} adjacency list
 }
 \description{
-The function \code{spec_adjacency_list} creates an adjacency lists from
-spectral similarity matrix and is comparable to MetNet function adjacency_list()
+The function \code{spec_df} creates a \code{data.frame} from
+spectral similarity matrix
 }
 \examples{
  ######  example to be added!
