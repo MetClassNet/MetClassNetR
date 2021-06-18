@@ -19,6 +19,7 @@ Depends:
     Spectra (>= 0.5.0),
     nontarget,
     MSnbase
+    MetNet (>= 1.9.5)
 Imports:
     methods    
 Suggests:
