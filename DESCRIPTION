@@ -18,8 +18,8 @@ Description: MetClassNetR collects a tool set for integrating metabolomics data 
 Depends:
     Spectra (>= 0.5.0),
     nontarget,
-    MSnbase
-    MetNet (>= 1.9.5)
+    MSnbase,
+    MetNet (>= 1.9.5),
     MetClassNetR (>= 0.0.0.9010)
 Imports:
     methods    
