@@ -23,7 +23,7 @@ readMaf <- function(x, ecol = NA, ...) {
 
   }
 
-  if(length(ecol == 1) && is.na(ecol)) {
+  if(length(ecol) == 1 && is.na(ecol)) {
     ecol <- 23:ncol(data)
   }
 
