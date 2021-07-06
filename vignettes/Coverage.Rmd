@@ -49,7 +49,12 @@ library(dplyr)
 #install.packages('classyfireR')
 library(classyfireR)
 
-## for circeplot
+#devtools::install_github("tnaake/MetNet") # note: Re-load R studio after installation
+
+#devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_coverage") # note: Re-load R studio after installation
+library(MetClassNetR)
+
+## for circleplot
 library(tidyverse)
 library(ggraph)
 library(igraph)
@@ -62,13 +67,9 @@ Chebi https://www.ebi.ac.uk/chebi/downloadsForward.do
 Tomato network https://github.com/MetClassNet/iHY3410
 
 ```{r, message=FALSE}
-## Input
-source_folder <- "../data/example_coverage/"
-
-network_file <-  file.path(paste0(source_folder,"iHY3410_Compound-SBtab.tsv"))
-data_file <- file.path(paste0(source_folder,"example_smiles.csv"))
-
-chemont_obofile <- file.path(paste0(source_folder,"ChemOnt_2_1.obo"))
+network_file <-  system.file("extdata/Example_Coverage/iHY3410_Compound-SBtab.tsv", package = "MetClassNetR")
+data_file <- system.file("extdata/Example_Coverage/example_smiles.csv", package = "MetClassNetR")
+chemont_obofile <- system.file("extdata/Example_Coverage/ChemOnt_2_1.obo", package = "MetClassNetR")
 ```
 
 
@@ -183,8 +184,8 @@ data_tibble <- data_tibble %>%
 ```
 
 ```{r}
-data_tibble <- as_tibble(data.frame(smiles = read.csv(paste0(source_folder,"example_smiles.csv"), 
-                                                      header=FALSE, stringsAsFactors = FALSE)[,1]))
+data_tibble <- as_tibble(data.frame(smiles = read.csv(data_file,header=FALSE, 
+                                                      stringsAsFactors = FALSE)[,1]))
 ```
 
 
@@ -306,7 +307,7 @@ rm(tmp)
 
 
 ```{r, message=FALSE}
-load(paste0(source_folder,"network_tibble.Rdata"))
+load(system.file("extdata/Example_Coverage/network_tibble.Rdata", package = "MetClassNetR"))
 ```
 
 
@@ -335,7 +336,7 @@ rm(tmp)
 
 
 ```{r, message=FALSE, eval=TRUE}
-load(paste0(source_folder,"data_tibble.Rdata"))
+load(system.file("extdata/Example_Coverage/data_tibble.Rdata", package = "MetClassNetR"))
 ```
 
 
@@ -479,7 +480,7 @@ ggraph(mygraph, layout = 'circlepack') +
   theme_void() +
   scale_colour_manual(aesthetics = c("fill"), values = manual_colors)
 
-# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_circleplot.pdf"))
+# ggsave(filename = "fig_example_chemont_coverage_circleplot.pdf")
 ```
 
 ## Sunburst Plot
@@ -490,7 +491,7 @@ ggraph(mygraph, 'partition', circular = TRUE) +
   theme_void()  +
   scale_fill_manual(values = manual_colors)
 
-# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_sunburst.pdf"))
+# ggsave(filename = "fig_example_chemont_coverage_sunburst.pdf")
 ```
 
 
@@ -502,7 +503,7 @@ ggraph(mygraph) +
   theme_void()  +
   scale_colour_manual(values =  manual_colors)
 
-# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_tree.pdf"))
+# ggsave(filename = "fig_example_chemont_coverage_tree.pdf")
 ```
 
 ## Partition Plot with labels
@@ -515,9 +516,9 @@ p <- ggraph(mygraph, layout='partition') +
   geom_node_text(aes(label = vert_names, angle=90), size=0.75) +
   scale_color_manual(aesthetics = c("fill"), values = manual_colors)
 
-ggsave(plot=p,
-       filename=paste0(source_folder,"fig_example_chemont_coverage_partitionstack_labelled.pdf"),
-       width=150, limitsize = FALSE)
+# ggsave(plot=p,
+#        filename="fig_example_chemont_coverage_partitionstack_labelled.pdf",
+#        width=150, limitsize = FALSE)
 
 ```
 
