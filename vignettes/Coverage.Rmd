@@ -1,0 +1,528 @@
+---
+title: "Coverage"
+author: "Sarah Scharfenberg"
+date: "29 6 2021"
+
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Content
+This vignette shows how to check the overlap of two data sets. In this example one is the network of Tomato and the other a list of detected SMILES in a Tomato sample. In a first step the SMILES from the sample are converted to InChIKeys and compared to  the network identifier. 
+
+Comparing identifiers directly can lead to missleading results which is why we use the compound classes instead. Therefore we classify both the network and the sample data into ChemOnt classes and compare the coverage/overlap of the detected classes.
+
+The results are visualized in different ways.
+
+# Technical hints
+
+The example data for this vignette can be found within the data folder of this package.
+* example_smiles.csv contains the list SMILES from a tomato sample.
+* iHY3410_Compound-SBtab.tsv contains the network data
+For faster processig both for data and network id lists the fully classified result tibbles are stored as Rdata object.
+
+# System preparation
+
+The following packages are necessary for this script.
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+# some libraries are used explicitly for only one or two calls thus necessary to be installed but not loaded fully
+
+# library(devtools)    # for installing packages from git
+# library(MSnbase)     # for reading mzml files
+# library(VennDiagram) 
+# library(rcdk)
+# devtools::install_github(repo = "CDK-R/rinchi" )
+# library(rinchi)
+# library(ontologyIndex)
+
+
+library(magrittr)
+library(tibble)
+library(dplyr)
+
+#install.packages('classyfireR')
+library(classyfireR)
+
+## for circeplot
+library(tidyverse)
+library(ggraph)
+library(igraph)
+
+```
+
+# Files & Folders
+ChemOnt obo file was downloaded here http://classyfire.wishartlab.com/downloads.
+Chebi https://www.ebi.ac.uk/chebi/downloadsForward.do
+Tomato network https://github.com/MetClassNet/iHY3410
+
+```{r, message=FALSE}
+## Input
+source_folder <- "../data/example_coverage/"
+
+network_file <-  file.path(paste0(source_folder,"iHY3410_Compound-SBtab.tsv"))
+data_file <- file.path(paste0(source_folder,"example_smiles.csv"))
+
+chemont_obofile <- file.path(paste0(source_folder,"ChemOnt_2_1.obo"))
+```
+
+
+# Read data
+
+## Tomato Network
+
+From the network file we select all columns that might be of interest later. Identifiers.inchikey would be the only one that is necessary. 
+
+```{r, warning=FALSE}
+network <- read.csv(network_file,header = TRUE, skip=1, stringsAsFactors = FALSE, sep="\t", na.strings = "")
+colnames(network) <- gsub(pattern = "X.", replacement = "", x = colnames(network))
+  
+network_tibble <- as_tibble(network[c("ID","Notes.SMILES","Identifiers.inchi", 
+                                        "Identifiers.inchikey", "Notes.Old_ID",
+                                        "Notes.InChI_neutral","Notes.InChIKey_neutral",
+                                        "Notes.SMILES_neutral")])
+ 
+## delete entries without SMILES
+network_tibble <- network_tibble %>%
+  filter(!is.na(Notes.SMILES)) %>%
+  select(-ID) %>%
+  distinct()
+```
+
+Some information about the network data.
+
+```{r, warning=FALSE}
+network_tibble %>% 
+  select(Notes.SMILES) %>% 
+  filter(!is.na(Notes.SMILES)) %>% 
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique SMILES in the Network"))
+  
+network_tibble %>% 
+  select(Identifiers.inchi) %>% 
+  filter(!is.na(Identifiers.inchi)) %>% 
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique InChIs in the Network"))
+
+network_tibble %>% 
+  select(Identifiers.inchikey) %>% 
+  filter(!is.na(Identifiers.inchikey)) %>% 
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique InChIKeys in the network"))
+
+```
+
+To check if out processing would work with the network too we calculate InChIs and InChIKeys with RCDK and compare them to the ones that are stored. Careful, in the further processing we refer to the column inchikeyFromRCDK. If you want to use the identifiers from the table you might want to replace that (just for the network!) with Identifiers.inchi.
+
+
+```{r, dependson=network_tibble, message=FALSE, warnings=FALSE}
+
+netinchis <- sapply(network_tibble$Notes.SMILES,function(smi){
+  if(!is.na(smi)){
+    smim <- rcdk::parse.smiles(smi)
+    if(!is.null(unlist(smim))){
+      res <- rinchi::get.inchi(smi)
+      return(res)
+    }else{return(NA)}
+  }else{return(NA)}
+})
+
+netinchiks <- data.frame(sapply(network_tibble$Notes.SMILES,function(smi){
+  if(!is.na(smi)){
+    smim <- rcdk::parse.smiles(smi)
+    if(!is.null(unlist(smim))){
+      res <- rinchi::get.inchi.key(smi)
+      return(res)
+    }else{return(NA)}
+  }else{return(NA)}
+}))
+  
+network_tibble <- network_tibble %>%
+  add_column(inchiFromRCDK=unlist(netinchis)) %>%
+  add_column(inchikeyFromRCDK=as.character(unlist(netinchiks)))
+```
+
+Check which SMILES have another calculated InChI than the ones stored in the network table. 
+With obabel there were some, with RCDK there are none.
+
+```{r, dependson=network_tibble}
+network_tibble %>%
+  mutate(check = substr(inchikeyFromRCDK,1,14)==substr(Identifiers.inchikey,1,14)) %>%
+  filter(!is.na(Identifiers.inchi)) %>%
+  select(check) %>%
+  filter(check==FALSE) %>%
+  pull() %>% length() -> x
+print(paste0(x," mismatching InChIKeys between RCDK and the network table."))
+
+
+```
+
+
+## Tomato Data
+
+In this code snipped you see how the SMILES can be fetched from an mzml data file. In the example we have just a list in csv file.
+
+```{r, eval=FALSE}
+## snipped is not executed in this vignette 
+
+mztab <- MSnbase::MzTab(data_file)
+  
+sm <- MSnbase::smallMolecules(mztab)
+# for the coverage it is irrelevant which ID the SMILES had before
+data_tibble <- as_tibble(sm["smiles"])
+
+## clean up empty SMILES
+data_tibble <- data_tibble %>%
+  filter(!is.na(smiles)) %>%
+  distinct(smiles)
+```
+
+```{r}
+data_tibble <- as_tibble(data.frame(smiles = read.csv(paste0(source_folder,"example_smiles.csv"), 
+                                                      header=FALSE, stringsAsFactors = FALSE)[,1]))
+```
+
+
+Translate SMILES to InChIs and InChIKeys with RCDK.
+```{r}
+### rcdk InChIs from rinchi
+ datainchis <- sapply(data_tibble$smiles,function(smi){
+   if(!is.na(smi)){
+     smim <- rcdk::parse.smiles(smi)
+     if(!is.null(unlist(smim))){
+       res <- rinchi::get.inchi(smi)
+       return(res)
+     }else{return(NA)}
+   }else{return(NA)}
+ })
+
+ datainchiks <- data.frame(sapply(data_tibble$smiles,function(smi){
+   #print(smi)
+   if(!is.na(smi)){
+     smim <- rcdk::parse.smiles(smi)
+     if(!is.null(unlist(smim))){
+       res <- rinchi::get.inchi.key(smi)
+       return(res)
+     }else{return(NA)}
+   }else{return(NA)}
+ }))
+
+ data_tibble <- data_tibble %>%
+   add_column(inchiFromRCDK=unlist(datainchis)) %>%
+   add_column(inchikeyFromRCDK=as.character(unlist(datainchiks)))
+```
+
+Some information about the dataset.
+There are possibly less InChIs than SMILES if the mapping resulted in NA.
+Usually there should be one InChI for one SMILES.
+
+```{r}
+data_tibble %>% 
+  select(smiles) %>%
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique Smiles in the File."))
+
+data_tibble %>%
+  select(inchiFromRCDK) %>% 
+  filter(inchiFromRCDK!="") %>% 
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique InChIs in the File."))
+    
+
+data_tibble %>% 
+  select(inchikeyFromRCDK) %>% 
+  filter(inchikeyFromRCDK!="") %>% 
+  pull() %>% unique() %>% length() -> x
+print(paste0("There are ",x," unique InChIKeys in the File."))
+
+
+```
+
+# Feature Coverage
+
+A first comparison that can be made here is based on the Identifier. 
+We compare the compounds by the first part of their InChIKey, called the connectivity part of each InChIKey (IKC).
+
+```{r, message=FALSE, warning=FALSE, error=FALSE}
+network_tibble <- network_tibble %>%
+  mutate(RCDK_inchikey_part1 = substr(inchikeyFromRCDK,1,14))
+
+
+data_tibble <- data_tibble %>%
+  mutate(RCDK_inchikey_part1 = substr(inchikeyFromRCDK,1,14))
+  
+
+grid::grid.newpage()
+VennDiagram::draw.pairwise.venn(area1 = length(unique(network_tibble$RCDK_inchikey_part1)),
+                   area2 = length(unique(data_tibble$RCDK_inchikey_part1)),
+                    cross.area = sum(is.element(unique(data_tibble$RCDK_inchikey_part1), unique(network_tibble$RCDK_inchikey_part1))),
+                    category = c("Network", "Dataset"))
+
+```
+
+# Class Annotation using ClassyfireR
+
+For a given SMILES or InChIKey the package classyfireR will report the classes that the compound would be sorted into in ChemOnt. Usually all IDs are already classified. Still there remain some unclassified compounds that appear in this script as NULL value in the result list. These queries can be filtered and manually requested for a new classification via the Webservice available at http://classyfire.wishartlab.com/. We filter the unclassified compounds and parse their SMILES manually to ChemOnt. Afterwards we replace the NULL entries by their classification.
+
+When requesting a high number of queries within classyfireR you might get the error message:
+"Error in classyfireR::get_classification(ik) : Request rate limit exceeded!"
+You might want to address that by adding a Sys.sleep() command between the queries to reduce the request rate per minute.
+
+For this example the classification results are loaded.
+
+## ChemOnt Class Annotation Network
+
+```{r, message=FALSE, eval=FALSE}
+## snipped is not executed in this vignette 
+
+# #Example for one classification
+# classification_result <- get_classification(network_tibble$inchikeyFromRCDK[1])
+# classification_result@classification
+# classification_result@classification$CHEMONT
+
+net_classes <- sapply(network_tibble$inchikeyFromRCDK,function(ik){
+  # Sys.sleep(10)
+  classific <- eval(classyfireR::get_classification(ik))
+  if(!is.null(classific)){return(classific@classification)}
+  return(NULL)
+  })
+  
+## if all are classified correctly the output of sapply is not a list of tibbles
+## but a hughe matrix with level, classification and chemont as lists of characters
+network_tibble <- network_tibble %>%
+  add_column(classyfire_classes = net_classes)
+
+# find NULL entries
+tmp <- sapply(network_tibble$classyfire_classes,function(x){return(!is.null(unlist(x)))})
+network_tibble <- network_tibble %>%
+  mutate(classified = tmp)
+rm(tmp)
+```
+
+
+```{r, message=FALSE}
+load(paste0(source_folder,"network_tibble.Rdata"))
+```
+
+
+## ChemOnt Class Annotation MTBLS1582
+
+
+```{r, message=FALSE, eval=FALSE}
+## snipped is not executed in this vignette 
+## Time difference of 13.90753 hours
+
+data_classes <- sapply(data_tibble$inchikeyFromRCDK,function(ik){
+  #Sys.sleep(10)
+  classific <- eval(classyfireR::get_classification(ik))
+  if(!is.null(classific)){return(list(classific@classification))}   ## add list() to network processing
+  return(NULL)
+})
+
+data_tibble <- data_tibble %>%
+  add_column(classyfire_classes = data_classes)
+
+tmp <- sapply(data_tibble$classyfire_classes,function(x){return(!is.null(unlist(x)))})
+data_tibble <- data_tibble %>%
+  mutate(classified = tmp)
+rm(tmp)
+```
+
+
+```{r, message=FALSE, eval=TRUE}
+load(paste0(source_folder,"data_tibble.Rdata"))
+```
+
+
+## Check Classification results
+
+Number of classified compunds in the network:
+```{r}
+network_tibble %>% select(classified) %>% table()
+```
+
+Number of classified compunds in the data:
+```{r}
+data_tibble %>% select(classified) %>% table()
+```
+
+Some Queries were not converted or not classified. To check them and eventually report them to ChemOnt we have a look here. For the processing they are removed in the next step.
+
+```{r}
+network_tibble %>%
+ filter(classified==FALSE) %>%
+ filter(!is.na(Notes.SMILES)) %>%
+ select(Notes.SMILES,Identifiers.inchi, Identifiers.inchikey,inchiFromRCDK,inchikeyFromRCDK)
+```
+
+
+```{r}
+data_tibble %>%
+  filter(classified==FALSE) %>%
+  filter(!is.na(smiles)) %>%
+  select(smiles)
+```
+
+
+
+# Class Coverage
+
+To compare the overlap between dataset and network based on the reported classes the unique classifications are collected as a list and compared.
+
+```{r, message=FALSE, warning=FALSE, error=FALSE}
+  
+data_classlist <- data_tibble %>%
+  filter(classified==TRUE) %>%
+  select(classyfire_classes) %>%
+  pull()
+
+data_classes_unique <- unique(unlist(lapply(data_classlist, function(el){return(el$CHEMONT)})))
+
+network_classlist <- network_tibble %>%
+  filter(classified==TRUE) %>%
+  select(classyfire_classes) %>%
+  pull()
+
+network_classes_unique <- unique(unlist(lapply(network_classlist, function(el){return(el$CHEMONT)})))
+  
+grid::grid.newpage()
+VennDiagram::draw.pairwise.venn(area1 = length(network_classes_unique),
+                  area2 = length(data_classes_unique),
+                  cross.area = sum(is.element(network_classes_unique, data_classes_unique)),
+                  category = c("Network", "Dataset"))
+```
+
+# Visualization
+
+As basis the Obo File provided in this packages was used. It should be no problem to replace that by the latest version. Just update the position of CHEMONTID:9999999 and its edges when creating the vertex list and edge list.
+
+```{r}
+## get the ontology via is_a relationship
+chemont <- ontologyIndex::get_OBO(chemont_obofile, propagate_relationships = "is_a", extract_tags = "minimal")
+```
+
+The ontology entries are the basis for each plot we want to use here. The visualizations are based on a graph object, that is interpreted in different ways for each plot. In this graph object each Ontology ID will be a node and each is_a relation builds an edge.
+
+The ChemOnt IDs are sorted numerically. For the graph the origin has to be the first vertex. 
+The vertices are colored based on the occurence in the observed data in the four categories:
+* was predicted neither in data nor in network
+* only reported in the network
+* only reported in the data
+* reported both in network and data
+
+```{r}
+## prepare vertices data.frame
+vertices <- chemont$id
+vertices <- vertices[c(4825,1:4824)] ## bring Chemical Ontology to the top
+names(vertices) <- NULL
+
+vert_names <- chemont$name
+vert_names <- vert_names[c(4825,1:4824)]
+names(vert_names) <- NULL
+  
+# color the plot
+# 1 none, 2 network only, 3 data only, 4 both
+cat_num <- rep(1,times=4825) # by default all are set to none
+names(cat_num) <- vertices 
+cat_num[network_classes_unique] <- cat_num[network_classes_unique] +1 
+cat_num[data_classes_unique] <- cat_num[data_classes_unique]+2
+cats <- c("none","network","data","both")
+cat <- cats[cat_num]
+names(cat) <- names(cat_num)
+cat["CHEMONTID:9999999"] <- "both"
+
+vertices <- data.frame(vertices=vertices,vert_name=vert_names,cat=cat)
+```
+
+Each vertex in the ontology stores the list of its children. Using these, the edge data frame is created again in numerical order. Here as well it is necessary to put the Chemical Entity as source of all on top of the list, meaning the two edges with CHEMONTID:9999999. The columns have to be names with "from" and "to". If the picture looks not right in the end, it might be necessary to change the order here, because that will be the order in which the circles are drawn.
+Careful here, because "is_a" is the opposite direction to the graph direction. But as the edges were derived from the children lists everything shoul be fine here.
+
+```{r}
+## prepare edges data.frame
+edges <- t(data.frame(sapply(1:length(chemont$id),function(i){
+  return(t(cbind(rep(chemont$id[i], times=length(chemont$children[[i]])),unlist(chemont$children[[i]]))))
+} )))
+rownames(edges) <- NULL
+colnames(edges) <- c("from","to")
+edges <- data.frame(edges)
+edges <- edges %>% arrange(from)
+edges <- edges[c(4824,4823,1:4822),]
+rownames(edges) <- NULL
+```
+
+
+```{r}
+# Then we have to make a 'graph' object using the igraph library:
+mygraph <- igraph::graph_from_data_frame( edges, vertices=vertices )
+```
+
+
+Prepare Coloring
+```{r}
+manual_colors <- c("#CC79A7", "#D55E00", "#0072B2","#999999")
+names(manual_colors) <-  c("both","network","data","none")
+```
+
+
+## Circle Plot
+https://www.r-graph-gallery.com/313-basic-circle-packing-with-several-levels.html
+
+The circle plot includes the ontology hierarchy within the order of the circles. 
+```{r}
+ggraph(mygraph, layout = 'circlepack') + 
+  geom_node_circle(aes(fill=cat, color=NULL)) +
+  theme_void() +
+  scale_colour_manual(aesthetics = c("fill"), values = manual_colors)
+
+# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_circleplot.pdf"))
+```
+
+## Sunburst Plot
+
+```{r}
+ggraph(mygraph, 'partition', circular = TRUE) + 
+  geom_node_arc_bar(aes(fill = cat), size = 0.25) +
+  theme_void()  +
+  scale_fill_manual(values = manual_colors)
+
+# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_sunburst.pdf"))
+```
+
+
+## Tree Plot
+```{r}
+ggraph(mygraph) + 
+  geom_edge_link() + 
+  geom_node_point(aes(color=cat)) +
+  theme_void()  +
+  scale_colour_manual(values =  manual_colors)
+
+# ggsave(filename = paste0(source_folder,"fig_example_chemont_coverage_tree.pdf"))
+```
+
+## Partition Plot with labels
+
+This plot gives the possibility to have a look which classes (by name) appear where and how they are organized in the ontology. This serves for a manual curation which classes overlap and which not and why.
+
+```{r}
+p <- ggraph(mygraph, layout='partition') + 
+  geom_node_tile(aes(fill = cat), size = 0.01) +
+  geom_node_text(aes(label = vert_names, angle=90), size=0.75) +
+  scale_color_manual(aesthetics = c("fill"), values = manual_colors)
+
+ggsave(plot=p,
+       filename=paste0(source_folder,"fig_example_chemont_coverage_partitionstack_labelled.pdf"),
+       width=150, limitsize = FALSE)
+
+```
+
+
+```{r sessionInfo}
+sessionInfo()
+```
+
