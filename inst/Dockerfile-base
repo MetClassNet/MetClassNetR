@@ -1,0 +1,12 @@
+FROM bioconductor/bioconductor_docker:devel
+
+MAINTAINER Steffen Neumann <sneumann@ipb-halle.de>
+
+LABEL Description="MetClassNet R environment."
+
+RUN apt-get -y update && apt-get -y install wget
+
+ADD inst/install.R /tmp
+RUN R -e "source('/tmp/install.R')"
+
+
