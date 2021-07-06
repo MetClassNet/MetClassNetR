@@ -11,7 +11,7 @@
 #' selected using the parameter `select`.
 #'
 #' @param x
-#' `data.frame` adjacency list having `Var1` and `Var2` in the first
+#' `data.frame` adjacency list having `Row` and `Col` in the first
 #' two columns and additional (edge) attributes in following columns.
 #'
 #' @param file
@@ -49,12 +49,12 @@
 exportNet2gml <- function (x, file, select = F, ...) {
 
   if (select != FALSE) {
-    x <- x[,c("Var1", "Var2", select)]
+    x <- x[,c("Row", "Col", select)]
   }
 
   net <- igraph::graph_from_data_frame(x, directed = TRUE, vertices = NULL)
-  igraph::E(net)$sourceName <-  as.character(x$Var1)
-  igraph::E(net)$targetName <-  as.character(x$Var2)
+  igraph::E(net)$sourceName <-  as.character(x$Row)
+  igraph::E(net)$targetName <-  as.character(x$Col)
   fl <- paste(file, ".gml", sep="")
   igraph::write_graph(net, file = fl, format = c("gml"))
 }
@@ -72,7 +72,7 @@ exportNet2gml <- function (x, file, select = F, ...) {
 #' selected using the parameter `select`.
 #'
 #' @param x
-#' `data.frame` adjacency list having `Var1` and `Var2` in the first
+#' `data.frame` adjacency list having `Row` and `Col` in the first
 #' two columns and additional (edge) attributes in following columns.
 #'
 #' @param file
@@ -108,18 +108,18 @@ exportNet2gml <- function (x, file, select = F, ...) {
 #'
 #'
 #'@export
-exportAttributes2gml <- function (x, file, select = F, names, ...) {
+exportAttributes2gml <- function (x, file, select = F, anno, ...) {
 
   if (select != FALSE) {
-    x <- x[,c("Var1", "Var2", select)]
+    x <- x[,c("Row", "Col", select)]
   }
 
-  net <- igraph::graph_from_data_frame(x, directed = TRUE, vertices = row.names(names))
-  igraph::E(net)$sourceName <-  as.character(x$Var1)
-  igraph::E(net)$targetName <-  as.character(x$Var2)
-  net <-  set_vertex_attr(graph = net, name = "mz", value = as.character(names$mz))
-  net <-  set_vertex_attr(graph = net, name = "rt", value = as.character(names$RT))
-  net <-  set_vertex_attr(graph = net, name = "manualAnnotation", value = as.character(names$manualAnnotation))
+  net <- igraph::graph_from_data_frame(x, directed = TRUE, vertices = row.names(anno))
+  igraph::E(net)$sourceName <-  as.character(x$Row)
+  igraph::E(net)$targetName <-  as.character(x$Col)
+  net <-  set_vertex_attr(graph = net, name = "mz", value = as.character(anno$mz))
+  net <-  set_vertex_attr(graph = net, name = "rt", value = as.character(anno$RT))
+  net <-  set_vertex_attr(graph = net, name = "Annotation", value = as.character(anno$Annotation))
   # net <- igraph::set_vertex_attr(net, "mz") <- as.character(x$Var1_mz)
   fl <- paste(file, ".gml", sep="")
   igraph::write_graph(net, file = fl, format = c("gml"))
