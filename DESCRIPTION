@@ -1,6 +1,6 @@
 Package: MetClassNetR
 Title: Access, analysis and networking of Metabolomics Data
-Version: 0.0.0.9010
+Version: 0.0.1
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -14,7 +14,7 @@ Author: Colin A. Smith <csmith@scripps.edu>,
     Steffen Neumann <sneumann@ipb-halle.de>,
     Michael Witting <michael.witting@helmholtz-muenchen.de>
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
-Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
+Description: MetClassNetR collects a tool set for integrating metabolomics data a network system.
 Depends:
     Spectra (>= 0.5.0),
     nontarget,
@@ -23,16 +23,20 @@ Depends:
     mpmi,
     QFeatures
 Imports:
-    methods    
+    methods
 Suggests:
     testthat,
     knitr (>= 1.1.0),
     roxygen2,
     BiocStyle (>= 2.5.19),
-    rmarkdown
+    rmarkdown,
+    ggraph, VennDiagram, ontologyIndex,
+    rcdk
 Remotes:
    RforMassSpectrometry/Spectra,
-   sneumann/MsBackendMsp
+   sneumann/MsBackendMsp,
+   aberHRML/classyfireR,
+   CDK-R/rinchi
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
