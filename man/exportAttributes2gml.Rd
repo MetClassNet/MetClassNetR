@@ -4,10 +4,10 @@
 \alias{exportAttributes2gml}
 \title{Create a network and export to gml from adjacency list}
 \usage{
-exportAttributes2gml(x, file, select = F, names, ...)
+exportAttributes2gml(x, file, select = F, anno, ...)
 }
 \arguments{
-\item{x}{\code{data.frame} adjacency list having \code{Var1} and \code{Var2} in the first
+\item{x}{\code{data.frame} adjacency list having \code{Row} and \code{Col} in the first
 two columns and additional (edge) attributes in following columns.}
 
 \item{file}{\code{character}, the name which the gml should have, e.g. "mz"
