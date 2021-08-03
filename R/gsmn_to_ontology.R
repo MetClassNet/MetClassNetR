@@ -30,12 +30,13 @@
 #'@return A csv file giving the most detailed classification per compound.
 #'
 #'@author Sarah Scharfenberg
+#'@export
 #'
 #'@examples
+#'\dontrun{
 #'file <- system.file("extdata/Example_Coverage/iHY3410_Compound-SBtab.tsv", package = "MetClassNetR")
 #'gsmn_to_ontology(file,"chemont", delay=10)
-#'
-#'@export
+#'}
 #'
 gsmn_to_ontology <- function(file=NULL,
                              ontology = "chemont",
