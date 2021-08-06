@@ -1,0 +1,39 @@
+---
+title: "Data preparation for neo4j"
+author: "Sarah Scharfenberg"
+date: "4 8 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message=FALSE}
+remove.packages("classyfireR", lib="~/R/x86_64-pc-linux-gnu-library/4.0")
+remotes::install_github('Flow191/classyfireR', build_vignettes = TRUE)
+
+library(classyfireR)
+
+```
+
+## Prepare GSMN
+
+```{r, message=FALSE}
+file <- system.file("extdata/Example_Coverage/iHY3410_Compound-SBtab.tsv", package = "MetClassNetR")
+
+conn <- classyfireR::open_cache("/home/sscharfe/R packages/MetClassNetR/20210804_classyfireR.db")
+
+start <- Sys.time()
+network_tibble_2 <- gsmn_to_ontology(file,"chemont", conn=conn)
+end <- Sys.time()
+print(paste0( "Lasted ",end-start))
+#Time difference of 3.012151 hours
+#Time difference of 2.97866 hours
+```
+
+
+
+## Prepare Dataset
+

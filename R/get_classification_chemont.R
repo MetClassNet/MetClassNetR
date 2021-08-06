@@ -1,8 +1,8 @@
-get_classification_chemont <- function(network_tibble, delay = 0){
+get_classification_chemont <- function(network_tibble, delay = 0, conn=NULL){
 
   net_classes <- sapply(network_tibble$Identifiers.inchikey,function(ik){
     Sys.sleep(delay)
-    classific <- eval(classyfireR::get_classification(ik))
+    classific <- eval(classyfireR::get_classification(ik,conn=conn))
     if(!is.null(classific)){return(classific@classification)}
     return(NULL)
   })
