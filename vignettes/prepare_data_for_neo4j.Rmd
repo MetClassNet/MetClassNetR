@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #remotes::install_github('Flow191/classyfireR', ref="devel",build_vignettes = TRUE)
 
 library(classyfireR)
-conn <- classyfireR::open_cache("/home/sscharfe/R packages/MetClassNetR/20210804_classyfireR.db")
+conn <- classyfireR::open_cache("20210804_classyfireR.db")
 
 library(MetClassNetR)
 library(dplyr)
