@@ -138,7 +138,6 @@ qfeat_structural <- function(x, assay_name = "features", ...) {
 #' @export
 qfeat_statistical <- function(x, assay_name = "features", ...) {
 
-  feat_int[is.nan(feat_int)] <- 0
   feat_int <- as.matrix(assay(x[[assay_name]]))
 
   MetNet::statistical(feat_int, ...)
