@@ -17,7 +17,6 @@ Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
 Depends:
     Spectra (>= 0.5.0),
-    nontarget,
     MSnbase,
     MetNet (>= 1.11.4)
 Imports:
