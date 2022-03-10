@@ -4,7 +4,7 @@ output:
     BiocStyle::html_document:
         toc_float: true
 vignette: >
-    %\VignetteIndexEntry{Description and usage of Description and usage of genedataRutils}
+    %\VignetteIndexEntry{Description and usage of Description and usage of MetClassNetR}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
     %\VignettePackage{Spectra}
@@ -28,12 +28,16 @@ XXX (Description of MTBLS1586)
 ## Load required libries
 
 <code>MetClassNetR</code> integrates functions from different libraries.
-Install current version of <code>MetClassNetR</code> and additional <code>MetNet</code> functions from developmental branches. After Installation re-load R and load required libraries.
+Install current version of <code>MetClassNetR</code> and additional 
+<code>MetNet</code> functions from developmental branches. After 
+Installation re-load R and load required libraries.
 
 ```{r libraries, message=FALSE, warning=FALSE}
 # installation of additional packages
-#devtools::install_github("tnaake/MetNet") # note: Re-load R studio after installation
-devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") # note: Re-load R studio after installation
+#devtools::install_github("tnaake/MetNet") 
+# note: Re-load R studio after installation
+devtools::install_github("MetClassNet/MetClassNetR", 
+                         ref = "devel_liesa") 
 
 # load required libraries
 library(tidyverse)
@@ -45,19 +49,26 @@ library(MsCoreUtils)
 library(MsBackendMgf)
 library(igraph)
 library(tibble)
-library(visNetwork) # for visNetwork() and friends
-library(networkD3)  # for saveNetwork()
+library(easyGgplot2)
+# library(visNetwork) # for visNetwork() and friends
+# library(networkD3)  # for saveNetwork()
 ```
 
 ## Reading of MS1 data
 
-MS1 data is read from Metabolights MAF or mzTab-M files into a <code>QFeatures</code>
-object. Information about the mass-to-charge (mz) ratio and retention times (RT) were extracted from the MAF/ mzTab-M file and stored into the <code>QFeatures</code>-object. The data from positive and negative ionization mode are stored in two different <code>QFeatures</code>-objects. 
+MS1 data is read from Metabolights MAF or mzTab-M files into a 
+<code>QFeatures</code> object. Information about the mass-to-charge 
+(mz) ratio and retention times (RT) were extracted from the MAF/ mzTab-M 
+file and stored into the <code>QFeatures</code>-object. The data from 
+positive and negative ionization mode are stored in two different 
+<code>QFeatures</code>-objects. 
 
 ```{r ms1, message=FALSE}
 # Metabolights MAF files
-pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
-neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", package = "MetClassNetR")
+pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", 
+                       package = "MetClassNetR")
+neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", 
+                       package = "MetClassNetR")
 
 # create QFeature object
 mtbls1586_qf_pos <- readMaf(file(pos_maf),
@@ -80,8 +91,10 @@ MS2 data is read from a .mgf or .msp file into a <code>Spectra</code> object.
 
 ```{r ms2, message=FALSE, warning=FALSE}
 # get MS2 data in .mgf files
-pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
-neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf", package = "MetClassNetR")
+pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf", 
+                       package = "MetClassNetR")
+neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf", 
+                       package = "MetClassNetR")
 
 # load MS2 data 
 ms2_spectra_pos <- Spectra::Spectra(pos_mgf,
@@ -105,7 +118,10 @@ checkSpectra(ms2_spectra_neg)
 checkSpectra(ms2_spectra_pos)
 ```
 
-<code>checkIDNamespace</code> sanity check will fail if Ids between <code>QFeatures</code> and <code>Spectra</code> are not matching.Therefore, MS2 spectra can be filled with empty spectra to have a complete list of spectra for all the features.
+<code>checkIDNamespace</code> sanity check will fail if Ids between 
+<code>QFeatures</code> and <code>Spectra</code> are not matching.Therefore, 
+MS2 spectra can be filled with empty spectra to have a complete list of spectra 
+for all the features.
 
 ```{r}
 # fill spectra
@@ -120,12 +136,22 @@ checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 
 ## Reading of transformation file
 
-The mass-difference network is calculated using the <code>MetNet</code> package. Here, all calculated mass-differences between all pairs of features are compared to a transformation-list, containing different biochemical reactions and their corresponding mass difference. Required columns are "group" and "mass". Additional columns as "formula" can be added.
-The transformation-list needs to be provided by the user. An example can be found in the system files. 
+The mass-difference network is calculated using the <code>MetNet</code> 
+package. Here, all calculated mass-differences between all pairs of features 
+are compared to a transformation-list, containing different biochemical 
+reactions and their corresponding mass difference. Required columns are 
+"group" and "mass". Additional columns as "formula" can be added.
+The transformation-list needs to be provided by the user. An example 
+can be found in the system files. 
 
 ```{r transformation}
-transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", package = "MetClassNetR")
-transformations <- read_csv(transformations_file, col_names = TRUE) %>% as.data.frame()
+transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", 
+                                    package = "MetClassNetR")
+
+transformations <- read_csv(transformations_file, 
+                            col_names = TRUE) %>% 
+  as.data.frame()
+
 transformations[1:5,]
 ```
 
@@ -137,7 +163,8 @@ ZZZ
 
 ## Setup for networks
 
-The <code>master</code>-list will contain all types of experimental networks that have been created in this workflow. 
+The <code>master</code>-list will contain all types of experimental 
+networks that have been created in this workflow. 
 
 ```{r}
 master <- list()
@@ -146,7 +173,16 @@ master <- list()
 # Analysis
 
 ## Mass difference Network
-The mass-difference network is calculated using the <code>MetNet</code> package. All mass-differences between all pairs of features are calculated and are compared to the <code>transformation</code>-list. This <code>transformation</code>-list contains different biochemical reactions and their corresponding mass difference. Only if the mass-difference between two features matches to a mass-difference in the transformation file, within a certain <code>ppm</code>-range, it will be displayed. Different to the original <code>MetNet</code>-functions, not only the name of the mass-difference but also the value itself will be displayed as output adjacency matrix.
+The mass-difference network is calculated using the <code>MetNet</code> 
+package. All mass-differences between all pairs of features are calculated 
+and are compared to the <code>transformation</code>-list. This 
+<code>transformation</code>-list contains different biochemical reactions 
+and their corresponding mass difference. Only if the mass-difference 
+between two features matches to a mass-difference in the transformation 
+file, within a certain <code>ppm</code>-range, it will be displayed. 
+Different to the original <code>MetNet</code>-functions, not only the 
+name of the mass-difference but also the value itself will be displayed 
+as output adjacency matrix.
 The adjacency matrix will be than transformed to a <code>data.frame</code>. 
 
 ```{r mass_difference}
@@ -154,26 +190,32 @@ The adjacency matrix will be than transformed to a <code>data.frame</code>.
 massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos",
                              transformation = transformations,
+                             var = c("group", "formula", "mass"),
                              ppm = 10)
 
 # Create data.frame of adjacency matrix
 massdiff_df <- as.data.frame(massdiff)
+massdiff_df <- massdiff_df[massdiff_df$binary == 1, ]
   
 massdiff_df[5:10,]
 ```
 
-A summary of the current data-set on the present mass-difference distribution is provided using the <code>summary_mz</code>-function. This function stores the summary as data.frame, which is also plotted. Depending on the size of the data, it might be useful to <code>filter</code> the number of determined mass-differences, e.g. by 1000 counts.
+A summary of the current data-set on the present mass-difference 
+distribution is provided using the <code>summary_mz</code>-function. 
+This function stores the summary as data.frame, which is also plotted. 
+Depending on the size of the data, it might be useful to <code>filter</code> 
+the number of determined mass-differences, e.g. by 1000 counts.
 
 ```{r}
 # Summary of the list
-mz_sum <- mz_summary(massdiff)
+mz_sum <- mz_summary(massdiff, var = "group")
 
 
 # for big data: filter for counts e.g. higher 1000
-sum_mz_f <- mz_summary(massdiff, filter = 1000)
+sum_mz_f <- mz_summary(massdiff, filter = 1000, var = "group")
 
 # some visualizations
-mz_vis(sum_mz_f)
+mz_vis(sum_mz_f, var = "group")
 
 # append mass difference network
 master <- c(master, massdiff)
@@ -182,7 +224,15 @@ master <- c(master, massdiff)
 
 
 ## Add annotatation 
-A <code>QFeatures</code>-object stores various information on LC-MS/MS data. Also, annotations and possible database identifiers are present in a <code>QFeatures</code>-object. In order to add the annotations to the adjacency-list, <code>qfeat_annotation</code> is applied. It extracts the annotations, if any present, and adds them to the desired adjacency-list, for example the list from the mass-difference network. In order to check if the annotations match the mass-difference, a filter is applied so that only features remains that have annotations in both features. 
+A <code>QFeatures</code>-object stores various information on LC-MS/MS 
+data. Also, annotations and possible database identifiers are present 
+in a <code>QFeatures</code>-object. In order to add the annotations to 
+the adjacency-list, <code>qfeat_annotation</code> is applied. It extracts 
+the annotations, if any present, and adds them to the desired 
+adjacency-list, for example the list from the mass-difference network. 
+In order to check if the annotations match the mass-difference, a filter 
+is applied so that only features remains that have annotations in both 
+features. 
 
 ```{r manual_annotation}
 # Add annotations to mass-difference adjacency matrix
@@ -194,7 +244,8 @@ rowData(massdiff)["Cluster_3201", ]
 massdiff_anno <- as.data.frame(rowData(massdiff))
 
 # Filter for present annotations
-anno_filter <- filter(massdiff_anno, massdiff_anno$metabolite_identification != "")
+anno_filter <- filter(massdiff_anno, 
+                      massdiff_anno$metabolite_identification != "")
 anno_filter[25:30,]
 
 ```
@@ -202,19 +253,54 @@ anno_filter[25:30,]
 
 ## Correlation network
 
-Correlation networks will be calculated using functionality from the <code>MetNet</code> package. <code>qfeat_statistical</code> uses the <code>QFeatures</code>-Object as input and extracts the feature intensity in order to calculate correlations from the <code>statistical</code>-funtcion from <code>MetNet</code>. <code>MetNet</code> implemented various models that can be applied to calculate correlations, e.g. pearson, spearman, partial-pearson, and many more which might also be selected. After generating the correlation adjacency-matrix, it will also be transformed to a <code>data.frame</code> 
+Correlation networks will be calculated using functionality from 
+the <code>MetNet</code> package. <code>qfeat_statistical</code> 
+uses the <code>QFeatures</code>-Object as input and extracts the 
+feature intensity in order to calculate correlations from the 
+<code>statistical</code>-function from <code>MetNet</code>. 
+<code>MetNet</code> implemented various models that can be applied 
+to calculate correlations, e.g. pearson, spearman, partial-pearson, 
+and many more which might also be selected. After generating the 
+correlation adjacency-matrix, it will also be transformed to a 
+<code>data.frame</code> 
 
 ```{r correlation, warning=FALSE, error=FALSE}
-# Correlation network using pearson and spearman correlation
-pears_corr <- qfeat_statistical(x = mtbls1586_qf_pos,
-                             assay_name = "mtbls1586_pos", 
-                                model = c("pearson"))
+# Correlation network using partial pearson and GGM correlation
+corr <- qfeat_statistical(x = mtbls1586_qf_pos, 
+                                assay_name = "mtbls1586_pos", 
+                                model = c("pearson_partial", "ggm"),
+                                na.omit = TRUE,
+                                p.adjust = "BH")
 
 # Create data.frame from correlation adjacency matrix 
-pears_df <- as.data.frame(pears_corr)
-pears_df[25:30,]
+corr_df <- as.data.frame(corr)
+corr_df[25:30,]
 
-master <- c(master, pears_corr)
+master <- c(master, corr)
+
+## plots to view the distribution of correlations 
+corr_fl <- data.frame(coef = c(corr_df$pearson_partial_coef,
+                              corr_df$ggm_coef),
+                     group = c(rep("pearson_partial", nrow(corr_df)),
+                               rep("ggm", nrow(corr_df)))
+                     )
+
+plot <- ggplot2.histogram(data=corr_fl, xName='coef',
+                  groupName='group', legendPosition="right",
+                  alpha=0.5, binwidth=0.01,
+                  brewerPalette="Paired",
+                  addMeanLine=TRUE,  meanLineSize=1)
+
+plot_custom <-ggplot2.customize(plot, xtitle="Correlation coefficient", 
+                                ytitle="Count",
+                        showLegend=TRUE, axisLine=c(0.5, "solid", "black"),
+                        addDensity=TRUE, removePanelBorder=TRUE, 
+                        backgroundColor="white", 
+                        mainTitle="Correlation coefficient")   
+
+plot_custom
+
+
 ```
 
 
@@ -243,29 +329,62 @@ homol <- qfeat_homol(x = mtbls1586_qf_pos,
 
 ## MS2 similarity network
 
-Spectral similarity network is created using some example spectra.
+Spectral similarity network is created using positive MS2 spectra.
 
 ```{r ms2_network}
-# costum matching function
-#specNrow <-  function(x, y, ...) nrow(x)
+tolerance = 0.02
+ppm = 0
 
-# this is work around until Spectra is getting fixed
-mydotproduct <- function(x, y, type = NA, ...) MsCoreUtils::ndotproduct(x, y, ...)
+# filter ms2 spectra 
+filter <- TRUE
+my_filter <- function(x) {
+  x > max(x, na.rm = TRUE) / 10
+}
 
-# test with some example spectra
-ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
-                                  methods = "mydotproduct",
-                                  tolerance = 0.005,
-                                  type = "inner")
 
-ms2_similarity_df <- spec_df(ms2_similarity)
+ms2_spectra_pos <- filterIntensity(ms2_spectra_pos, my_filter)
+
+
+GNPS_score <- compareSpectra(ms2_spectra_pos,
+                             MAPFUN = joinPeaksGnps,
+                             FUN = MsCoreUtils::gnps,
+                             tolerance = tolerance,
+                             ppm = ppm, 
+                             type = "inner")
+
+
+colnames(GNPS_score) <- ms2_spectra_pos$id
+rownames(GNPS_score) <- ms2_spectra_pos$id
+
+spect_adj <- addSpectralSimilarity(am_structural = massdiff, 
+                                   ms2_similarity = list("GNPS_score" = GNPS_score))
+
+# # costum matching function
+# #specNrow <-  function(x, y, ...) nrow(x)
+# 
+# # this is work around until Spectra is getting fixed
+# mydotproduct <- function(x, y, type = NA, ...) 
+#   MsCoreUtils::ndotproduct(x, y, ...)
+# 
+# # test with some example spectra
+# ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
+#                                   methods = "mydotproduct",
+#                                   tolerance = 0.005,
+#                                   type = "inner")
+# 
+# ms2_similarity_df <- spec_df(ms2_similarity)
 
 ```
 
 
 # Export networks to gml format 
 
-Created networks are exported and saved as .gml file in the current working-directory. Feature Ids will be stored as additional name in node attributes. All the other information from the adjacency-lists will be stores as edge-attributes. It might also be defined which columns of the adjacency-list should be stored, by using the <code>select</code> option in the <code>exportNet2gml</code>-function.
+Created networks are exported and saved as .gml file in the current 
+working-directory. Feature Ids will be stored as additional name in 
+node attributes. All the other information from the adjacency-lists 
+will be stores as edge-attributes. It might also be defined which 
+columns of the adjacency-list should be stored, by using the 
+<code>select</code> option in the <code>exportNet2gml</code>-function.
 
 ```{r export2gml, eval=FALSE}
 ## Mass-difference network to gml
@@ -282,7 +401,11 @@ exportNet2gml(x = ms2_similarity_df[1:10,], file = "similarity")
 
 ```
 
-Additionally, attributes may be exported as .gml attribute-file using <code>exportAttributes2gml</code>. Edge attributes are prepared by merging the adjacency-lists from mass-difference and correlation-networks. Node attributes are generated by extraction additional information as annotation, mz, and RT values from the <code>QFeatures</code>-object. 
+Additionally, attributes may be exported as .gml attribute-file using 
+<code>exportAttributes2gml</code>. Edge attributes are prepared by 
+merging the adjacency-lists from mass-difference and correlation-networks. 
+Node attributes are generated by extraction additional information as 
+annotation, mz, and RT values from the <code>QFeatures</code>-object. 
 
 ```{r, eval=FALSE}
 # Create and export attribute file 
@@ -295,7 +418,8 @@ colnames(feat_anno) <- c("Annotation", "mz", "RT")
 
   
 # note: only first 10 features are exported
-exportAttributes2gml(attributes[1:10,], file = "attributes_mtbls1586_pos", anno = feat_anno)
+exportAttributes2gml(attributes[1:10,], file = "attributes_mtbls1586_pos", 
+                     anno = feat_anno)
 ```
 
 Export of homologous series

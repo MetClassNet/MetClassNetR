@@ -4,7 +4,7 @@
 \alias{qfeat_statistical}
 \title{Create a list of correlation matrices from QFeatures input}
 \usage{
-qfeat_statistical(x, assay_name = "features", ...)
+qfeat_statistical(x, assay_name = "features", na.omit = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{QFeatures} file
