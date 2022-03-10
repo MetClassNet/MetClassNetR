@@ -40,16 +40,12 @@ devtools::install_github("MetClassNet/MetClassNetR",
                          ref = "devel_liesa") 
 
 # load required libraries
-library(tidyverse)
-library(MetNet)
 library(MetClassNetR)
-library(QFeatures)
 library(Spectra)
 library(MsCoreUtils)
 library(MsBackendMgf)
-library(igraph)
-library(tibble)
 library(easyGgplot2)
+library(nontarget)
 # library(visNetwork) # for visNetwork() and friends
 # library(networkD3)  # for saveNetwork()
 ```
@@ -132,13 +128,10 @@ for all the features.
 # # fill spectra
 # ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
 # ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
-
-rowData(QFeatures[[1]])
-
-genedatarutils::
-# check namespace 
-checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
-checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
+# 
+# # check namespace 
+# checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
+# checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
 ```
 
 
@@ -157,7 +150,7 @@ transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586
                                     package = "MetClassNetR")
 
 transformations <- read_csv(transformations_file, 
-                            col_names = TRUE) %>% 
+                            col_names = TRUE) |> 
   as.data.frame()
 
 transformations[1:5,]
@@ -197,11 +190,11 @@ The adjacency matrix will be than transformed to a <code>data.frame</code>.
 massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos",
                              transformation = transformations,
-                             var = c("group", "formula", "mass"),
+                             var = c("Name", "Formula difference", "mass"),
                              ppm = 10)
 
 # Create data.frame of adjacency matrix
-massdiff_df <- as.data.frame(massdiff) %>% 
+massdiff_df <- as.data.frame(massdiff) |> 
   filter(binary == 1)
 
 massdiff_df[5:10,]
@@ -313,20 +306,17 @@ ABC
 
 
 ```{r homolseries}
-library(nontarget)
-library(igraph)
-
-homol <- qfeat_homol(x = mtbls1586_qf_pos,
-                             assay_name = "mtbls1586_pos",
-                      elements=c("C","H","O"), use_C=TRUE,
-                      minmz=5, 	maxmz=50,
-                      minrt=5,  maxrt=60,
-                      ppm=TRUE,
-                      mztol=5,  rttol=5,
-                      minlength=4,
-                      mzfilter=FALSE,
-                      spar=.45, 	R2=.98,
-                      plotit=FALSE)
+# homol <- qfeat_homol(x = mtbls1586_qf_pos,
+#                              assay_name = "mtbls1586_pos",
+#                       elements=c("C","H","O"), use_C=TRUE,
+#                       minmz=5, 	maxmz=50,
+#                       minrt=5,  maxrt=60,
+#                       ppm=FALSE,
+#                       mztol= 0.005,  rttol=5,
+#                       minlength=4,
+#                       mzfilter=FALSE,
+#                       spar=.45, 	R2=.98,
+#                       plotit=FALSE)
 ```
 
 
@@ -341,42 +331,29 @@ ppm = 0
 # filter ms2 spectra 20 % of intensity
 filter <- TRUE
 my_filter <- function(x) {
-  x > max(x, na.rm = TRUE) / 20
+  x > max(x, na.rm = TRUE) / 10
 }
 
 
 ms2_spectra_pos <- filterIntensity(ms2_spectra_pos, my_filter)
 
-
-GNPS_score <- compareSpectra(ms2_spectra_pos,
+## to speed up calculations: only use 50 spectra for spectral similarity
+spect <- spec_molNetwork(ms2_spectra_pos[1:50],
                              MAPFUN = joinPeaksGnps,
-                             FUN = MsCoreUtils::gnps,
+                             methods = "gnps",
                              tolerance = tolerance,
                              ppm = ppm, 
                              type = "inner")
 
 
-colnames(GNPS_score) <- ms2_spectra_pos$id
-rownames(GNPS_score) <- ms2_spectra_pos$id
-
 spect_adj <- addSpectralSimilarity(am_structural = massdiff, 
-                                   ms2_similarity = list("GNPS_score" = GNPS_score))
+                                   ms2_similarity = spect)
 
-# # costum matching function
-# #specNrow <-  function(x, y, ...) nrow(x)
-# 
-# # this is work around until Spectra is getting fixed
-# mydotproduct <- function(x, y, type = NA, ...) 
-#   MsCoreUtils::ndotproduct(x, y, ...)
-# 
-# # test with some example spectra
-# ms2_similarity <- spec_molNetwork(ms2_spectra_pos[1:50],
-#                                   methods = "mydotproduct",
-#                                   tolerance = 0.005,
-#                                   type = "inner")
-# 
-# ms2_similarity_df <- spec_df(ms2_similarity)
+# Create data.frame of adjacency matrix
+spect_df <- as.data.frame(spect_adj) |> 
+  filter(!is.na(gnps))
 
+master <- c(master, spect_adj)
 ```
 
 
@@ -400,7 +377,8 @@ exportNet2gml(x = pears_df[1:10,], file = "pears")
 
 ## Spectral similarity network2gml
 # note: only first 10 features are exported
-exportNet2gml(x = ms2_similarity_df[1:10,], file = "similarity")
+exportNet2gml(x = spect_df[1:10,], file = "similarity", 
+              select = c("gnps"))
 
 ```
 
@@ -412,7 +390,7 @@ annotation, mz, and RT values from the <code>QFeatures</code>-object.
 
 ```{r, eval=FALSE}
 # Create and export attribute file 
-attributes <- merge(pears_df, massdiff_df, by = c("Row", "Col"))
+attributes <- merge(corr_df, massdiff_df, by = c("Row", "Col"))
 
 # Prepare annotation file 
 feat_anno <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
@@ -427,12 +405,12 @@ exportAttributes2gml(attributes[1:10,], file = "attributes_mtbls1586_pos",
 
 Export of homologous series
 ```{r graph_export}
-## Does not work yet?? 
-# el <- as_tibble(homol[["Peaks in homologue series"]]) %>%
-#     filter(`to ID` != "0") %>% select (c("peak ID", "to ID",
+# 
+# el <- as_tibble(homol[["Peaks in homologue series"]]) |>
+#     filter(`to ID` != "0") |> select (c("peak ID", "to ID",
 #                                          "m/z increment", "RT increment"))
 # 
-# g <- el %>% select (c("peak ID", "to ID")) %>% as.matrix %>% graph_from_edgelist
+# g <- el |> select (c("peak ID", "to ID")) |> as.matrix |> graph_from_edgelist 
 # 
 # ## Write to File
 # write_graph(g, "/tmp/g.gml", "gml")

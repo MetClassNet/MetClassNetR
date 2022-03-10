@@ -235,8 +235,6 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   homol <- nontarget::homol.search(peaklist,
                                    isotopes,
                                    ...)
-
-  #(4.2) Plot results
   if(plot) {
 
     nontarget::plothomol(homol,
@@ -247,5 +245,13 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   }
 
   homol
+  # ## assign rownames to homol
+  # rownames(homol[[1]]) <- rownames(feat_int)
+  #
+  # df <- homol[[1]] |>
+  #   filter(`to ID` != "0") |>
+  #   select (c("peak ID", "to ID", "m/z increment", "RT increment"))
+  #
+  # df %>% separate_rows(`to ID`, `m/z increment`, `RT increment`)
 
 }
