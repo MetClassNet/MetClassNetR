@@ -53,6 +53,11 @@ library(easyGgplot2)
 # library(visNetwork) # for visNetwork() and friends
 # library(networkD3)  # for saveNetwork()
 ```
+## Parallelization 
+Parallelization can be done to speed up calculations. 
+```{r}
+register(bpstart(SnowParam(4, progressbar = TRUE)))
+```
 
 ## Reading of MS1 data
 
@@ -124,10 +129,13 @@ MS2 spectra can be filled with empty spectra to have a complete list of spectra
 for all the features.
 
 ```{r}
-# fill spectra
-ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
-ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
+# # fill spectra
+# ms2_spectra_neg <- fillSpectra(mtbls1586_qf_neg, ms2_spectra_neg)
+# ms2_spectra_pos <- fillSpectra(mtbls1586_qf_pos, ms2_spectra_pos)
 
+rowData(QFeatures[[1]])
+
+genedatarutils::
 # check namespace 
 checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
 checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
@@ -154,7 +162,6 @@ transformations <- read_csv(transformations_file,
 
 transformations[1:5,]
 ```
-
 
 
 ## Quality check of input
@@ -194,9 +201,9 @@ massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
                              ppm = 10)
 
 # Create data.frame of adjacency matrix
-massdiff_df <- as.data.frame(massdiff)
-massdiff_df <- massdiff_df[massdiff_df$binary == 1, ]
-  
+massdiff_df <- as.data.frame(massdiff) %>% 
+  filter(binary == 1)
+
 massdiff_df[5:10,]
 ```
 
@@ -207,11 +214,7 @@ Depending on the size of the data, it might be useful to <code>filter</code>
 the number of determined mass-differences, e.g. by 1000 counts.
 
 ```{r}
-# Summary of the list
-mz_sum <- mz_summary(massdiff, var = "group")
-
-
-# for big data: filter for counts e.g. higher 1000
+# Summary & filter for counts e.g. higher 1000
 sum_mz_f <- mz_summary(massdiff, filter = 1000, var = "group")
 
 # some visualizations
@@ -332,13 +335,13 @@ homol <- qfeat_homol(x = mtbls1586_qf_pos,
 Spectral similarity network is created using positive MS2 spectra.
 
 ```{r ms2_network}
-tolerance = 0.02
+tolerance = 0.005
 ppm = 0
 
-# filter ms2 spectra 
+# filter ms2 spectra 20 % of intensity
 filter <- TRUE
 my_filter <- function(x) {
-  x > max(x, na.rm = TRUE) / 10
+  x > max(x, na.rm = TRUE) / 20
 }
 
 

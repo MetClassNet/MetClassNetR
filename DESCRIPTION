@@ -8,11 +8,11 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-7899-7192")),
            person(given = "Michael", family = "Witting",
            email = "michael.witting@helmholtz-muenchen.de",
+           role = "ctb"),
+           person(given = "Liesa", family = "Salzer",
+           email = "liesa.salzer@helmholtz-muenchen.de",
            role = "ctb")
            )
-Author: Colin A. Smith <csmith@scripps.edu>,
-    Steffen Neumann <sneumann@ipb-halle.de>,
-    Michael Witting <michael.witting@helmholtz-muenchen.de>
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
 Depends:
@@ -26,7 +26,8 @@ Suggests:
     knitr (>= 1.1.0),
     roxygen2,
     BiocStyle (>= 2.5.19),
-    rmarkdown
+    rmarkdown,
+    easyGgplot2
 Remotes:
    RforMassSpectrometry/Spectra,
    sneumann/MsBackendMsp
