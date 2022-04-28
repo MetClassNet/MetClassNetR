@@ -139,7 +139,7 @@ qfeat_structural <- function(x, assay_name = "features", ...) {
 qfeat_statistical <- function(x, assay_name = "features",
                               na.omit = FALSE, ...) {
 
-   feat_int <- as.matrix(assay(x[[assay_name]]))
+  feat_int <- as.matrix(assay(x[[assay_name]])) %>% log()
 
   if (na.omit == TRUE) {
     feat_int <- feat_int %>% na.omit() %>% as.matrix()
