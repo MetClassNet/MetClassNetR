@@ -847,7 +847,7 @@ graph
 	node
 	[
 		id 125
-		label "M_pail_c"
+		label "M_1ac2acg3pi_c"
 		Formula "C11H17O13PR2"
 		Name "Phosphatidylinositol"
 	]
@@ -2441,7 +2441,7 @@ graph
 	node
 	[
 		id 361
-		label "M_tag_c"
+		label "M_1ac2ac3acglyc_c"
 		Formula "C6H5O6R3"
 		Name "triacylglycerol"
 	]
@@ -3703,7 +3703,7 @@ graph
 	node
 	[
 		id 547
-		label "M_12dag_c"
+		label "M_1ac2acglyc_c" 
 		Formula "C5H6O5R2"
 		Name "1,2-diacylglycerol"
 	]
@@ -3724,7 +3724,7 @@ graph
 	node
 	[
 		id 550
-		label "M_arachd_c"
+		label "M_eicostet_c"
 		Formula "C20H31O2"
 		Name "arachidonate"
 	]
@@ -4425,7 +4425,7 @@ graph
 	node
 	[
 		id 653
-		label "M_pchol_c"
+		label "M_1ac2acg3pc_c"
 		Formula "C10H18NO8PR2"
 		Name "Phosphatidylcholine"
 	]
@@ -6340,7 +6340,7 @@ graph
 	node
 	[
 		id 936
-		label "M_pe_BAC_c"
+		label "M_1ac2acg3pe_BAC_c"
 		Name "Phosphatidylethanolamine (bacteria)"
 	]
 	node
@@ -6784,7 +6784,7 @@ graph
 	node
 	[
 		id 1002
-		label "M_pe_c"
+		label "M_1ac2acg3pe_c"
 		Formula "C7H12NO8PR2"
 		Name "Phosphatidylethanolamine"
 	]
@@ -7994,7 +7994,7 @@ graph
 	node
 	[
 		id 1179
-		label "M_2agpc_c"
+		label "M_2acg3pc_c"
 		Formula "C9H20NO7PR"
 		Name "1-lysophosphatidylcholine"
 	]
