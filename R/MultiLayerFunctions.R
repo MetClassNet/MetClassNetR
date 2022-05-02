@@ -13,6 +13,7 @@ library(muxViz)
 library(ggplot2)
 library(stringr)
 library(reticulate)
+library(RCy3)
 
 # Function to load the input data, i.e., the files needed to build the networks
 # INPUTS:
@@ -508,3 +509,200 @@ MakeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   return()
 }
+
+
+
+# Function to save the list of edges and nodes from the multi-layer network
+# to visualize it in Cytoscape
+# INPUTS:
+#   inputData  - list containing all the input data
+#   multiLayer - list containing the multi-layer network
+#   visualize  - if == TRUE, the multi-layer layer will be visualized in
+#                Cytoscape (NOTE. Cytoscape needs to be open). The default
+#                value is FALSE
+# OUTPUT: nothing, but it generates files with the list of nodes, edges, and
+#         the Cytoscape visualization (if visualize == TRUE)
+SaveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
+  # get list of edges
+  allEdges <- GetEdgeList(multiLayer)
+
+  # save list of edges
+  write.csv(
+    allEdges,
+    paste0(inputData$resPath, "MultiLayer4Cytoscape_EdgeList.csv"),
+    row.names = FALSE,
+    quote = FALSE
+    )
+
+  # get list of nodes
+  allNodes <- GetNodeList(multiLayer)
+
+  # save list of nodes
+  write.csv(
+    allNodes,
+    paste0(inputData$resPath, "MultiLayer4Cytoscape_NodeList.csv"),
+    row.names = FALSE,
+    quote = FALSE
+    )
+
+  if (visualize == TRUE) {
+    CytoscapeVisualization(allNodes, allEdges, inputData$resPath)
+  }
+
+  return()
+}
+
+
+
+# Function to get the list of edges in a multi-layer network
+# INPUT: multi-layer network
+# OUTPUT: list of edges, including inter-layer ones
+GetEdgeList <- function(multiLayer) {
+  allEdges <-
+    data.frame(
+      node1 = character(),
+      node2 = character(),
+      source = character()
+      )
+
+  # get edge list of all the networks and paste it in a single data frame
+  for (i in seq_len(length(multiLayer$layers))) {
+    # get edge list
+    edges <- as_edgelist(multiLayer$layers[[i]])
+
+    # add to general list
+    allEdges <-
+      rbind(
+        allEdges,
+        data.frame(
+          node1 = edges[, 1],
+          node2 = edges[, 2],
+          source =
+            paste(multiLayer$type[i], names(multiLayer$layers)[i], sep = "_")
+          )
+        )
+  }
+
+  # add inter-layer edges
+  allEdges <-
+    rbind(
+      allEdges,
+      data.frame(
+        node1 = multiLayer$interLayerEdges[, 1],
+        node2 = multiLayer$interLayerEdges[, 2],
+        source = "InterLayer"
+      )
+    )
+
+  return(allEdges)
+}
+
+
+
+# Function to get the list of nodes in a multi-layer network
+# INPUT: multi-layer network
+# OUTPUT: list of nodes
+GetNodeList <- function(multiLayer) {
+  # get types of layers
+  type <- unique(multiLayer$type)
+
+  # initialize empty variables
+  nodes <- list()
+  nodeType <- list()
+
+  # loop through the types of layers
+  for (t in type) {
+    # get nodes from current type
+    n <-
+      unique(
+        unlist(
+          lapply(
+            multiLayer$layers[multiLayer$type == t],
+            function(X) {
+              names(V(X))
+              }
+            )
+          )
+        )
+
+    # add nodes to the list
+    nodes <- c(nodes, n)
+
+    # add node type
+    nodeType <- c(nodeType, rep(t, length(n)))
+  }
+
+  # create data frame
+  allNodes <-
+    data.frame(
+      node = unlist(nodes),
+      nodeType = unlist(nodeType)
+    )
+
+  return(allNodes)
+}
+
+
+# Definition of a function to visualize in Cytoscape the subnetworks of the
+# experimental nodes that map to the same metabolite node in the GSMN.
+# NOTE. Cytoscape needs to be open
+# INPUTS:
+#   allNodes - list of nodes
+#   allEdges - list of edges
+# OUTPUT: None, but it generates a Cytoscape file with the visualization
+CytoscapeVisualization <- function(allNodes, allEdges, resPath) {
+  cytoscapePing() # verify that Cytoscape is launched
+  closeSession(save.before.closing = FALSE) # close any open session
+
+  # get inter-layer edges
+  inter <- allEdges[allEdges$source == "InterLayer", ]
+
+  # get nodes connected by inter-layer edges
+  nodesIL <- unique(c(inter$node1, inter$node2))
+
+  # initialize empty list
+  nodesILT <- list()
+
+  # loop to get nodes' types
+  for (t in unique(allNodes$nodeType)) {
+    # get all nodes of current type
+    n <- allNodes$node[allNodes$nodeType == t]
+
+    # get nodes connected by inter-layer edges from current type
+    nodesILT[[t]] <- nodesIL[nodesIL %in% n]
+  }
+
+  colnames(allNodes)
+
+
+  nodesILType <-
+    # generate network in Cytoscape
+    createNetworkFromDataFrames(Nodes, Network, title = d)
+
+    # read expression data
+    DE <- LoadedData$DE_results
+    if ("logFC" %in% colnames(DE)) {
+      DE$DEG <- ifelse(abs(DE$logFC) > 1 &
+                         DE$FDR < LoadedData$ThresholdDEG, TRUE, FALSE)
+    } else {DE$DEG <- ifelse(DE$FDR < LoadedData$ThresholdDEG, TRUE, FALSE)}
+
+    DE <- DE[!is.na(DE$gene), ] # remove rows with no gene name
+
+    # load expression data in cytoscape
+    loadTableData(data = DE, data.key.column = "gene", table = "node",
+                  table.key.column = "name", namespace = "default", network = d)
+
+    FormatNodesAndEdges(Network, d, LoadedData, DE) # add colors and borders
+
+    # creates the subnetworks corresponding the active modules
+    CreateActiveModules(d, ExpPath)
+
+    # verify if there are more exp to analyze to leave last one open
+    if (which(Dirs == d) < length(Dirs)) {
+      closeSession(save.before.closing = TRUE,
+                   filename = paste0(ExpPath, "A_Acc_PF_", d))
+    } else { saveSession(filename = paste0(ExpPath, "A_Acc_PF_", d)) }
+}
+
+
+
