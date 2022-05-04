@@ -17,17 +17,17 @@ library(RCy3)
 
 # Function to load the input data, i.e., the files needed to build the networks
 # INPUTS:
-# peakListF -  path to the TSV file that contains the peak list (one peak per
+#  peakListF - path to the TSV file that contains the peak list (one peak per
 #              row) in a MetaboLights-like format. The first row is the header
 #              (i.e., the list of columns' names). The file should contain at
-#              least 3 columns: "database_identifier" (ChEBI), "mass_to_charge",
-#              and "retention_time". It is to note that these column names are
-#              fixed. The TSV file can also contain intensity (or abundance)
-#              values. In this case, the column names are free (e.g., can be
-#              named after the samples), but no blank spaces are allowed and
-#              the first character must be a letter. In addition, all the
-#              abundances must be placed at the end of the table, i.e., in the
-#              last columns
+#              least 3 columns: "database_identifier" (ChEBI),
+#              "mass_to_charge", and "retention_time". It is to note that these
+#              column names are fixed. The TSV file can also contain intensity
+#              (or abundance) values. In this case, the column names are free
+#              (e.g., can be named after the samples), but no blank spaces are
+#              allowed and the first character must be a letter. In addition,
+#              all the abundances must be placed at the end of the table, i.e.,
+#              in the last columns
 #  intCol -    number of the first column containing the intensities or of the
 #              subset of columns to take the intensity values from. The default
 #              value is 23, as in all datasets available in MetaboLights
@@ -46,12 +46,11 @@ library(RCy3)
 #  resPath   - path to the folder where the results will be stored
 # OUTPUT:      named list containing all the data (peakList, spectra,
 #              transformations, and gsmn)
-LoadInputData <-
-  function (
-    peakListF, intCol = 23, net2Build = "all", transF, spectraF, gsmnF,
-    spectraSS = NULL, resPath
-    ) {
-  peakList <- readMaf(peakListF, ecol = intCol) # read peak list
+loadInputData <- function (peakListF, intCol = 23, net2Build = "all", transF,
+  spectraF, gsmnF, spectraSS = NULL, resPath) {
+
+  # read peak list
+  peakList <- readMaf(peakListF, ecol = intCol)
   data <- read_tsv(peakListF) # read peak list file
 
   # keep only identified metabolites
@@ -64,14 +63,24 @@ LoadInputData <-
 
   # check if sampling is to be done
   if (!is.null(spectraSS)) {
-    if (spectraSS < length(spectra)) { # sample size < current spectra size?
-      keep <- sample(seq_len(length(spectra)), spectraSS) # sample
+
+    # check if sample size < current spectra size
+    if (spectraSS < length(spectra)) {
+
+      # sample the fragmentation spectra
+      keep <- sample(seq_len(length(spectra)), spectraSS)
       spectra <- spectra[keep]
     }
   }
 
-  transformations <- read_csv(transF, col_names = TRUE) # read transformations
-  gsmn <- read_graph(gsmnF, format = "gml") # read GSMN
+  # read transformations
+  transformations <- read_csv(transF, col_names = TRUE)
+
+  # read GSMN
+  gsmn <- read_graph(gsmnF, format = "gml")
+
+  ############################################################# TO REMOVE ????
+  # remove compartments from the label of the nodes
   labels <-
     unlist(
       lapply(get.vertex.attribute(gsmn, "label"), function(X) {
@@ -80,6 +89,7 @@ LoadInputData <-
       }
       )
     )
+  # set the name of the metabolites
   gsmn <- set.vertex.attribute(gsmn, name = "name", value = labels)
 
   # sanity checks
@@ -87,7 +97,8 @@ LoadInputData <-
     stop(paste0("Bad peak list. Please check your file ", peakListF))
   } else if (!checkSpectra(spectra)) {
     stop(paste0("Bad spectra. Please check your file ", spectra))
-  } else { # if the sanity checks are OK, return the read data
+  } else {
+    # if the sanity checks are OK, return the read data
     return (
       list(
         peakList = peakList,
@@ -105,7 +116,7 @@ LoadInputData <-
 # Function to build experimental networks, based on spectral similarity,
 # correlation, and mass difference
 # INPUTS:
-#  inputData - list returned by the LoadInputData function
+#  inputData - list returned by the loadInputData function
 #  net2Build - list of experimental networks to build, according to the
 #              following options:
 #               "all" - generates 3 experimental networks: mass difference,
@@ -142,7 +153,7 @@ LoadInputData <-
 #              0.25 (i.e., at least 25% of correlation between the abundance
 #              values, either positive or negative)
 # OUTPUT: list of experimental networks as igraph objects
-BuildExpNet <-
+buildExpNet <-
   function(
     inputData, net2Build = "all", directed = FALSE, ppmMass = 10, ppmSpec = 0,
     tol = 0.005, corrModel = "pearson", corrThresh = 0.25) {
@@ -152,8 +163,9 @@ BuildExpNet <-
 
     # check if mass difference network is to be built
     if (any(c("m", "all") %in% net2Build)) {
+
       # build mass difference network
-      res <- BuildMassDiffNet(inputData, ppmMass, directed)
+      res <- buildMassDiffNet(inputData, ppmMass, directed)
 
       # add network to the list
       expNet[["m"]] <- res$net
@@ -164,17 +176,19 @@ BuildExpNet <-
 
     # check if spectral similarity network is to be built
     if (any(c("s", "all") %in% net2Build)) {
+
       # check if the mass difference matrix does not already exists
       if (!exists("massDiff")) {
+
         # build mass difference network
-        res <- BuildMassDiffNet(inputData, ppmMass, directed)
+        res <- buildMassDiffNet(inputData, ppmMass, directed)
 
         # save the mass difference matrix
         massDiff <- res$massDiff
       }
 
       # build spectral similarity network
-      net <- BuildSpecSimNet(inputData, tol, ppmSpec, massDiff, directed)
+      net <- buildSpecSimNet(inputData, tol, ppmSpec, massDiff, directed)
 
       # add network to the list
       expNet[["s"]] <- net
@@ -182,8 +196,9 @@ BuildExpNet <-
 
     # check if correlation network is to be built
     if (any(c("c", "all") %in% net2Build)) {
+
       # build correlation network
-      net <- BuilCorrNet(inputData, directed, corrModel, corrThresh)
+      net <- buildCorrNet(inputData, directed, corrModel, corrThresh)
 
       # add network to the list
       expNet[["c"]] <- net
@@ -195,13 +210,14 @@ BuildExpNet <-
 
 # Function to build the mass difference network
 # INPUTS:
-#  inputData - list returned by the LoadInputData function
+#  inputData - list returned by the loadInputData function
 #  ppmMass   - allowed error for mass differences calculus
 #  directed  - boolean value (TRUE/FALSE). If TRUE then the networks that are
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: mass difference network as igraph object
-BuildMassDiffNet <- function(inputData, ppmMass, directed) {
+buildMassDiffNet <- function(inputData, ppmMass, directed) {
+
   # create mass difference adjacency matrix
   massDiff <-
     qfeat_structural(
@@ -233,7 +249,7 @@ BuildMassDiffNet <- function(inputData, ppmMass, directed) {
 
 # Function to build the spectral similarity network
 # INPUTS:
-#  inputData - list returned by the LoadInputData function
+#  inputData - list returned by the loadInputData function
 #  tol       - absolute tolerance for spectral similarity calculus
 #  ppmSpec   - relative allowed error for spectral similarity calculus. It is
 #              only needed if the spectral similarity network is to be built.
@@ -243,7 +259,8 @@ BuildMassDiffNet <- function(inputData, ppmMass, directed) {
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: spectral similarity network as igraph object
-BuildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
+buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
+
   # calculate spectral similarity
    spectralSim <-
     spec_molNetwork(
@@ -275,7 +292,7 @@ BuildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 
 # Function to build the correlation network
 # INPUTS:
-#  inputData - list returned by the LoadInputData function
+#  inputData - list returned by the loadInputData function
 #  directed  - boolean value (TRUE/FALSE). If TRUE then the networks that are
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
@@ -284,7 +301,8 @@ BuildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 # corrThresh - floating point number indicating the correlation threshold to
 #              consider that two features are correlated
 # OUTPUT: correlation network as igraph object
-BuilCorrNet <- function(inputData, directed, corrModel, corrThresh) {
+buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
+
   # calculate correlation
   corr <-
     qfeat_statistical(
@@ -341,8 +359,8 @@ BuilCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 # Function to make the multi-layer network by connecting the Genome-Scale
 # Metabolic Network (GSMN) and the experimental networks
 # INPUTS:
-#  inputData   - list returned by the LoadInputData function
-#  expNetworks - list returned by the BuildExpNet function
+#  inputData   - list returned by the loadInputData function
+#  expNetworks - list returned by the buildExpNet function
 #  mappingF    - file in table format containing the mapping between the
 #                metabolites from the  experimental networks and those from the
 #                GSMN. Such mapping  can be obtained with tools such as
@@ -357,7 +375,8 @@ BuilCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 # OUTPUT: multi-layer network in list format containing 3 named elements:
 #  "layers" (list of igraph objects), "type" (type of layer: Exp/GSMN),
 #  "interLayerEdges" (data frame with 3 columns: expNode, gsmnNode, distance)
-MakeMultiLayer <- function(inputData, expNetworks, mappingF) {
+makeMultiLayer <- function(inputData, expNetworks, mappingF) {
+
   # read table
   mapping <- read.table(mappingF, header = TRUE, sep = "\t")
 
@@ -406,20 +425,22 @@ MakeMultiLayer <- function(inputData, expNetworks, mappingF) {
 
 # Function to calculate some statistics of the multi-layer network
 # INPUTS:
-#  multiLayer  - list returned by the MakeMultiLayer function
+#  multiLayer  - list returned by the makeMultiLayer function
 # OUTPUT: none, but it creates several plots in the resPath directory
-CalculateMultiLayerStats <- function(multiLayer) {
+calculateMultiLayerStats <- function(multiLayer) {
+
   # verify if the results folder does not exist
   if (!file.exists(inputData$resPath)) {
+
     # create folder
     dir.create(inputData$resPath)
   }
 
   # make table of frequencies of the mapped GSMN nodes
-  t <- MakeFeqTable(multiLayer$interLayerEdges$gsmnNode, FALSE, "GSMN_node")
+  t <- makeFeqTable(multiLayer$interLayerEdges$gsmnNode, FALSE, "GSMN_node")
 
   # make plot
-  MakeBarPlot(
+  makeBarPlot(
     resPath = inputData$resPath,
     data = t,
     xAxis = "GSMN_node",
@@ -429,10 +450,10 @@ CalculateMultiLayerStats <- function(multiLayer) {
     )
 
   # make table of frequencies of the mapped GSMN nodes distances
-  t <- MakeFeqTable(multiLayer$interLayerEdges$distance, FALSE, "Distance")
+  t <- makeFeqTable(multiLayer$interLayerEdges$distance, FALSE, "Distance")
 
   # make plot
-  MakeBarPlot(
+  makeBarPlot(
     resPath = inputData$resPath,
     data = t,
     xAxis = "Distance",
@@ -453,7 +474,7 @@ CalculateMultiLayerStats <- function(multiLayer) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
-MakeFeqTable <- function(data, decreasing, name) {
+makeFeqTable <- function(data, decreasing, name) {
   # make table of frequencies
   t <- as.data.frame(sort(table(data), decreasing = decreasing))
   colnames(t)[1] <- name
@@ -473,7 +494,7 @@ MakeFeqTable <- function(data, decreasing, name) {
 #  vertical - if TRUE, the bars will be vertical, otherwise, they will be
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
-MakeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
+makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
   # make plot
   p <-
     ggplot(
@@ -496,7 +517,9 @@ MakeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
   } else {
     p <-
       p +
-      geom_text(aes(label = eval(as.symbol(yAxis))), hjust = -0.3, size = 3.5) +
+      geom_text(
+        aes(label = eval(as.symbol(yAxis))), hjust = -0.3, size = 3.5
+        ) +
       coord_flip()
   }
 
@@ -522,9 +545,9 @@ MakeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 #                value is FALSE
 # OUTPUT: nothing, but it generates files with the list of nodes, edges, and
 #         the Cytoscape visualization (if visualize == TRUE)
-SaveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
+saveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
   # get list of edges
-  allEdges <- GetEdgeList(multiLayer)
+  allEdges <- getEdgeList(multiLayer)
 
   # save list of edges
   write.csv(
@@ -535,7 +558,7 @@ SaveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
     )
 
   # get list of nodes
-  allNodes <- GetNodeList(multiLayer)
+  allNodes <- getNodeList(multiLayer)
 
   # save list of nodes
   write.csv(
@@ -546,7 +569,17 @@ SaveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
     )
 
   if (visualize == TRUE) {
-    CytoscapeVisualization(allNodes, allEdges, inputData$resPath)
+    # get inter-layer edges
+    inter <- filterEdgesBySource(allEdges, "InterLayer")
+
+    # get nodes connected by inter-layer edges
+    nodes <- getNodesConnectedByEdges(inter, allNodes)
+
+    # get all edges among the nodes that have  inter-layer edges
+    edges <- getEdgesBetweenNodes(allEdges, nodes$node)
+
+    # Cytoscape visualization
+    cytoscapeVis(nodes, edges, inputData$resPath)
   }
 
   return()
@@ -554,10 +587,45 @@ SaveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
 
 
 
+# Function to filter a set of edges by a set of sources
+# INPUTS:
+#   edges   - data frame of edges containing 3 columns that correspond to the
+#             first node, second node, and the type of interaction or source
+#   sources - one or more sources in vector format
+# OUTPUT: data frame of edges, filtered
+filterEdgesBySource <- function(edges, sources) {
+  return(edges[edges[[3]] %in% sources, ])
+}
+
+
+# Function to get the set of nodes connected by a given set of edges
+# INPUT:
+#   edges - data frame of edges containing 3 columns that correspond to the
+#           first node, second node, and the type of interaction or source
+#   nodes - data frame of two columns that correspond to the node name and its
+#           type
+# OUTPUT: vector of nodes
+getNodesConnectedByEdges <- function(edges, nodes) {
+  n <- unique(c(edges[[1]], edges[[2]]))
+
+  return(nodes[nodes[[1]] %in% n, ])
+}
+
+
+# Function to get the set of edges connecting a given set of nodes
+# INPUTS:
+#   edges - data frame of edges containing 3 columns that correspond to the
+#           first node, second node, and the type of interaction or source
+#   nodes - set of nodes to filter the edges
+# OUTPUT: data frame of edges, filtered
+getEdgesBetweenNodes <- function(edges, nodes) {
+  return(edges[edges[[1]] %in% nodes & edges[[2]] %in% nodes, ])
+}
+
 # Function to get the list of edges in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of edges, including inter-layer ones
-GetEdgeList <- function(multiLayer) {
+getEdgeList <- function(multiLayer) {
   allEdges <-
     data.frame(
       node1 = character(),
@@ -567,6 +635,7 @@ GetEdgeList <- function(multiLayer) {
 
   # get edge list of all the networks and paste it in a single data frame
   for (i in seq_len(length(multiLayer$layers))) {
+
     # get edge list
     edges <- as_edgelist(multiLayer$layers[[i]])
 
@@ -602,7 +671,7 @@ GetEdgeList <- function(multiLayer) {
 # Function to get the list of nodes in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of nodes
-GetNodeList <- function(multiLayer) {
+getNodeList <- function(multiLayer) {
   # get types of layers
   type <- unique(multiLayer$type)
 
@@ -647,62 +716,261 @@ GetNodeList <- function(multiLayer) {
 # experimental nodes that map to the same metabolite node in the GSMN.
 # NOTE. Cytoscape needs to be open
 # INPUTS:
-#   allNodes - list of nodes
-#   allEdges - list of edges
+#   allNodes    - list of nodes
+#   allEdges    - list of edges
+#   resPath     - path where the results will be stored
+#   mainType    - a subnetwork will be generated for each of the nodes from
+#                 this node type so that can observe the connection patterns
+#                 between the different edges connecting all the nodes from the
+#                 other types that map to each of the nodes from the main type.
+#                 The default value is "GSMN"
+#   fixedColors - boolean value (TRUE/FALSE), if == TRUE, a set of predefined
+#                 colors will be used to style the nodes and edges, as follows:
+#                 NODES: {blue = experimental, orange = GSMN},
+#                 EDGES: {yellow = correlation, orange = mass difference,
+#                         green = spectral similarity, black = GSMN,
+#                         blue = inter-layer}.
+#                 If fixedColors == FALSE, the colors of the nodes and edges
+#                 will be assigned automatically. The default value is TRUE
 # OUTPUT: None, but it generates a Cytoscape file with the visualization
-CytoscapeVisualization <- function(allNodes, allEdges, resPath) {
-  cytoscapePing() # verify that Cytoscape is launched
-  closeSession(save.before.closing = FALSE) # close any open session
+cytoscapeVis <-
+  function(nodes, edges, resPath, mainType = "GSMN", fixedColors = TRUE) {
+    # verify that Cytoscape is launched
+    cytoscapePing()
 
-  # get inter-layer edges
-  inter <- allEdges[allEdges$source == "InterLayer", ]
+    # close any open session
+    closeSession(save.before.closing = FALSE)
 
-  # get nodes connected by inter-layer edges
-  nodesIL <- unique(c(inter$node1, inter$node2))
+    # change column names to match the requirements of RCy3
+    colnames(edges) <- c("source", "target", "interaction")
 
-  # initialize empty list
-  nodesILT <- list()
+    # create aggregated version of the multi-layer network
+    aggregated <-
+      graph_from_data_frame(edges, directed = FALSE, vertices = nodes)
 
-  # loop to get nodes' types
-  for (t in unique(allNodes$nodeType)) {
-    # get all nodes of current type
-    n <- allNodes$node[allNodes$nodeType == t]
+    # visualize aggregated network
+    visualizeNetwork(
+      aggregated, title = "MultiLayer", collection = "MultiLayerNetwork",
+      fixedColors = fixedColors
+      )
 
-    # get nodes connected by inter-layer edges from current type
-    nodesILT[[t]] <- nodesIL[nodesIL %in% n]
+    # get inter-layer edges and nodes connected by them
+    inter <- filterEdgesBySource(edges, sources = "InterLayer")
+
+    # get nodes connected by inter-layer edges
+    nodesIL <- getNodesConnectedByEdges(inter, nodes)
+
+    # get nodes from main node type
+    nodesILT <- nodes[nodes$nodeType == mainType, ]
+
+    # loop to generate sub-networks
+    for (n in nodesILT$node) {
+      # get edges connecting current node
+      curEd <- edges[edges$target == n | edges$source == n, ]
+
+      # remove edges from main type
+      omit <- grep(mainType, curEd$interaction)
+      if (length(omit) > 0) {
+        curEd <-  curEd[-omit, ]
+      }
+
+      # get list of all nodes connected to current node
+      nCon <- unique(c(curEd$source, curEd$target))
+
+      # create subnetwork
+      subnet <-
+        subgraph(aggregated, vids = which(names(V(aggregated)) %in% nCon))
+
+      # visualize subnetwork
+      visualizeNetwork(
+        subnet, title = paste0(n, "_AllLayers"), collection = n,
+        fixedColors = fixedColors
+      )
+
+      # get types of edges connecting the nodes of current subnetwork
+      edgeTypes <- as.vector(unique(edge_attr(subnet, "interaction")))
+
+      # remove inter-layer edges
+      edgeTypes <- edgeTypes[- which(edgeTypes == "InterLayer")]
+
+      # loop to generate a subnetwork per edge type
+      for(eType in edgeTypes) {
+        # select edges of current type
+        selectEdges(
+          edges = eType,
+          by.col = "interaction",
+          preserve.current.selection = FALSE,
+          network = paste0(n, "_AllLayers")
+        )
+
+        # select all nodes connected by selected edges
+        selectNodesConnectedBySelectedEdges(network = paste0(n, "_AllLayers"))
+
+        # create subnetwork
+        createSubnetwork(
+          nodes = "selected",
+          edges = "selected",
+          subnetwork.name = paste0(n, "_", eType),
+          network = paste0(n, "_AllLayers"),
+        )
+
+        layoutNetwork(
+          layout.name = "force-directed", network = paste0(n, "_", eType))
+      }
+    }
+
+    return()
   }
 
-  colnames(allNodes)
 
 
-  nodesILType <-
-    # generate network in Cytoscape
-    createNetworkFromDataFrames(Nodes, Network, title = d)
+# Function to create and visualize in Cytoscape the aggregated network
+# INPUTS:
+#   network     - igraph object containing the network to visualize
+#   title       - title (name) of the network to be displayed in Cytoscape
+#   collection  - collection the network will belong to
+#   fixedColors - boolean value (TRUE/FALSE), if == TRUE, a set of predefined
+#                 colors will be used to style the nodes and edges, as follows:
+#                 NODES: {blue = experimental, orange = GSMN},
+#                 EDGES: {yellow = correlation, orange = mass difference,
+#                         green = spectral similarity, black = GSMN,
+#                         blue = inter-layer}.
+#                 If fixedColors == FALSE, the colors of the nodes and edges
+#                 will be assigned automatically
+# OUTPUT: aggregated network
+visualizeNetwork <- function(network, title, collection, fixedColors) {
 
-    # read expression data
-    DE <- LoadedData$DE_results
-    if ("logFC" %in% colnames(DE)) {
-      DE$DEG <- ifelse(abs(DE$logFC) > 1 &
-                         DE$FDR < LoadedData$ThresholdDEG, TRUE, FALSE)
-    } else {DE$DEG <- ifelse(DE$FDR < LoadedData$ThresholdDEG, TRUE, FALSE)}
+  # create network in Cytoscape
+  createNetworkFromIgraph(
+    network,
+    title = title,
+    collection = collection
+  )
 
-    DE <- DE[!is.na(DE$gene), ] # remove rows with no gene name
+  # get types of nodes and edges in the network
+  nodeTypes <- unique(get.vertex.attribute(network, "nodeType"))
+  edgeTypes <- unique(get.edge.attribute(network, "interaction"))
 
-    # load expression data in cytoscape
-    loadTableData(data = DE, data.key.column = "gene", table = "node",
-                  table.key.column = "name", namespace = "default", network = d)
+  # get colors to use
+  colors <- getColorTable(nodeTypes, edgeTypes, fixedColors)
 
-    FormatNodesAndEdges(Network, d, LoadedData, DE) # add colors and borders
+  # color the nodes
+  setNodeColorMapping(
+    table.column = "nodeType", table.column.values = nodeTypes,
+    colors =
+      sapply(
+        nodeTypes,
+        function(X) {
+          colors$color[colors$type == "Node" & colors$name == X]
+          }
+        ),
+    mapping.type = "d", network = title
+    )
 
-    # creates the subnetworks corresponding the active modules
-    CreateActiveModules(d, ExpPath)
+  # color the edges
+  setEdgeColorMapping(
+    table.column = "interaction", table.column.values = edgeTypes,
+    colors =
+      sapply(
+        edgeTypes,
+        function(X) {
+          colors$color[colors$type == "Edge" & colors$name == X]
+        }
+      ),
+    mapping.type = "d", network = title
+  )
 
-    # verify if there are more exp to analyze to leave last one open
-    if (which(Dirs == d) < length(Dirs)) {
-      closeSession(save.before.closing = TRUE,
-                   filename = paste0(ExpPath, "A_Acc_PF_", d))
-    } else { saveSession(filename = paste0(ExpPath, "A_Acc_PF_", d)) }
+  layoutNetwork(layout.name = "force-directed", network = title)
+
+  return()
 }
+
+
+
+# Function to get the table of colors for the nodes and edges
+# INPUTS:
+#   nodeTypes   - types of nodes in the network to color
+#   edgeTypes   - types of edges in the network to color
+#   fixedColors - whether to return fixed colors or not
+# OUTPUT:
+#   data frame of three columns: type, name, and color, containing the colors
+#   for the nodes and edges
+getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
+  # check whether predefined list of colors is to be used
+  if (fixedColors == TRUE) {
+    colors <-
+      data.frame(
+        type = c(rep("Edge", 5), rep("Node", 2)),
+        name = c("Exp_c", "Exp_m", "Exp_s", "GSMN_gsmn", "InterLayer", "Exp",
+                 "GSMN"),
+        # code colors:
+        #   #F0E442 = yellow edges (Exp_c), #D55E00 = orange edges (Exp_m),
+        #   #009E73 = green edges (Exp_s), #000000 = black edges (GSMN_gsmn),
+        #   #0072B2 = blue edges (InterLayer), #56B4E9 = blue nodes (Exp),
+        #   #E69F00 = orange nodes (GSMN)
+        color = c("#F0E442", "#D55E00", "#009E73", "#000000", "#0072B2",
+                  "#56B4E9", "#E69F00")
+      )
+  } else { # set the colors automatically
+    # get number of types of edges and nodes
+    edgeTypesNo <- length(edgeTypes)
+    nodeTypesNo <- length(nodeTypes)
+
+    # pick blind-color friendly colors
+    palette <-
+      palette.colors(palette = "Okabe-Ito")[1:(edgeTypesNo + nodeTypesNo)]
+
+    # make data frame with the colors for each type of node and edge
+    colors <-
+      data.frame(
+        type = c(rep("Edge", edgeTypesNo), rep("Node", nodeTypesNo)),
+        name = c(edgeTypes, nodeTypes),
+        color = palette
+      )
+  }
+
+  return(colors)
+}
+
+
+formatNodesAndEdges <- function(Network, d, LoadedData, DE) {
+  numberOfLayers <- length(LoadedData$DensityPerLayerMultiplex)
+
+  # if there are 3 layers, use the same edges' colors as in the paper
+  if(numberOfLayers == 3) {
+    edgesColors <- c("#0033FF", "#FF6600", "#FFFF00")
+  } else { # otherwise, generate a list of colors of the appropriate size
+    edgesColors <- rainbow(length(LoadedData$DensityPerLayerMultiplex))
+
+    # remove "transparency" from colors (i.e., the last 2 characters)
+    edgesColors <-
+      unlist(lapply(edgesColors, function(X){ substr(X, 1, 7) }))
+  }
+
+  # define edges color (it is adapted to any number of layers)
+  setEdgeColorMapping(table.column = "interaction", mapping.type = "d",
+                      table.column.values = unique(Network$interaction), colors = edgesColors)
+
+  if ("logFC" %in% colnames(DE)) {
+    # set nodes' colors according to the logFC, from green (downregulated)
+    # to white and then to red (upregulated)
+    setNodeColorMapping(
+      table.column = "logFC", table.column.values = c(min(DE$logFC),
+                                                      0.0, max(DE$logFC)), colors = c("#009933", "#FFFFFF", "#FF0000"),
+      mapping.type = "c", style.name = "default", network = d)
+  }
+
+  setNodeBorderColorMapping(table.column = "name", colors = "#000000",
+                            mapping.type = "d", style.name = "default", default.color = "#000000",
+                            network = d)
+
+  # set width of border to highlight DEG
+  setNodeBorderWidthMapping(table.column = "DEG",
+                            table.column.values = c(TRUE, FALSE), widths = c(5, 0),
+                            mapping.type = "d", style.name = "default", network = d)
+
+}
+
 
 
 

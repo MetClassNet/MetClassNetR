@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 
 #source(file = "../R/multiLayer.R")
-source(file = "/home/elva/Documents/MetClassNet/R/MetClassNetR_devel_Liesa_Elva/R/MultiLayerFunctions.R")
+source(file = "/home/elva/Documents/MetClassNet/R/MetClassNetR_devel_liesa_Elva/R/MultiLayerFunctions.R")
 
 ```
 
@@ -25,7 +25,7 @@ zero, depending if the metabolite is mapped to a more general metabolite
 ## Load input data 
 
 The first step in this workflow is to load the input data, using the 
-`LoadInputData` function, which has up to 7 input parameters:
+`loadInputData` function, which has up to 7 input parameters:
 
 1. `peakListF`. Path to the TSV file containing the peak list (one peak per row) 
    in a MetaboLights-like format. The first row is the header (i.e., the list of 
@@ -51,7 +51,7 @@ The first step in this workflow is to load the input data, using the
     MetClassNetR package.
 7. `resPath`. Path to the folder where the results will be stored
 
-The output of the `LoadInputData` function is a named list containing all the  
+The output of the `loadInputData` function is a named list containing all the  
 data (i.e., peakList, spectra, transformations, and gsmn).
 
 ```{r loadData}
@@ -60,7 +60,7 @@ path <- "extdata/MTBLS1586/"
 exp <- "MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling"
 
 inputData <- 
-  LoadInputData(
+  loadInputData(
     peakListF = 
       system.file(
         paste0(path, "m_", exp, "_v2_maf.tsv"), 
@@ -92,10 +92,10 @@ inputData <-
 
 The second step is to build up to three experimental networks, based on 
 spectral similarity, correlation, and mass difference. We build
-the experimental networks using the `BuildExpNet` function, which has up to 
+the experimental networks using the `buildExpNet` function, which has up to 
 7 input parameters:
 
-1. `inputData`. List returned by the `LoadInputData` function.
+1. `inputData`. List returned by the `loadInputData` function.
 2. `net2Build`. List of experimental networks to build, according to the 
    following options: 
      * *"all"* generates 3 experimental networks: mass difference, correlation,
@@ -129,12 +129,12 @@ the experimental networks using the `BuildExpNet` function, which has up to
    correlation network is to be built. The default value is 0.25 (i.e., at 
    least 25% of correlation between the abundance values).
 
-The output of the `BuildExpNet` function is a list of experimental networks as 
+The output of the `buildExpNet` function is a list of experimental networks as 
 igraph objects.
 
 ```{r bildNetworks}
 expNetworks <-
-  BuildExpNet(
+  buildExpNet(
     inputData, 
     net2Build = "all", 
     directed = FALSE, 
@@ -187,7 +187,7 @@ mappingF <-
     package = "MetClassNetR"
     )
 
-multiLayer <- MakeMultiLayer(inputData, expNetworks, mappingF)
+multiLayer <- makeMultiLayer(inputData, expNetworks, mappingF)
 
 ```
 
@@ -195,7 +195,7 @@ multiLayer <- MakeMultiLayer(inputData, expNetworks, mappingF)
 
 We will now proceed to analyze the interconnection level between the 
 experimental layers and the GSMN of the multi-layer network. For that, we will 
-calculate some basic stats, using the `CalculateMultiLayerStats` function.
+calculate some basic stats, using the `calculateMultiLayerStats` function.
 
 
 ```{r multilayerStats}
