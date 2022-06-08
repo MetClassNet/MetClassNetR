@@ -1,16 +1,26 @@
 ---
 title: "MultiLayer"
 author: "Elva Novoa"
-date: '2022-04-25'
+date: '2022-06-08'
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-#source(file = "../R/multiLayer.R")
-source(file = "/home/elva/Documents/MetClassNet/R/MetClassNetR_devel_liesa_Elva/R/MultiLayerFunctions.R")
-
+library(MetClassNetR)
+library(MetNet)
+library(Spectra)
+library(MsCoreUtils)
+library(MsBackendMgf)
+library(easyGgplot2)
+library(QFeatures)
+library(igraph)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(RCy3)
 ```
 
 # Buildig a multi-layer network
@@ -210,9 +220,9 @@ ontology to localize a ChEBI id from the list of identified compounds, and it
 gives as result the ChEBI id of the nearest metabolite that is present in the 
 GSMN, as well as the distance between them. 
 In order to run `Metabolomics2Network`, we need to call the 
-`mapMetabolitesToGSMN` function and pass the `inputData` object as input
+`mapMetToGSMN` function and pass the `inputData` object as input
 parameter. We can also choose the name of the resulting mappings file 
-(`resFile`), which per default is "Res_Met2Net_MappedMetabolites.txt". 
+(`resFile`), which per default is "Res_Met2Net_MappedMet.txt". 
 Such restulting file contains 12 columns, but we will focus on the first 5:
 1. `metabolite name`. Name of our metabolites, as defined in the list of 
 identified metabolites (`id` column from the file 
@@ -228,9 +238,9 @@ metabolite to which it was mapped.
 mapped.
 
 ```{r mapping}
-resFile <- "Res_Met2Net_MappedMetabolites.txt"
+resFile <- "Res_Met2Net_MappedMet.txt"
 
-mapMetabolitesToGSMN(inputData, resFile)
+mapMetToGSMN(inputData, resFile)
 ```
 
 Finally, we are ready to finish building the multi-layer network, joining the 
@@ -239,22 +249,33 @@ To this end, we call the `makeMultiLayer` function with the `inputData` object,
 the experimental networks (stored in `expNetworks`), and the name of the file 
 that contains the mappings. 
 
+In order to visualize and/or save the multi-layer network as two files: one
+containing the list of edges and another one with the list of nodes, we call 
+the `writeMultiLayer` function with the `inputData` and `multiLayer` objects, 
+and a boolean value for the parameter `visualize` that should be `TRUE` if 
+the multi-layer network is to be visualized in Cytoscape or `FALSE` otherwise. 
+Please be aware that Cytoscape should be open if `visualize == TRUE`.
+
 
 ```{r multilayer}
 mappingF <- paste0(inputData$resPath, resFile)
 
 multiLayer <- makeMultiLayer(inputData, expNetworks, mappingF)
+
+writeMultiLayer(inputData, multiLayer, visualize = FALSE)
 ```
 
 
 # Analyzing the multi-layer network
 
-We will now proceed to analyze the interconnection level between the 
+As a final step, we will analyze the interconnection level between the 
 experimental layers and the GSMN of the multi-layer network. For that, we will 
-calculate some basic stats, using the `calculateMultiLayerStats` function.
+calculate some basic stats, using the `calculateMultiLayerStats` function, 
+which generates some plots and stores them in the `resPath` directory (defined
+in `inputData`.
 
 
 ```{r multilayerStats}
-
+calculateMultiLayerStats(multiLayer, inputData)
 ```
 

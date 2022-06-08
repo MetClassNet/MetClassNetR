@@ -1,16 +1,3 @@
-library(MetClassNetR)
-library(MetNet)
-library(Spectra)
-library(MsCoreUtils)
-library(MsBackendMgf)
-library(easyGgplot2)
-library(QFeatures)
-library(igraph)
-library(tidyverse)
-library(dplyr)
-library(ggplot2)
-library(stringr)
-library(RCy3)
 
 # Function to load the input data, i.e., the files needed to build the networks
 # INPUTS:
@@ -61,7 +48,7 @@ library(RCy3)
 #                  extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
 # OUTPUT:      named list containing all the data (peakList, spectra,
 #              transformations, and gsmn)
-loadInputData <- function (peakListF, intCol = 23, net2Build = "all", transF,
+loadInputData <- function(peakListF, intCol = 23, net2Build = "all", transF,
   spectraF, gsmnF, spectraSS = NULL, resPath, met2NetDir, configF, idenMetF,
   compF) {
 
@@ -174,10 +161,9 @@ loadInputData <- function (peakListF, intCol = 23, net2Build = "all", transF,
 #              0.25 (i.e., at least 25% of correlation between the abundance
 #              values, either positive or negative)
 # OUTPUT: list of experimental networks as igraph objects
-buildExpNet <-
-  function(
-    inputData, net2Build = "all", directed = FALSE, ppmMass = 10, ppmSpec = 0,
-    tol = 0.005, corrModel = "pearson", corrThresh = 0.25) {
+buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
+  ppmMass = 10, ppmSpec = 0, tol = 0.005, corrModel = "pearson",
+  corrThresh = 0.25) {
 
     # empty list to save the experimental networks
     expNet <- list()
@@ -348,31 +334,6 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
       vertices = inputData$allComp
       )
 
-  # # save correlation coefficients
-  # corrCoeff <-
-  #   data.frame(
-  #     coef = c(corrDF$pearson_partial_coef, corrDF$ggm_coef),
-  #     group = c(rep("pearsPart", nrow(corrDF)), rep("GGM", nrow(corrDF)))
-  #   )
-  #
-  # # plot to view the distribution of correlations
-  # plot <-
-  #   ggplot2.histogram(
-  #     data = corrCoeff, xName = 'coef', groupName = 'group',
-  #     legendPosition = "right", alpha = 0.5, binwidth = 0.01,
-  #     brewerPalette = "Paired", addMeanLine = TRUE, meanLineSize = 1
-  #   )
-  #
-  # plot <-
-  #   ggplot2.customize(
-  #     plot, xtitle = "Correlation coefficient", ytitle = "Count",
-  #     showLegend = TRUE, axisLine = c(0.5, "solid", "black"),
-  #     addDensity = TRUE, removePanelBorder = TRUE,
-  #     backgroundColor = "white", mainTitle = "Correlation coefficient"
-  #   )
-  #
-  # plot
-
   return(net)
 }
 
@@ -383,11 +344,10 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 # INPUTS:
 #   inputData - list returned by the loadInputData function
 #   resFile   - file name for the resulting mappings file. The default value
-#               is "Res_Met2Net_MappedMetabolites.txt"
+#               is "Res_Met2Net_MappedMet.txt"
 # OUTPUT: data frame with the mappings and ontology-based distances.
 # NOTE. This function also generates a file with the mapping
-mapMetabolitesToGSMN <-
-  function(inputData, resFile = "Res_Met2Net_MappedMetabolites.txt") {
+mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
   # generate command line to execute metabolites2Network
   com <-
@@ -484,7 +444,7 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
 # INPUTS:
 #  multiLayer  - list returned by the makeMultiLayer function
 # OUTPUT: none, but it creates several plots in the resPath directory
-calculateMultiLayerStats <- function(multiLayer) {
+calculateMultiLayerStats <- function(multiLayer, inputData) {
 
   # verify if the results folder does not exist
   if (!file.exists(inputData$resPath)) {
@@ -540,7 +500,6 @@ makeFeqTable <- function(data, decreasing, name) {
 }
 
 
-
 # Function to make and save a bar plot
 # INPUTS:
 #  resPath  - path to the folder where the results will be stored
@@ -552,6 +511,7 @@ makeFeqTable <- function(data, decreasing, name) {
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
 makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
+
   # make plot
   p <-
     ggplot(
@@ -591,7 +551,6 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 }
 
 
-
 # Function to save the list of edges and nodes from the multi-layer network
 # to visualize it in Cytoscape
 # INPUTS:
@@ -602,7 +561,7 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 #                value is FALSE
 # OUTPUT: nothing, but it generates files with the list of nodes, edges, and
 #         the Cytoscape visualization (if visualize == TRUE)
-saveMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
+writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
   # get list of edges
   allEdges <- getEdgeList(multiLayer)
 
@@ -696,6 +655,7 @@ getEdgeList <- function(multiLayer) {
 # INPUT: multi-layer network
 # OUTPUT: list of nodes
 getNodeList <- function(multiLayer) {
+
   # get types of layers
   type <- unique(multiLayer$type)
 
@@ -755,8 +715,9 @@ getNodeList <- function(multiLayer) {
 #                 If fixedColors == FALSE, the colors of the nodes and edges
 #                 will be assigned automatically. The default value is TRUE
 # OUTPUT: None, but it generates a Cytoscape file with the visualization
-cytoscapeVis <-
-  function(nodes, edges, resPath, mainType = "GSMN", fixedColors = TRUE) {
+cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
+  fixedColors = TRUE) {
+
     # verify that Cytoscape is launched
     cytoscapePing()
 
@@ -889,6 +850,7 @@ cytoscapeVis <-
 #   data frame of three columns: type, name, and color, containing the colors
 #   for the nodes and edges
 getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
+
   # check whether predefined list of colors is to be used
   if (fixedColors == TRUE) {
     colors <-

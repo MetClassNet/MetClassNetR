@@ -1,11 +1,4 @@
-library(igraph)
-library(tidyverse)
-library(UpSetR)
-library(grid)
-library(tidyverse)
-library(plyr)
-library(ggplot2)
-library(ggrepel)
+
 # ################################################################################
 # # rename files
 # RenameFiles <- function(netDir, patternToRemove = "") {
@@ -38,7 +31,7 @@ library(ggrepel)
 # Function to generate 4 toy networks
 # INPUT:
 #   netDir - directory to store the toy networks
-generateToyNetworks <- function(netDir) {
+makeToyNet <- function(netDir) {
   n1 <-
     matrix(
       data = c("A", "B", "B", "C", "B", "E", "C", "D"),
@@ -87,23 +80,7 @@ generateToyNetworks <- function(netDir) {
 #              contain 2 columns (source - target) and each row must be an edge
 # OUTPUT:
 #   list of igraph objects, one per network to compare
-# readNetworks <- function(netDir, directed = FALSE) {
-  # # list all csv files in the corresponding directory
-  # files <- list.files(path = netDir, pattern = "*.csv", full.names = TRUE)
-  # networks <- list()
-  #
-  # # loop through the files
-  # for (i in files) {
-  #   # read file content
-  #   n <- as.matrix(read.csv(i))
-  #
-  #   # create igraph object
-  #   net <- graph_from_edgelist(el = n, directed = directed)
-  #
-  #   networks[[str_replace(i, ".+/(.*).csv", "\\1")]] <- net
-  # }
-readNetworks <-
-  function(netDir, directed = FALSE, pattern = "", format = "csv") {
+readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
 
   # if exists, remove final "/" from the network directory name
   netDir <-
@@ -159,55 +136,37 @@ readNetworks <-
 # It also plots the degree distribution, and upset plots of the overlap of
 # nodes and edges
 # INPUT:
-#   net - list of igraph objects, as returned by readNetworks()
+#   net - list of igraph objects, as returned by readNet()
 # OUTPUT:
 #   data frame with the statistics
-calculateNetworkStats <- function(net) {
+calculNetStats <- function(net) {
+
   # initialize variables
-  d <- double() # empty numeric value
-  c <- character() # empty character value
-  # netStats <- data.frame( name = c, vcount = d, ecount = d, dens = d,
-  #   diameter = d, avDeg = d, noCC = d, avPathLen = d, clustCo = d)
-  # netClo <- data.frame(network = c, node = c, closeness = d)
-  # netBet <- data.frame(network = c, node = c, betweenness = d)
-  # netCC <- list()
-  # BCCStats <- data.frame(name = c, vcount = d, ecount = d, dens = d,
-  #   diameter = d, avDeg = d, noCC = d, avPathLen = d, clustCo = d)
-  # BCCClo <- data.frame(network = c, node = c, closeness = d)
-  # BCCBet <- data.frame(network = c, node = c, betweenness = d)
   netStats <-
-    data.frame(
-      name = character(), vcount = double(), ecount = double(),
+    data.frame(name = character(), vcount = double(), ecount = double(),
       dens = double(), diameter = double(), avDeg = double(), noCC = double(),
-      avPathLen = double(), clustCo = double()
-      )
+      avPathLen = double(), clustCo = double())
 
   netClo <-
-    data.frame(
-      network = character(), node = character(), closeness = double()
-      )
+    data.frame(network = character(), node = character(), closeness = double())
 
   netBet <-
-    data.frame(
-      network = character(), node = character(), betweenness = double()
-      )
+    data.frame(network = character(), node = character(),
+      betweenness = double())
 
   netCC <- list()
 
   BCCStats <-
-    data.frame(
-      name = character(), vcount = double(), ecount = double(),
+    data.frame(name = character(), vcount = double(), ecount = double(),
       dens = double(), diameter = double(), avDeg = double(), noCC = double(),
-      avPathLen = double(), clustCo = double()
-      )
+      avPathLen = double(), clustCo = double())
 
   BCCClo <-
     data.frame(network = character(), node = character(), closeness = double())
 
   BCCBet <-
-    data.frame(
-      network = character(), node = character(), betweenness = double()
-      )
+    data.frame(network = character(), node = character(),
+      betweenness = double())
 
   noNet <- length(net) # number of networks
 
@@ -220,7 +179,7 @@ calculateNetworkStats <- function(net) {
     cc <- components(n) # get connected components (CCs)
     ccSize <- makeTableCCSize(cc) # table of CCs sizes
     netCC[[netName]] <- cc # save CCs
-    netStats <- rbind(netStats, basicNetworkStats(n, netName)) # basic stats
+    netStats <- rbind(netStats, basicNetStats(n, netName)) # basic stats
     netClo <- rbind(netClo, getClosenessCC(cc, n, netName)) # closeness
     netBet <- rbind(netBet, getBetweenness(n, netName)) # betweenness
 
@@ -228,7 +187,7 @@ calculateNetworkStats <- function(net) {
     BCC <-
       induced_subgraph(n, V(n)[cc$membership == which.max(cc$csize)]) # get BCC
     BCCStats <-
-      rbind(BCCStats, basicNetworkStats(BCC, paste0(netName, "_BCC"))) # stats
+      rbind(BCCStats, basicNetStats(BCC, paste0(netName, "_BCC"))) # stats
     BCCClo <-
       rbind(BCCClo, getClosenessCC(components(BCC), n, netName)) # closeness
     BCCBet <- rbind(BCCBet, getBetweenness(BCC, netName)) #  betweenness
@@ -249,7 +208,7 @@ calculateNetworkStats <- function(net) {
 #   network - igraph object
 #   netName - name of the network
 # OUTPUT: data frame with all the stats
-basicNetworkStats <- function(network, netName) {
+basicNetStats <- function(network, netName) {
   # fill new data frame with stats
   netStats <-
     data.frame(
@@ -273,9 +232,7 @@ basicNetworkStats <- function(network, netName) {
 #   net - list of networks as igraph objects
 # OUTPUT: data frame with the nodes' degrees of all the networks in the list
 getNodeDeg <- function(net) {
-  c <- character()
-  d <- double()
-#  netDeg <- data.frame(network = c, node = c, degree = d)
+
   netDeg <-
     data.frame(network = character(), node = character(), degree = double())
 
@@ -376,7 +333,7 @@ getBetweenness <- function(network, netName) {
 
 # Function to make and print several plots
 # INPUT:
-#   stats - list of results, as returned by the calculateNetworkStats function
+#   stats - list of results, as returned by the calculNetStats function
 # OUTPUT:
 #   none, but it prints several plots
 printStatsPlots <- function(stats) {
@@ -408,9 +365,9 @@ printStatsPlots <- function(stats) {
   }
 
   makeBoxPlot(netDeg, stat2Plot = "degree", log = TRUE)
-  makeHistogram(
-    netDeg, stat2Plot = "degree", binWidth = 1, minDegree = 0,
-    maxDegree = max(netDeg$degree))
+  makeHist(
+    netDeg, stat2Plot = "degree", binWidth = 1, minDeg = 0,
+    maxDeg = max(netDeg$degree))
   makeBoxPlot(
     netClo, stat2Plot = "closeness", bestValue = "max", printLab = TRUE)
   makeBoxPlot(
@@ -423,12 +380,12 @@ printStatsPlots <- function(stats) {
 # Function to make and print a scatter plot
 # INPUTS:
 #   netStats  - data frame, as returned as part of the result of
-#               calculateNetworkStats
+#               calculNetStats
 #   stat2Plot - string defining the stat that wishes to be plotted. It can be
 #               "density", "diameter", "avPathLength" or "clustCo"
 # OUTPUT:
 #   none, but it prints the corresponding scatter plot
-makeScatterPlot <- function(netStats, stat2Plot, title = "", printLab = FALSE) {
+makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
   printNothing(1)
   p <-
     ggplot(
@@ -445,10 +402,10 @@ makeScatterPlot <- function(netStats, stat2Plot, title = "", printLab = FALSE) {
         ifelse(
           title != "",
           paste0(title, " comparison\n"),
-          paste0(str_to_title(stat2Plot), " comparison\n")
+          paste0(stringr::str_to_title(stat2Plot), " comparison\n")
           ),
       x = "Network",
-      y = ifelse(title != "", title, str_to_title(stat2Plot))
+      y = ifelse(title != "", title, stringr::str_to_title(stat2Plot))
       ) +
     theme(
       axis.text.x = element_text(size = 10),
@@ -486,7 +443,7 @@ makeScatterPlot <- function(netStats, stat2Plot, title = "", printLab = FALSE) {
 # Function to make and print a boxplot
 # INPUTS:
 #   data      - data frame, as returned as part of the result of
-#               calculateNetworkStats
+#               calculNetStats
 #   stat2Plot - string defining the stat that wishes to be plotted. It can be
 #               "degree" or "closeness"
 #   bestValue - string to define whether the highest or lowest values are the
@@ -516,9 +473,9 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
       ) +
     geom_boxplot() +
     labs(
-      title = paste0(str_to_title(stat2Plot), " comparison\n"),
+      title = paste0(stringr::str_to_title(stat2Plot), " comparison\n"),
       x = "Network",
-      y = str_to_title(stat2Plot)
+      y = stringr::str_to_title(stat2Plot)
       ) +
     theme(
       axis.text.x = element_text(size = 10),
@@ -545,7 +502,7 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
 
 # Function to get the labels to plot in the box plot
 # INPUTS:
-#   data      - data frame obtained via the calculateNetworkStats function
+#   data      - data frame obtained via the calculNetStats function
 #   stat2Plot - string defining the stat that wishes to be plotted. It can be
 #               "degree" or "closeness"
 #   bestValue - string to define whether the highest or lowest values are the
@@ -581,7 +538,7 @@ getPlotLabels <- function(data, stat2Plot, bestValue) {
 
   # put all the nodes' names to be printed per network together
   plotLabels <-
-    ddply(
+    plyr::ddply(
       plotLabels,
       .(network),
       function(x) {
@@ -611,39 +568,30 @@ printNothing <- function(n) {
 # Function to calculate and print a set of histograms
 # INPUTS:
 #   data      - data frame, as returned as part of the result of
-#               calculateNetworkStats
+#               calculNetStats
 #   stat2Plot - string defining the stat that wishes to be plotted. It can be
 #               "degree"
 #   binWidth  - width of the bins for each histogram. Default value = 1
-#   minDegree - minimum degree to consider for the plot. Default value = 0
-#   maxDegree - maximum degree to consider for the plot. Default value = 10
+#   minDeg    - minimum degree to consider for the plot. Default value = 0
+#   maxDeg    - maximum degree to consider for the plot. Default value = 10
 # OUTPUT:
 #   none, but it prints the corresponding histograms
-makeHistogram <-
-  function(data, stat2Plot, binWidth = 1, minDegree = 0, maxDegree = 10) {
+makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
+
   # filter data
   data <-
     data %>%
     filter(
-      eval(as.name(stat2Plot)) >= minDegree &
-      eval(as.name(stat2Plot)) <= maxDegree
+      eval(as.name(stat2Plot)) >= minDeg & eval(as.name(stat2Plot)) <= maxDeg
       )
 
   printNothing(1)
   print(
     ggplot(
       data,
-      aes(
-        x = eval(as.name(stat2Plot)),
-        color = network,
-        fill = network
-      )
+      aes(x = eval(as.name(stat2Plot)), color = network, fill = network)
     ) +
-    geom_histogram(
-      alpha = 0.5,
-      binwidth = binWidth,
-      position = "identity"
-    )
+    geom_histogram(alpha = 0.5, binwidth = binWidth, position = "identity")
   )
 
   return()
@@ -735,11 +683,9 @@ getOverlappingNodes <- function(networks, networksIndex) {
 #                "Intersection Size"
 # OUTPUT:
 #   none, but it prints the corresponding upset plot
-makeUpsetPlot <-
-  function(
-    dataToPlot, title = "Overlap", xLabel = "Set Size",
-    yLabel = "Intersection Size"
-    ) {
+makeUpsetPlot <- function(dataToPlot, title = "Overlap", xLabel = "Set Size",
+  yLabel = "Intersection Size") {
+
   printNothing(1)
 
   print(

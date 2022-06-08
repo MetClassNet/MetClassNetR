@@ -32,7 +32,7 @@ readMaf <- function(x, ecol = NA, ...) {
   }
 
   # create QFeatures
-  readQFeatures(data, ecol = ecol, fnames = which(colnames(data) == "id"), ...)
+  readQFeatures(data, ecol = ecol, ...)
 }
 
 #'

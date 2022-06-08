@@ -1,7 +1,7 @@
 ---
 title: "NetworkComparison"
 author: "Elva Novoa"
-date: "26/04/2022"
+date: '2022-06-08'
 output: pdf_document
 ---
 
@@ -13,51 +13,46 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-source("/home/elva/Documents/MetClassNet/R/NetworkComparison/NetworkComparisonFunctions.R")
-
+library(MetClassNetR)
+library(igraph)
+library(tidyverse)
+library(UpSetR)
+library(grid)
+library(ggplot2)
+library(ggrepel)
+library(stringr)
+library(plyr)
 ```
 
 ## Networks' comparison
 
 This script compares several aspects of a set of networks. We start by reading the 
-networks, using the `readNetworks` function, which gets as input the directory
+networks, using the `readNet` function, which gets as input the directory
 in which the networks are stored (`netDir` parameter). Each network 
 should be an independent file, and several formats are accepted (e.g., CSV and 
 GML). Please note that we assume that the networks will have equivalent node names 
 (i.e., they should all be subsets of a common set of nodes). Importantly, you 
 can define whether the networks are directed or not using the `directed` parameter.
 
-NOTE. You can also generate a predefined set of 4 toy-networks with the `generateToyNetworks`
+NOTE. You can also generate a predefined set of 4 toy-networks with the `makeToyNet`
 function, giving as parameter the path of the folder where you want to store them.
 
-```{r readNetworks}
-# # create toy networks
-# netDir <- "~/ToyNetworks/"
-# # # generateToyNetworks(netDir)
-# directed <- FALSE
-# 
-# networks <- readNetworks(netDir, directed = directed, format = "csv")
-# 
-# # netDir <- "~/Documents/C_elegans/LiesaData/Networks_celeganspathogenmicrobiome-subset_pos-neg_2022-01-12_1517/"
-# # directed <- FALSE
-# # 
-# # # read networks
-# # networks <- readNetworks(netDir, directed = directed, pattern = "neg", format = "gml")
+```{r readNet}
+# create toy networks
+netDir <- "~/ToyNetworks/"
+makeToyNet(netDir)
+directed <- FALSE
 
-###################### --------------------------------------------------------------
-load("/home/elva/Documents/MetClassNet/R/MetClassNetR_Liesa/MultiLayerNetwork.RData")
-networks <- multiLayer$layers[1:3]
-source("/home/elva/Documents/MetClassNet/R/NetworkComparison/NetworkComparisonFunctions.R")
-
-###################### --------------------------------------------------------------
+# read networks
+networks <- readNet(netDir, directed = directed, pattern = "neg", format = "gml")
 
 ```
 
 Now that we have the networks to analyze, we will proceed to calculate some basic
 statistics measurements and to make a plot for each of them. In order to do so,
-use the `calculateNetworkStats` function, giving a parameter the networks you just
-read with `readNetworks`. To generate the plots, we will use the `PrintStatsPlots`
-function, which needs the results of the `calculateNetworkStats` function as input
+use the `calculNetStats` function, giving a parameter the networks you just
+read with `readNet`. To generate the plots, we will use the `PrintStatsPlots`
+function, which needs the results of the `calculNetStats` function as input
 parameter.
 
 The statistics that will be calculated and displayed are the following:
@@ -85,7 +80,7 @@ calculate the betweenness of the nodes.
 
 ```{r calculateStats }
 # calculate stats and generate plots
-statistics <- calculateNetworkStats(networks)
+statistics <- calculNetStats(networks)
 
 # print table with stats 
 knitr::kable(statistics$netStats, caption = "General stats")
@@ -122,5 +117,5 @@ calculus of the overlap.
 
 ```{r getOverlappingNodes}
 # get list of overlapping nodes 
-#getOverlappingNodes(networks)
+getOverlappingNodes(networks)
 ```
