@@ -36,7 +36,7 @@
 #'
 #' @aliases makeToyNet
 #'
-#' @title Function to generate 4 toy networks
+#' @title Generate toy networks
 #'
 #' @description
 #' The function `makeToyNet` generates 4 toy networks.
@@ -109,7 +109,7 @@ makeToyNet <- function(netDir) {
 #'
 #' @aliases readNet
 #'
-#' @title Function to read all the networks stored in a given directory
+#' @title Read all the networks stored in a given directory
 #'
 #' @description
 #' The function `readNet` reads all the networks stored in a given directory
@@ -207,7 +207,7 @@ readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
 #'
 #' @aliases calculNetStats
 #'
-#' @title Function to calculate, create a table and plot statistics.
+#' @title Calculate, create a table and plot statistics
 #'
 #' @description
 #' The function `calculNetStats` serves to calculate, create a table and plot
@@ -438,7 +438,7 @@ getBetweenness <- function(network, netName) {
 #'
 #' @aliases printStatsPlots
 #'
-#' @title Function to calculate, create a table and plot statistics.
+#' @title Calculate, create a table and plot statistics
 #'
 #' @description
 #' The function `printStatsPlots` makes and prints several plots
@@ -729,7 +729,7 @@ makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 #'
 #' @aliases calculateOverlap
 #'
-#' @title Function to calculate, create a table and plot statistics.
+#' @title Calculate, create a table and plot statistics
 #'
 #' @description
 #' The function `calculateOverlap` serves to calculate and print plots of the
@@ -808,8 +808,7 @@ calculateOverlap <- function(networks) {
 #'
 #' @aliases getOverlappingNodes
 #'
-#' @title Function to get the overlapping nodes from a given set of input
-#' networks.
+#' @title Get the overlapping nodes
 #'
 #' @description
 #' The function `getOverlappingNodes` gets the overlapping nodes from a given

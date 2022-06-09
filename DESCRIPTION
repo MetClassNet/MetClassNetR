@@ -11,7 +11,7 @@ Authors@R: c(
            role = "ctb"),
            person(given = "Liesa", family = "Salzer",
            email = "liesa.salzer@helmholtz-muenchen.de",
-           role = "ctb"),
+           role = c("aut", "cre"),
            person(given = "Elva Maria", family = "Novoa-del-Toro",
            email = "elva-maria.novoa-del-toro@inrae.fr",
            role = c("aut", "cre"),
