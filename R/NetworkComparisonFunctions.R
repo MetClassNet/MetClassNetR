@@ -44,15 +44,13 @@
 #' @param netDir
 #' `Path`, directory to store the toy networks
 #'
-#' @import
-#'
 #' @return
 #' Nothing, but it creates four new files in `netDir`
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 makeToyNet <- function(netDir) {
@@ -132,16 +130,15 @@ makeToyNet <- function(netDir) {
 #' format is "csv", then the files must contain 2 columns (source - target) and
 #' each row must be an edge
 #'
-#' @import
-#' `igraph`
+#' @import igraph
 #'
 #' @return
 #' List of igraph objects, one per network to compare
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
@@ -171,13 +168,13 @@ readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
       n <- as.matrix(read.csv(i))
 
       # create igraph object
-      net <- graph_from_edgelist(el = n, directed = directed)
+      net <- igraph::graph_from_edgelist(el = n, directed = directed)
 
     } else {
-      net <- read_graph(i, format = format)
+      net <- igraph::read_graph(i, format = format)
 
       if (directed == FALSE) {
-        net <- as.undirected(net)
+        net <- igraph::as.undirected(net)
       }
     }
 
@@ -225,16 +222,15 @@ readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
 #' @param net
 #' `list`, igraph objects, as returned by readNet()
 #'
-#' @import
-#' `igraph`
+#' @import igraph
 #'
 #' @return
 #' Data frame with the statistics
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 calculNetStats <- function(net) {
@@ -282,8 +278,9 @@ calculNetStats <- function(net) {
     netBet <- rbind(netBet, getBetweenness(n, netName)) # betweenness
 
     # -- stats of the biggest connected component (BCC)
+    # get BCC
     BCC <-
-      induced_subgraph(n, V(n)[cc$membership == which.max(cc$csize)]) # get BCC
+      igraph::induced_subgraph(n, V(n)[cc$membership == which.max(cc$csize)])
     BCCStats <-
       rbind(BCCStats, basicNetStats(BCC, paste0(netName, "_BCC"))) # stats
     BCCClo <-
@@ -306,19 +303,27 @@ calculNetStats <- function(net) {
 #   network - igraph object
 #   netName - name of the network
 # OUTPUT: data frame with all the stats
+#' @name basicNetStats
+#'
+#' @title Calculate basic network stats
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 basicNetStats <- function(network, netName) {
   # fill new data frame with stats
   netStats <-
     data.frame(
       name = netName,
-      vcount = vcount(network),
-      ecount = ecount(network),
-      dens = edge_density(network),
-      diameter = diameter(network, unconnected = TRUE),
+      vcount = igraph::vcount(network),
+      ecount = igraph::ecount(network),
+      dens = igraph::edge_density(network),
+      diameter = igraph::diameter(network, unconnected = TRUE),
       avDeg = mean(degree(network)),
-      noCC = components(network)$no,
-      avPathLen = mean_distance(network, directed = is_directed(network)),
-      clustCo = transitivity(network, type = "global")
+      noCC = igraph::components(network)$no,
+      avPathLen =
+        igraph::mean_distance(network, directed = is_directed(network)),
+      clustCo = igraph::transitivity(network, type = "global")
       )
 
   return(netStats)
@@ -329,6 +334,13 @@ basicNetStats <- function(network, netName) {
 # INPUT:
 #   net - list of networks as igraph objects
 # OUTPUT: data frame with the nodes' degrees of all the networks in the list
+#' @name getNodeDeg
+#'
+#' @title Get the nodes' degrees
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getNodeDeg <- function(net) {
 
   netDeg <-
@@ -340,8 +352,8 @@ getNodeDeg <- function(net) {
     deg <-
       data.frame(
         network = names(net)[i],
-        node = names(V(net[[i]])),
-        degree = degree(net[[i]])
+        node = names(igraph::V(net[[i]])),
+        degree = igraph::degree(net[[i]])
       )
     netDeg <- rbind(netDeg, deg)
   }
@@ -354,6 +366,11 @@ getNodeDeg <- function(net) {
 # INPUT:
 #    cc - connected components
 # OUTPUT: table of sizes
+#' @name makeTableCCSize
+#'
+#' @title Make a table of the sizes of the connected components
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeTableCCSize <- function(cc) {
 
   # make a table to check the size of the connected components
@@ -375,6 +392,13 @@ makeTableCCSize <- function(cc) {
 #   network - network as igraph object
 #   netName - network name
 # OUTPUT: closseness of all connected components
+#' @name getClosenessCC
+#'
+#' @title Calculate the closeness of each connected component of a network
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getClosenessCC <- function(cc, network, netName) {
 
   # calculate the closeness in each component
@@ -386,7 +410,7 @@ getClosenessCC <- function(cc, network, netName) {
 
           # get nodes' IDs of the nodes in current connected component
           nodesIDs <-
-            V(network)[which(names(V(network)) %in%
+            igraph::V(network)[which(names(igraph::V(network)) %in%
               names(cc$membership[cc$membership == X]))]
 
           # calculate closeness of current Connected Component (CC)
@@ -394,8 +418,8 @@ getClosenessCC <- function(cc, network, netName) {
           # shortest path to the rest of the nodes) has the highest closeness,
           # or the lowest value otherwise
           # NOTE 2. Each CC is considered as an independent graph
-          closeness(
-            induced_subgraph(network, vids = nodesIDs),
+          igraph::closeness(
+            igraph::induced_subgraph(network, vids = nodesIDs),
             normalized = TRUE
             )
         }
@@ -415,14 +439,21 @@ getClosenessCC <- function(cc, network, netName) {
 #   network - network as igraph object
 #   netName - network name
 # OUTPUT: data frame containing the betweenness of the nodes in the network
+#' @name getBetweenness
+#'
+#' @title Calculate the betweenness of the nodes in a network
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getBetweenness <- function(network, netName) {
 
   # calculate the betweenness
   bet <-
     data.frame(
       network = netName,
-      node = names(V(network)),
-      betweenness = betweenness(network)
+      node = names(igraph::V(network)),
+      betweenness = igraph::betweenness(network)
       )
 
   return(bet)
@@ -446,15 +477,13 @@ getBetweenness <- function(network, netName) {
 #' @param stats
 #' `list`, results, as returned by the `calculNetStats` function
 #'
-#' @import
-#'
 #' @return
 #' Nothing, but it prints several plots
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 printStatsPlots <- function(stats) {
@@ -506,19 +535,26 @@ printStatsPlots <- function(stats) {
 #               "density", "diameter", "avPathLength" or "clustCo"
 # OUTPUT:
 #   none, but it prints the corresponding scatter plot
+#' @name makeScatterPlot
+#'
+#' @title Make and print a scatter plot
+#'
+#' @import ggplot2
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
   printNothing(1)
   p <-
-    ggplot(
+    ggplot2::ggplot(
       netStats,
-      aes(
+      ggplot2::aes(
         x = name,
         y = eval(as.name(stat2Plot)),
         color = rainbow(nrow(netStats))
         )
       ) +
-    geom_point(size = 4) +
-    labs(
+    ggplot2::geom_point(size = 4) +
+    ggplot2::labs(
       title =
         ifelse(
           title != "",
@@ -528,7 +564,7 @@ makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
       x = "Network",
       y = ifelse(title != "", title, stringr::str_to_title(stat2Plot))
       ) +
-    theme(
+    ggplot2::theme(
       axis.text.x = element_text(size = 10),
       axis.title.x = element_text(size = 12),
       axis.text.y = element_text(size = 10),
@@ -552,7 +588,7 @@ makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
     } else {
       labels <- netStats[[stat2Plot]]
     }
-    p <- p + geom_text(label = labels, hjust = -0.3)  # add labels
+    p <- p + ggplot2::geom_text(label = labels, hjust = -0.3)  # add labels
   }
   print(p) # print plot
 
@@ -574,6 +610,13 @@ makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
 #               value
 # OUTPUT:
 #   none, but it prints the corresponding scatter plot
+#' @name makeBoxPlot
+#'
+#' @title Make and print a boxplot
+#'
+#' @import ggplot2
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
   log = FALSE) {
 
@@ -588,17 +631,17 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
   }
 
   p <-
-    ggplot(
+    ggplot2::ggplot(
       data,
-      aes(x = network, y = eval(as.name(stat2Plot)), fill = network)
+      ggplot2::aes(x = network, y = eval(as.name(stat2Plot)), fill = network)
       ) +
-    geom_boxplot() +
-    labs(
+    ggplot2::geom_boxplot() +
+    ggplot2::labs(
       title = paste0(stringr::str_to_title(stat2Plot), " comparison\n"),
       x = "Network",
       y = stringr::str_to_title(stat2Plot)
       ) +
-    theme(
+    ggplot2::theme(
       axis.text.x = element_text(size = 10),
       axis.title.x = element_text(size = 12),
       axis.text.y = element_text(size = 10),
@@ -610,7 +653,7 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
   # verify if labels should be added to the plot
   if(printLab == TRUE) {
     plotLabels <- getPlotLabels(data, stat2Plot, bestValue)
-    p <- p + geom_text(data = plotLabels, aes(label = node),
+    p <- p + ggplot2::geom_text(data = plotLabels, aes(label = node),
       position = "identity", vjust = ifelse(bestValue == "max", -0.3, 0.3),
       size = 2)
   }
@@ -629,6 +672,13 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
 #   bestValue - string to define whether the highest or lowest values are the
 #               best ones. This is only useful if printLab == TRUE. Possible
 #               values are "max" and "min"
+#' @name getPlotLabels
+#'
+#' @title Get the labels to plot in the box plot
+#'
+#' @importFrom plyr ddply
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getPlotLabels <- function(data, stat2Plot, bestValue) {
   plotLabels <-
     data[as.logical(ave(data[, eval(stat2Plot)], data$network,
@@ -642,8 +692,10 @@ getPlotLabels <- function(data, stat2Plot, bestValue) {
       rows <- which(plotLabels$network == net) # get rows from current network
 
       # print some of the labels for the current network
-      print(paste0("Network ", net, " has ", length(rows), " nodes with ",
-                   bestValue, " ", stat2Plot, ". Here are some of them: "))
+      print(
+        paste0("Network ", net, " has ", length(rows), " nodes with ",
+        bestValue, " ", stat2Plot, ". Here are some of them: ")
+        )
       print(plotLabels$node[head(rows)])
       printNothing(1)
 
@@ -678,6 +730,11 @@ getPlotLabels <- function(data, stat2Plot, bestValue) {
 # Function to print empty lines
 # INPUT: number of empty lines to print
 # OUTPUT: none but prints the lines
+#' @name printNothing
+#'
+#' @title Print empty lines
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 printNothing <- function(n) {
   for (i in seq_len(n)) {
     print("")
@@ -697,6 +754,13 @@ printNothing <- function(n) {
 #   maxDeg    - maximum degree to consider for the plot. Default value = 10
 # OUTPUT:
 #   none, but it prints the corresponding histograms
+#' @name makeHist
+#'
+#' @title Calculate and print a set of histograms
+#'
+#' @import ggplot2
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 
   # filter data
@@ -708,11 +772,13 @@ makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 
   printNothing(1)
   print(
-    ggplot(
+    ggplot2::ggplot(
       data,
-      aes(x = eval(as.name(stat2Plot)), color = network, fill = network)
+      ggplot2::aes(
+        x = eval(as.name(stat2Plot)), color = network, fill = network)
     ) +
-    geom_histogram(alpha = 0.5, binwidth = binWidth, position = "identity")
+    ggplot2::geom_histogram(
+      alpha = 0.5, binwidth = binWidth, position = "identity")
   )
 
   return()
@@ -738,16 +804,15 @@ makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 #' @param networks
 #' `list`, igraph objects to analyze
 #'
-#' @import
-#' `igraph`
+#' @import igraph
 #'
 #' @return
 #' Nothing, but it prints the corresponding plots
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 calculateOverlap <- function(networks) {
@@ -761,10 +826,10 @@ calculateOverlap <- function(networks) {
   # loop through the networks to get the nodes' and edges' list
   for(i in seq_len(length(networks))) {
     # save nodes' names
-    allNodes[[names(networks)[i]]] <- names(V(networks[[i]]))
+    allNodes[[names(networks)[i]]] <- names(igraph::V(networks[[i]]))
 
     # get edges' list
-    edges <- as_edgelist(networks[[i]])
+    edges <- igraph::as_edgelist(networks[[i]])
 
     # sort edges alphabetically
     edges <- t(apply(edges, 1, sort))
@@ -821,15 +886,15 @@ calculateOverlap <- function(networks) {
 #' `list`, list of networks' index to consider for the overlap, e.g.,
 #' c(1, 3) to take the first and third networks
 #'
-#' @import
+#' @import igraph
 #'
 #' @return
 #' List of overlapping nodes
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `NetworkComparison` vignette
+#' # See the NetworkComparison vignette
 #'
 #' @export
 getOverlappingNodes <- function(networks, networksIndex) {
@@ -839,7 +904,7 @@ getOverlappingNodes <- function(networks, networksIndex) {
   }
 
   # get nodes' names
-  nodes <- lapply(networks, function(X) {names(V(X))})
+  nodes <- lapply(networks, function(X) {names(igraph::V(X))})
 
   # obtain the intersection
   overlappingNodes <- Reduce(intersect, nodes)
@@ -857,15 +922,22 @@ getOverlappingNodes <- function(networks, networksIndex) {
 #                "Intersection Size"
 # OUTPUT:
 #   none, but it prints the corresponding upset plot
+#' @name makeUpsetPlot
+#'
+#' @title Make and print an upset plot
+#'
+#' @importFrom UpSetR upset fromList
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeUpsetPlot <- function(dataToPlot, title = "Overlap", xLabel = "Set Size",
   yLabel = "Intersection Size") {
 
   printNothing(1)
 
   print(
-    upset(
-      fromList(dataToPlot), order.by = "freq", point.size = 2, line.size = 1,
-      mainbar.y.label = yLabel, sets.x.label = xLabel,
+    UpSetR::upset(
+      UpSetR::fromList(dataToPlot), order.by = "freq", point.size = 2,
+      line.size = 1, mainbar.y.label = yLabel, sets.x.label = xLabel,
       #empty.intersections = "on",
       # y-axis label, y-axis ruler numbers, x-axis label, x-axis ruler numbers,
       # x-axis legend content, overlap size legend
@@ -873,7 +945,7 @@ makeUpsetPlot <- function(dataToPlot, title = "Overlap", xLabel = "Set Size",
     )
   )
 
-  grid.text(title, x = 0.65, y = 0.95, gp = gpar(fontsize = 16))
+  grid::grid.text(title, x = 0.65, y = 0.95, gp = grid::gpar(fontsize = 16))
 
   return()
 }

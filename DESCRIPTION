@@ -1,6 +1,6 @@
 Package: MetClassNetR
-Title: Access, analysis and networking of Metabolomics Data
-Version: 0.0.0.9010
+Title: Create and analize networks built from metabolomics Data
+Version: 0.0.0.9011
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -11,45 +11,45 @@ Authors@R: c(
            role = "ctb"),
            person(given = "Liesa", family = "Salzer",
            email = "liesa.salzer@helmholtz-muenchen.de",
-           role = c("aut", "cre"),
+           role = "aut",
+           comment = c(ORCID = "0000-0003-0761-0656")),
            person(given = "Elva Maria", family = "Novoa-del-Toro",
            email = "elva-maria.novoa-del-toro@inrae.fr",
-           role = c("aut", "cre"),
+           role = "aut",
            comment = c(ORCID = "0000-0002-6135-5839"))
            )
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
-Description: MetClassNetR collects a tool set for integrating metabolomics data a network system. 
+Description: MetClassNetR collects a tool set for integrating metabolomics data as a network system. 
 Depends:
-    Spectra (>= 0.5.0),
-    MSnbase,
-    MetNet (>= 1.11.4), 
     igraph (>= 1.3.0),
-    MsCoreUtils
+    MetNet (>= 1.11.4), 
+    MsCoreUtils,
+    MSnbase,
 Imports:
-    methods    
-Suggests:
-    testthat,
-    knitr (>= 1.1.0),
-    roxygen2,
-    BiocStyle (>= 2.5.19),
-    rmarkdown,
-    easyGgplot2,
-    tidyverse,
-    UpSetR,
-    grid,
     ggplot2,
-    ggrepel,
-    stringr,
-    plyr,
+    methods,
+    MetNet,
     MsBackendMgf,
     QFeatures,
+    plyr,
+    RCy3,
+    readr,
+    Spectra,
+    UpSetR
+Suggests:
+    BiocStyle (>= 2.5.19),
     dplyr,
-    RCy3
+    ggrepel,
+    grid,
+    knitr (>= 1.1.0),
+    rmarkdown,
+    roxygen2,
+    stringr,
+    testthat,
+    tidyverse
 Remotes:
-   RforMassSpectrometry/Spectra,
    sneumann/MsBackendMsp
 License: Artistic-2.0
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0

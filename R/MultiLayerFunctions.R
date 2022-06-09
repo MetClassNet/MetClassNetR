@@ -119,70 +119,91 @@
 #' Chebi. An example can be found in
 #' extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
 #'
-#' @import
+#' @import igraph Spectra
+#'
+#' @importFrom readr read_tsv read_csv
+#' @importFrom MsBackendMgf MsBackendMgf
 #'
 #' @return
 #' Named list containing all the data (peakList, spectra, transformations, and
 #' gsmn)
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
-loadInputData <- function(peakListF, intCol = 23, net2Build = "all", transF,
-  spectraF, gsmnF, spectraSS = NULL, resPath, met2NetDir, configF, idenMetF,
-  compF) {
+loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
+  spectraSS = NULL, resPath, met2NetDir, configF, idenMetF, compF) {
 
   # read peak list
   peakList <- readMaf(peakListF, ecol = intCol)
-  data <- read_tsv(peakListF) # read peak list file
+  data <- readr::read_tsv(peakListF) # read peak list file
 
   # keep only identified metabolites
   identifiedMet <-
     data[!is.na(data$database_identifier), c("id", "database_identifier")]
 
-  # read fragmentation spectra
-  spectra <-
-    Spectra(spectraF, source = MsBackendMgf(), backend = MsBackendDataFrame())
+  # check if there is a fragmentation spectra file
+  if (exists("spectraF")) {
+    # read fragmentation spectra
+    spectra <-
+      Spectra::Spectra(
+        spectraF,
+        source = MsBackendMgf::MsBackendMgf(),
+        backend = Spectra::MsBackendDataFrame()
+      )
 
-  # check if sampling is to be done
-  if (!is.null(spectraSS)) {
+    # check if sampling is to be done
+    if (!is.null(spectraSS)) {
 
-    # check if sample size < current spectra size
-    if (spectraSS < length(spectra)) {
+      # check if sample size < current spectra size
+      if (spectraSS < length(spectra)) {
 
-      # sample the fragmentation spectra
-      keep <- sample(seq_len(length(spectra)), spectraSS)
-      spectra <- spectra[keep]
+        # sample the fragmentation spectra
+        keep <- sample(seq_len(length(spectra)), spectraSS)
+        spectra <- spectra[keep]
+      }
     }
+
+    # sanity check
+    if (!checkSpectra(spectra)) {
+      stop(paste0("Bad spectra. Please check your file ", spectra))
+    }
+  } else {
+    spectra <- NULL
   }
 
-  # read transformations
-  transformations <- read_csv(transF, col_names = TRUE)
+
+  # check if there is a transformations file
+  if (exists("transF")) {
+    # read transformations
+    transformations <- readr::read_csv(transF, col_names = TRUE)
+  } else {
+    transformations <- NULL
+  }
 
   # read GSMN
-  gsmn <- read_graph(gsmnF, format = "gml")
+  gsmn <- igraph::read_graph(gsmnF, format = "gml")
 
   ############################################################# TO REMOVE ????
   # remove compartments from the label of the nodes
   labels <-
     unlist(
-      lapply(get.vertex.attribute(gsmn, "label"), function(X) {
+      lapply(igraph::get.vertex.attribute(gsmn, "label"), function(X) {
         n <- nchar(X)
         substr(X, 1, n-2)
       }
       )
     )
   # set the name of the metabolites
-  gsmn <- set.vertex.attribute(gsmn, name = "name", value = labels)
+  gsmn <- igraph::set.vertex.attribute(gsmn, name = "name", value = labels)
+  ############################################################# TO REMOVE ????
 
-  # sanity checks
+  # sanity check
   if (!checkQFeatures(peakList)) {
     stop(paste0("Bad peak list. Please check your file ", peakListF))
-  } else if (!checkSpectra(spectra)) {
-    stop(paste0("Bad spectra. Please check your file ", spectra))
   } else {
     # if the sanity checks are OK, return the read data
     return (
@@ -306,15 +327,13 @@ loadInputData <- function(peakListF, intCol = 23, net2Build = "all", transF,
 #' least 25% of correlation between the abundance values, either positive or
 #' negative)
 #'
-#' @import
-#'
 #' @return
 #' List of experimental networks as igraph objects
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
 buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
@@ -379,6 +398,13 @@ buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: mass difference network as igraph object
+#' @name buildMassDiffNet
+#'
+#' @title Build the mass difference network
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
   # create mass difference adjacency matrix
@@ -400,7 +426,7 @@ buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
   # create igraph object
   net <-
-    graph_from_data_frame(
+    igraph::graph_from_data_frame(
       massDiffDF,
       directed = directed,
       vertices = inputData$allComp
@@ -422,18 +448,25 @@ buildMassDiffNet <- function(inputData, ppmMass, directed) {
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: spectral similarity network as igraph object
+#' @name buildSpecSimNet
+#'
+#' @title Build the spectral similarity network
+#'
+#' @import igraph MetNet Spectra
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 
   # calculate spectral similarity
    spectralSim <-
     spec_molNetwork(
-      inputData$spectra, MAPFUN = joinPeaksGnps, methods = "gnps",
+      inputData$spectra, MAPFUN = Spectra::joinPeaksGnps, methods = "gnps",
       tolerance = tol, ppm = ppmSpec, type = "inner"
     )
 
   # add spectral similarity to the structural adjacency matrix from MetNet
   spectralSimA <-
-    addSpectralSimilarity(
+    MetNet::addSpectralSimilarity(
       am_structural = massDiff, ms2_similarity = spectralSim
       )
 
@@ -443,7 +476,7 @@ buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 
   # create igraph object
   net <-
-    graph_from_data_frame(
+    igraph::graph_from_data_frame(
       spectralSimDF,
       directed = directed,
       vertices = inputData$allComp
@@ -464,6 +497,13 @@ buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 # corrThresh - floating point number indicating the correlation threshold to
 #              consider that two features are correlated
 # OUTPUT: correlation network as igraph object
+#' @name buildCorrNet
+#'
+#' @title Build the correlation network
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 
   # calculate correlation
@@ -484,7 +524,7 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 
   # create igraph object
   net <-
-    graph_from_data_frame(
+    igraph::graph_from_data_frame(
       corrDF,
       directed = directed,
       vertices = inputData$allComp
@@ -521,15 +561,13 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 #' `character`, file name for the resulting mappings file. The default value is
 #' "Res_Met2Net_MappedMet.txt"
 #'
-#' @import
-#'
 #' @return
 #' Data frame with the mappings and ontology-based distances.
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
 mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
@@ -604,17 +642,15 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #' Note. The distance is equal to zero when the mapping is exact), and "chebi"
 #' (ChEBI id of the corresponding metabolite from the GSMN)
 #'
-#' @import
-#'
 #' @return
 #' Multi-layer network in list format containing 3 named elements:
 #  "layers" (list of igraph objects), "type" (type of layer: Exp/GSMN),
 #  "interLayerEdges" (data frame with 3 columns: expNode, gsmnNode, distance)
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
 makeMultiLayer <- function(inputData, expNetworks, mappingF) {
@@ -686,15 +722,13 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
 #' @param inputData
 #' `list`, list returned by the `loadInputData` function
 #'
-#' @import
-#'
 #' @return
 #' Nothing, but it creates several plots in the resPath directory
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
 calculateMultiLayerStats <- function(multiLayer, inputData) {
@@ -763,38 +797,45 @@ makeFeqTable <- function(data, decreasing, name) {
 #  vertical - if TRUE, the bars will be vertical, otherwise, they will be
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
+#' @name makeBarPlot
+#'
+#' @title Make and save a bar plot
+#'
+#' @import ggplot2
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   # make plot
   p <-
-    ggplot(
+    ggplot2::ggplot(
       data = data,
-      aes(x = eval(as.symbol(xAxis)),
-          y = eval(as.symbol(yAxis))
-         )
+      ggplot2::aes(x = eval(as.symbol(xAxis)), y = eval(as.symbol(yAxis)))
       ) +
-    geom_bar(stat = "identity") +
-    ggtitle(title) +
-    xlab(xAxis) +
-    ylab(yAxis) +
-    theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 16))
+    ggplot2::geom_bar(stat = "identity") +
+    ggplot2::ggtitle(title) +
+    ggplot2::xlab(xAxis) +
+    ggplot2::ylab(yAxis) +
+    ggplot2::theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 16))
 
   # check orientation
   if (vertical == TRUE) {
     p <-
       p +
-      geom_text(aes(label = eval(as.symbol(yAxis))), vjust = -0.3, size = 3.5)
+      ggplot2::geom_text(
+        ggplot2::aes(label = eval(as.symbol(yAxis))), vjust = -0.3, size = 3.5)
   } else {
     p <-
       p +
-      geom_text(
-        aes(label = eval(as.symbol(yAxis))), hjust = -0.3, size = 3.5
+      ggplot2::geom_text(
+        ggplot2::aes(label = eval(as.symbol(yAxis))), hjust = -0.3, size = 3.5
         ) +
-      coord_flip()
+      ggplot2::coord_flip()
   }
 
   # save plot
-  ggsave(
+  ggplot2::ggsave(
     paste0(resPath, str_replace_all(title, " ", "_"), ".png"),
     plot = p,
     dpi = 300
@@ -836,16 +877,14 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 #' `boolean`, if == TRUE, the multi-layer layer will be visualized in Cytoscape
 #' (NOTE. Cytoscape needs to be open). The default value is FALSE
 #'
-#' @import
-#'
 #' @return
 #' Nothing, but it generates files with the list of nodes, edges, and the
 #' Cytoscape visualization (if visualize == TRUE)
 #'
-#' @author Elva Maria Novoa-del-Toro, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
 #' @examples
-#' See `MultiLayerNetwork` vignette
+#' # See the MultiLayerNetwork vignette
 #'
 #' @export
 writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
@@ -896,6 +935,13 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
 # Function to get the list of edges in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of edges, including inter-layer ones
+#' @name getEdgeList
+#'
+#' @title Get the list of edges in a multi-layer network
+#'
+#' @import igraph
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getEdgeList <- function(multiLayer) {
   allEdges <-
     data.frame(
@@ -908,7 +954,7 @@ getEdgeList <- function(multiLayer) {
   for (i in seq_len(length(multiLayer$layers))) {
 
     # get edge list
-    edges <- as_edgelist(multiLayer$layers[[i]])
+    edges <- igraph::as_edgelist(multiLayer$layers[[i]])
 
     # add to general list
     allEdges <-
@@ -941,6 +987,11 @@ getEdgeList <- function(multiLayer) {
 # Function to get the list of nodes in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of nodes
+#' @name getNodeList
+#'
+#' @title Get the list of nodes in a multi-layer network
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getNodeList <- function(multiLayer) {
 
   # get types of layers
@@ -1002,26 +1053,33 @@ getNodeList <- function(multiLayer) {
 #                 If fixedColors == FALSE, the colors of the nodes and edges
 #                 will be assigned automatically. The default value is TRUE
 # OUTPUT: None, but it generates a Cytoscape file with the visualization
+#' @name cytoscapeVis
+#'
+#' @title Visualize in Cytoscape
+#'
+#' @import igraph RCy3
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
   fixedColors = TRUE) {
 
     # verify that Cytoscape is launched
-    cytoscapePing()
+    RCy3::cytoscapePing()
 
     # close any open session
-    closeSession(save.before.closing = FALSE)
+    RCy3::closeSession(save.before.closing = FALSE)
 
     # create aggregated version of the multi-layer network
     aggregated <-
-      graph_from_data_frame(edges, directed = FALSE, vertices = nodes)
+      igraph::graph_from_data_frame(edges, directed = FALSE, vertices = nodes)
 
     # visualize aggregated network in Cytoscape
-    createNetworkFromIgraph(
+    RCy3::createNetworkFromIgraph(
       aggregated,
       title = "MultiLayer",
       collection = "MultiLayerNetwork"
     )
-    layoutNetwork(layout.name = "force-directed", network = "MultiLayer")
+    RCy3::layoutNetwork(layout.name = "force-directed", network = "MultiLayer")
 
     # get types of nodes and edges in the network
     nodeTypes <- unique(get.vertex.attribute(aggregated, "nodeType"))
@@ -1031,7 +1089,7 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
     colors <- getColorTable(nodeTypes, edgeTypes, fixedColors)
 
     # color the nodes
-    setNodeColorMapping(
+    RCy3::setNodeColorMapping(
       table.column = "nodeType", table.column.values = nodeTypes,
       colors =
         sapply(
@@ -1042,7 +1100,7 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
     )
 
     # color the edges
-    setEdgeColorMapping(
+    RCy3::setEdgeColorMapping(
       table.column = "interaction", table.column.values = edgeTypes,
       colors =
         sapply(
@@ -1077,15 +1135,16 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
 
       # create subnetwork
       subnet <-
-        subgraph(aggregated, vids = which(names(V(aggregated)) %in% nCon))
+        igraph::subgraph(
+          aggregated, vids = which(names(V(aggregated)) %in% nCon))
 
       # visualize subnetwork in Cytoscape
-      createNetworkFromIgraph(
+      RCy3::createNetworkFromIgraph(
         subnet,
         title = paste0(n, "_AllLayers"),
         collection = n
       )
-      layoutNetwork(
+      RCy3::layoutNetwork(
         layout.name = "force-directed", network = paste0(n, "_AllLayers")
         )
 
@@ -1098,7 +1157,7 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
       # loop to generate a subnetwork per edge type
       for(eType in edgeTypes) {
         # select edges of current type
-        selectEdges(
+        RCy3::selectEdges(
           edges = eType,
           by.col = "interaction",
           preserve.current.selection = FALSE,
@@ -1106,10 +1165,11 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
         )
 
         # select all nodes connected by selected edges
-        selectNodesConnectedBySelectedEdges(network = paste0(n, "_AllLayers"))
+        RCy3::selectNodesConnectedBySelectedEdges(
+          network = paste0(n, "_AllLayers"))
 
         # create subnetwork
-        createSubnetwork(
+        RCy3::createSubnetwork(
           nodes = "selected",
           edges = "selected",
           subnetwork.name = paste0(n, "_", eType),
@@ -1117,12 +1177,12 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
         )
 
         # apply layout
-        layoutNetwork(
+        RCy3::layoutNetwork(
           layout.name = "force-directed", network = paste0(n, "_", eType))
       }
     }
 
-    saveSession(paste0(resPath, "Subnetworks_", Sys.Date()))
+    RCy3::saveSession(paste0(resPath, "Subnetworks_", Sys.Date()))
 
     return()
   }
@@ -1136,6 +1196,11 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
 # OUTPUT:
 #   data frame of three columns: type, name, and color, containing the colors
 #   for the nodes and edges
+#' @name getColorTable
+#'
+#' @title Get the table of colors for the nodes and edges
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
 
   # check whether predefined list of colors is to be used

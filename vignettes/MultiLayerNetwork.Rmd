@@ -13,7 +13,6 @@ library(MetNet)
 library(Spectra)
 library(MsCoreUtils)
 library(MsBackendMgf)
-library(easyGgplot2)
 library(QFeatures)
 library(igraph)
 library(tidyverse)
@@ -103,7 +102,6 @@ inputData <-
         package = "MetClassNetR"
         ), 
     intCol = 23, 
-    net2Build = "all", 
     transF = 
       system.file(
         paste0(path, "transformations_MTBLS1586.csv"), 
