@@ -405,6 +405,8 @@ buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
   # create mass difference adjacency matrix
@@ -455,6 +457,8 @@ buildMassDiffNet <- function(inputData, ppmMass, directed) {
 #' @import igraph MetNet Spectra
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 
   # calculate spectral similarity
@@ -504,6 +508,8 @@ buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 
   # calculate correlation
@@ -778,6 +784,15 @@ calculateMultiLayerStats <- function(multiLayer, inputData) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
+#' @name makeFeqTable
+#'
+#' @aliases makeFeqTable
+#'
+#' @title Make a frequency table
+#'
+#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeFeqTable <- function(data, decreasing, name) {
   # make table of frequencies
   t <- as.data.frame(sort(table(data), decreasing = decreasing))
@@ -804,6 +819,8 @@ makeFeqTable <- function(data, decreasing, name) {
 #' @import ggplot2
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   # make plot
@@ -942,6 +959,8 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getEdgeList <- function(multiLayer) {
   allEdges <-
     data.frame(
@@ -992,6 +1011,8 @@ getEdgeList <- function(multiLayer) {
 #' @title Get the list of nodes in a multi-layer network
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getNodeList <- function(multiLayer) {
 
   # get types of layers
@@ -1060,6 +1081,8 @@ getNodeList <- function(multiLayer) {
 #' @import igraph RCy3
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
   fixedColors = TRUE) {
 
@@ -1201,6 +1224,8 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
 #' @title Get the table of colors for the nodes and edges
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
 
   # check whether predefined list of colors is to be used

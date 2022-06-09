@@ -318,6 +318,8 @@ calculNetStats <- function(net) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 basicNetStats <- function(network, netName) {
   # fill new data frame with stats
   netStats <-
@@ -349,6 +351,8 @@ basicNetStats <- function(network, netName) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getNodeDeg <- function(net) {
 
   netDeg <-
@@ -379,6 +383,8 @@ getNodeDeg <- function(net) {
 #' @title Make a table of the sizes of the connected components
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeTableCCSize <- function(cc) {
 
   # make a table to check the size of the connected components
@@ -407,6 +413,8 @@ makeTableCCSize <- function(cc) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getClosenessCC <- function(cc, network, netName) {
 
   # calculate the closeness in each component
@@ -454,6 +462,8 @@ getClosenessCC <- function(cc, network, netName) {
 #' @import igraph
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getBetweenness <- function(network, netName) {
 
   # calculate the betweenness
@@ -550,6 +560,8 @@ printStatsPlots <- function(stats) {
 #' @import ggplot2
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
   printNothing(1)
   p <-
@@ -625,6 +637,8 @@ makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
 #' @import ggplot2
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
   log = FALSE) {
 
@@ -687,6 +701,8 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
 #' @importFrom plyr ddply
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 getPlotLabels <- function(data, stat2Plot, bestValue) {
   plotLabels <-
     data[as.logical(ave(data[, eval(stat2Plot)], data$network,
@@ -743,6 +759,8 @@ getPlotLabels <- function(data, stat2Plot, bestValue) {
 #' @title Print empty lines
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 printNothing <- function(n) {
   for (i in seq_len(n)) {
     print("")
@@ -769,6 +787,8 @@ printNothing <- function(n) {
 #' @import ggplot2
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 
   # filter data
@@ -937,6 +957,8 @@ getOverlappingNodes <- function(networks, networksIndex) {
 #' @importFrom UpSetR upset fromList
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
+#'
+#' @export
 makeUpsetPlot <- function(dataToPlot, title = "Overlap", xLabel = "Set Size",
   yLabel = "Intersection Size") {
 
