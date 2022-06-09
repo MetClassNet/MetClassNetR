@@ -54,6 +54,7 @@
 #'
 #' @export
 makeToyNet <- function(netDir) {
+  # create networks
   n1 <-
     matrix(
       data = c("A", "B", "B", "C", "B", "E", "C", "D"),
@@ -71,8 +72,15 @@ makeToyNet <- function(netDir) {
         c("A", "B", "A", "F", "B", "F", "B", "C", "A", "D", "C", "D",
           "F", "D"),
       ncol = 2, byrow = TRUE)
+
+  # set column names
   colnames(n1) <-
     colnames(n2) <- colnames(n3) <- colnames(n4) <- c("node1", "node2")
+
+  # create target directory
+  dir.create(netDir)
+
+  # save networks in files
   write.csv(
     n1, file = paste0(netDir, "Network1.csv"), row.names = FALSE,
     quote = FALSE)
