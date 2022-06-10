@@ -311,15 +311,6 @@ calculNetStats <- function(net) {
 #   network - igraph object
 #   netName - name of the network
 # OUTPUT: data frame with all the stats
-#' @name basicNetStats
-#'
-#' @title Calculate basic network stats
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 basicNetStats <- function(network, netName) {
   # fill new data frame with stats
   netStats <-
@@ -344,15 +335,6 @@ basicNetStats <- function(network, netName) {
 # INPUT:
 #   net - list of networks as igraph objects
 # OUTPUT: data frame with the nodes' degrees of all the networks in the list
-#' @name getNodeDeg
-#'
-#' @title Get the nodes' degrees
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getNodeDeg <- function(net) {
 
   netDeg <-
@@ -378,13 +360,6 @@ getNodeDeg <- function(net) {
 # INPUT:
 #    cc - connected components
 # OUTPUT: table of sizes
-#' @name makeTableCCSize
-#'
-#' @title Make a table of the sizes of the connected components
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeTableCCSize <- function(cc) {
 
   # make a table to check the size of the connected components
@@ -405,16 +380,7 @@ makeTableCCSize <- function(cc) {
 #   cc      - connected components
 #   network - network as igraph object
 #   netName - network name
-# OUTPUT: closseness of all connected components
-#' @name getClosenessCC
-#'
-#' @title Calculate the closeness of each connected component of a network
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
+# OUTPUT: closeness of all connected components
 getClosenessCC <- function(cc, network, netName) {
 
   # calculate the closeness in each component
@@ -455,15 +421,6 @@ getClosenessCC <- function(cc, network, netName) {
 #   network - network as igraph object
 #   netName - network name
 # OUTPUT: data frame containing the betweenness of the nodes in the network
-#' @name getBetweenness
-#'
-#' @title Calculate the betweenness of the nodes in a network
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getBetweenness <- function(network, netName) {
 
   # calculate the betweenness
@@ -494,6 +451,10 @@ getBetweenness <- function(network, netName) {
 #'
 #' @param stats
 #' `list`, results, as returned by the `calculNetStats` function
+#'
+#' @import ggplot2
+#' @importFrom plyr ddply
+#' @importFrom stringr str_to_title
 #'
 #' @return
 #' Nothing, but it prints several plots
@@ -553,15 +514,6 @@ printStatsPlots <- function(stats) {
 #               "density", "diameter", "avPathLength" or "clustCo"
 # OUTPUT:
 #   none, but it prints the corresponding scatter plot
-#' @name makeScatterPlot
-#'
-#' @title Make and print a scatter plot
-#'
-#' @import ggplot2
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
   printNothing(1)
   p <-
@@ -630,15 +582,6 @@ makeScatterPlot <- function(netStats, stat2Plot, title ="", printLab = FALSE) {
 #               value
 # OUTPUT:
 #   none, but it prints the corresponding scatter plot
-#' @name makeBoxPlot
-#'
-#' @title Make and print a boxplot
-#'
-#' @import ggplot2
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
   log = FALSE) {
 
@@ -694,15 +637,6 @@ makeBoxPlot <- function(data, stat2Plot, bestValue = "max", printLab = FALSE,
 #   bestValue - string to define whether the highest or lowest values are the
 #               best ones. This is only useful if printLab == TRUE. Possible
 #               values are "max" and "min"
-#' @name getPlotLabels
-#'
-#' @title Get the labels to plot in the box plot
-#'
-#' @importFrom plyr ddply
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getPlotLabels <- function(data, stat2Plot, bestValue) {
   plotLabels <-
     data[as.logical(ave(data[, eval(stat2Plot)], data$network,
@@ -754,13 +688,6 @@ getPlotLabels <- function(data, stat2Plot, bestValue) {
 # Function to print empty lines
 # INPUT: number of empty lines to print
 # OUTPUT: none but prints the lines
-#' @name printNothing
-#'
-#' @title Print empty lines
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 printNothing <- function(n) {
   for (i in seq_len(n)) {
     print("")
@@ -780,15 +707,6 @@ printNothing <- function(n) {
 #   maxDeg    - maximum degree to consider for the plot. Default value = 10
 # OUTPUT:
 #   none, but it prints the corresponding histograms
-#' @name makeHist
-#'
-#' @title Calculate and print a set of histograms
-#'
-#' @import ggplot2
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 
   # filter data
@@ -833,6 +751,8 @@ makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 #' `list`, igraph objects to analyze
 #'
 #' @import igraph
+#' @importFrom UpSetR upset fromList
+#' @importFrom grid grid.text gpar
 #'
 #' @return
 #' Nothing, but it prints the corresponding plots
@@ -950,15 +870,6 @@ getOverlappingNodes <- function(networks, networksIndex) {
 #                "Intersection Size"
 # OUTPUT:
 #   none, but it prints the corresponding upset plot
-#' @name makeUpsetPlot
-#'
-#' @title Make and print an upset plot
-#'
-#' @importFrom UpSetR upset fromList
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeUpsetPlot <- function(dataToPlot, title = "Overlap", xLabel = "Set Size",
   yLabel = "Intersection Size") {
 

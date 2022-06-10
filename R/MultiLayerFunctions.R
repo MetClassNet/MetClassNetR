@@ -327,6 +327,8 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
 #' least 25% of correlation between the abundance values, either positive or
 #' negative)
 #'
+#' @import igraph MetNet Spectra
+#'
 #' @return
 #' List of experimental networks as igraph objects
 #'
@@ -398,15 +400,6 @@ buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: mass difference network as igraph object
-#' @name buildMassDiffNet
-#'
-#' @title Build the mass difference network
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
   # create mass difference adjacency matrix
@@ -450,15 +443,6 @@ buildMassDiffNet <- function(inputData, ppmMass, directed) {
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
 # OUTPUT: spectral similarity network as igraph object
-#' @name buildSpecSimNet
-#'
-#' @title Build the spectral similarity network
-#'
-#' @import igraph MetNet Spectra
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 
   # calculate spectral similarity
@@ -501,15 +485,6 @@ buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 # corrThresh - floating point number indicating the correlation threshold to
 #              consider that two features are correlated
 # OUTPUT: correlation network as igraph object
-#' @name buildCorrNet
-#'
-#' @title Build the correlation network
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 
   # calculate correlation
@@ -728,6 +703,8 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
 #' @param inputData
 #' `list`, list returned by the `loadInputData` function
 #'
+#' @import ggplot2
+#'
 #' @return
 #' Nothing, but it creates several plots in the resPath directory
 #'
@@ -784,15 +761,6 @@ calculateMultiLayerStats <- function(multiLayer, inputData) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
-#' @name makeFeqTable
-#'
-#' @aliases makeFeqTable
-#'
-#' @title Make a frequency table
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeFeqTable <- function(data, decreasing, name) {
   # make table of frequencies
   t <- as.data.frame(sort(table(data), decreasing = decreasing))
@@ -812,15 +780,6 @@ makeFeqTable <- function(data, decreasing, name) {
 #  vertical - if TRUE, the bars will be vertical, otherwise, they will be
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
-#' @name makeBarPlot
-#'
-#' @title Make and save a bar plot
-#'
-#' @import ggplot2
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   # make plot
@@ -894,6 +853,8 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 #' `boolean`, if == TRUE, the multi-layer layer will be visualized in Cytoscape
 #' (NOTE. Cytoscape needs to be open). The default value is FALSE
 #'
+#' @import igraph RCy3
+#'
 #' @return
 #' Nothing, but it generates files with the list of nodes, edges, and the
 #' Cytoscape visualization (if visualize == TRUE)
@@ -952,15 +913,6 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
 # Function to get the list of edges in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of edges, including inter-layer ones
-#' @name getEdgeList
-#'
-#' @title Get the list of edges in a multi-layer network
-#'
-#' @import igraph
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getEdgeList <- function(multiLayer) {
   allEdges <-
     data.frame(
@@ -1006,13 +958,6 @@ getEdgeList <- function(multiLayer) {
 # Function to get the list of nodes in a multi-layer network
 # INPUT: multi-layer network
 # OUTPUT: list of nodes
-#' @name getNodeList
-#'
-#' @title Get the list of nodes in a multi-layer network
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getNodeList <- function(multiLayer) {
 
   # get types of layers
@@ -1074,15 +1019,6 @@ getNodeList <- function(multiLayer) {
 #                 If fixedColors == FALSE, the colors of the nodes and edges
 #                 will be assigned automatically. The default value is TRUE
 # OUTPUT: None, but it generates a Cytoscape file with the visualization
-#' @name cytoscapeVis
-#'
-#' @title Visualize in Cytoscape
-#'
-#' @import igraph RCy3
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
   fixedColors = TRUE) {
 
@@ -1219,13 +1155,6 @@ cytoscapeVis <- function(nodes, edges, resPath, mainType = "GSMN",
 # OUTPUT:
 #   data frame of three columns: type, name, and color, containing the colors
 #   for the nodes and edges
-#' @name getColorTable
-#'
-#' @title Get the table of colors for the nodes and edges
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @export
 getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
 
   # check whether predefined list of colors is to be used

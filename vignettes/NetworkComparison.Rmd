@@ -14,14 +14,8 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(MetClassNetR)
-library(igraph)
 library(tidyverse)
-library(UpSetR)
-library(grid)
-library(ggplot2)
 library(ggrepel)
-library(stringr)
-library(plyr)
 ```
 
 ## Networks' comparison

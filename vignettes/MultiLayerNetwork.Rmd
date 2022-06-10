@@ -9,17 +9,9 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(MetClassNetR)
-library(MetNet)
-library(Spectra)
 library(MsCoreUtils)
-library(MsBackendMgf)
-library(QFeatures)
-library(igraph)
 library(tidyverse)
 library(dplyr)
-library(ggplot2)
-library(stringr)
-library(RCy3)
 ```
 
 # Buildig a multi-layer network
