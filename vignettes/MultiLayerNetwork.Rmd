@@ -12,6 +12,8 @@ library(MetClassNetR)
 library(MsCoreUtils)
 library(tidyverse)
 library(dplyr)
+library(MetNet)
+library(QFeatures)
 ```
 
 # Buildig a multi-layer network
@@ -130,8 +132,8 @@ inputData <-
       system.file(
         paste0(path, "Metabolomics2NetworksData/WormJamMet.tsv"), 
         package = "MetClassNetR"
-        )#, 
-#    spectraSS = 50
+        ), 
+    spectraSS = 50
     ) 
 
 ```

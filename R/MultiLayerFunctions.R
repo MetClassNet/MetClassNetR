@@ -204,24 +204,23 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
   # sanity check
   if (!checkQFeatures(peakList)) {
     stop(paste0("Bad peak list. Please check your file ", peakListF))
-  } else {
-    # if the sanity checks are OK, return the read data
-    return (
-      list(
-        peakList = peakList,
-        allComp = data$id,
-        identifiedMet = identifiedMet,
-        spectra = spectra,
-        transformations = transformations,
-        gsmn = gsmn,
-        resPath = resPath,
-        configF = configF,
-        idenMetF = idenMetF,
-        compF = compF,
-        met2NetDir = met2NetDir
-        )
-      )
   }
+
+  return (
+    list(
+      peakList = peakList,
+      allComp = data$id,
+      identifiedMet = identifiedMet,
+      spectra = spectra,
+      transformations = transformations,
+      gsmn = gsmn,
+      resPath = resPath,
+      configF = configF,
+      idenMetF = idenMetF,
+      compF = compF,
+      met2NetDir = met2NetDir
+      )
+    )
 }
 
 
@@ -927,17 +926,21 @@ getEdgeList <- function(multiLayer) {
     # get edge list
     edges <- igraph::as_edgelist(multiLayer$layers[[i]])
 
-    # add to general list
-    allEdges <-
-      rbind(
-        allEdges,
-        data.frame(
-          source = edges[, 1],
-          target = edges[, 2],
-          interaction =
-            paste(multiLayer$type[i], names(multiLayer$layers)[i], sep = "_")
+    # verify if there are any edges in the current network
+    if (nrow(edges) > 0) {
+
+      # add edges to general list
+      allEdges <-
+        rbind(
+          allEdges,
+          data.frame(
+            source = edges[, 1],
+            target = edges[, 2],
+            interaction =
+              paste(multiLayer$type[i], names(multiLayer$layers)[i], sep = "_")
           )
         )
+    }
   }
 
   # add inter-layer edges
