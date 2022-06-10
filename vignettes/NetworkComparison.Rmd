@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(MetClassNetR)
 library(tidyverse)
 library(ggrepel)
+library(plyr)
 ```
 
 ## Networks' comparison
@@ -40,8 +41,7 @@ makeToyNet(netDir)
 directed <- FALSE
 
 # read networks
-networks <- 
-  readNet(netDir, directed = directed, pattern = "neg", format = "gml")
+networks <- readNet(netDir, directed = directed, format = "csv")
 
 ```
 
@@ -83,7 +83,7 @@ statistics <- calculNetStats(networks)
 knitr::kable(statistics$netStats, caption = "General stats")
   
 # print plots
-PrintStatsPlots(statistics)
+printStatsPlots(statistics)
 ```
 
 We will now calculate the overlap of the nodes and edges of all of our 
@@ -103,7 +103,7 @@ will show:
 
 ```{r calculateOverlap}
 # calculate overlap of nodes and edges
-CalculateOverlap(networks)
+calculateOverlap(networks)
 ```
 
 If you want to get the list of overlapping nodes, you can use the 
