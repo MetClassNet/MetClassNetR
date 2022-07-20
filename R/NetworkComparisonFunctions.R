@@ -1,37 +1,3 @@
-
-# ################################################################################
-# # rename files
-# RenameFiles <- function(netDir, patternToRemove = "") {
-#   netDir <-
-#     ifelse(
-#       substr(netDir, nchar(netDir), nchar(netDir)) == "/",
-#       substr(netDir, 1, (nchar(netDir)-1)),
-#       netDir)
-#
-#   # list all files of the given format in the corresponding directory
-#   files <-
-#     list.files(
-#       path = netDir,
-#       full.names = TRUE,
-#       pattern =  paste0(".*", patternToRemove, "(.*).gml")
-#     )
-#
-#   # rename files
-#   lapply(
-#     files,
-#     function(X) {
-#       newName <- str_replace(X, paste0(".*", patternToRemove, "(.*.gml)"), "\\1")
-#       file.rename(X, paste0(netDir, "/", newName))
-#     }
-#   )
-#   return()
-# }
-
-
-# Function to generate 4 toy networks
-# INPUT:
-#   netDir - directory to store the toy networks
-# OUTPUT: none, but it generates 4 files in netDir
 #' @name makeToyNet
 #'
 #' @aliases makeToyNet
@@ -98,19 +64,6 @@ makeToyNet <- function(netDir) {
 }
 
 
-# Function to read all the networks stored in a given directory
-# INPUTS:
-#   netDir   - directory containing all the networks.
-#              NOTE. The networks must be stored in csv format
-#   directed - boolean value indicating if the networks are directed or not,
-#              the default value is FALSE (i.e., undirected networks)
-#   pattern  - (optional) pattern that the file names must contain to be read.
-#              If all the networks in netDir are to be read, pattern can be
-#              omitted
-#   format   - files' format. NOTE. If the format is "csv", then the files must
-#              contain 2 columns (source - target) and each row must be an edge
-# OUTPUT:
-#   list of igraph objects, one per network to compare
 #' @name readNet
 #'
 #' @aliases readNet
@@ -194,20 +147,6 @@ readNet <- function(netDir, directed = FALSE, pattern = "", format = "csv") {
 }
 
 
-# Function to calculate, create a table and plot the following statistics:
-#    - Density (no self loops are considered)
-#    - Diameter (if there is more than one connected component, the largest
-#        diameter will be returned, independently of the size of the connected
-#        component)
-#    - Average degree
-#    - Average path length
-#    - Clustering coefficient (the networks are considered as undirected)
-# It also plots the degree distribution, and upset plots of the overlap of
-# nodes and edges
-# INPUT:
-#   net - list of igraph objects, as returned by readNet()
-# OUTPUT:
-#   data frame with the statistics
 #' @name calculNetStats
 #'
 #' @aliases calculNetStats
@@ -435,11 +374,6 @@ getBetweenness <- function(network, netName) {
 }
 
 
-# Function to make and print several plots
-# INPUT:
-#   stats - list of results, as returned by the calculNetStats function
-# OUTPUT:
-#   none, but it prints several plots
 #' @name printStatsPlots
 #'
 #' @aliases printStatsPlots
@@ -731,12 +665,6 @@ makeHist <- function(data, stat2Plot, binWidth = 1, minDeg = 0, maxDeg = 10) {
 }
 
 
-# Function to calculate and print plots of the overlap of nodes and edges
-# between a set of networks
-# INPUT:
-#   networks - list of igraph objects to analyze
-# OUTPUT:
-#   none, but it prints the corresponding plots
 #' @name calculateOverlap
 #'
 #' @aliases calculateOverlap
@@ -809,14 +737,6 @@ calculateOverlap <- function(networks) {
 }
 
 
-
-# Function to get the overlapping nodes from a given set of input networks
-# INPUTS:
-#   networks      - list of networks (igraph objects)
-#   networksIndex - list of networks' index to consider for the overlap, e.g.,
-#                   c(1, 3) to take the first and third networks
-# OUTPUT:
-#   list of overlapping nodes
 #' @name getOverlappingNodes
 #'
 #' @aliases getOverlappingNodes
