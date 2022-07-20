@@ -39,6 +39,7 @@ Installation re-load R and load required libraries.
 devtools::install_github("MetClassNet/MetClassNetR", 
                          ref = "devel_liesa") 
 
+
 # load required libraries
 library(MetClassNetR)
 library(Spectra)
@@ -66,6 +67,7 @@ file and stored into the <code>QFeatures</code>-object. The data from
 positive and negative ionization mode are stored in two different 
 <code>QFeatures</code>-objects. 
 
+
 ```{r ms1, message=FALSE}
 # Metabolights MAF files
 pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv",
@@ -90,7 +92,7 @@ pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-p
 neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf",
                        package = "MetClassNetR")
 
-# load MS2 data 
+# load MS2 data
 ms2_spectra_pos <- Spectra::Spectra(pos_mgf,
                            source = MsBackendMgf(),
                            backend = MsBackendDataFrame())
@@ -125,6 +127,7 @@ for all the features.
 # # check namespace 
 # checkIdNamespace(mtbls1586_qf_neg, ms2_spectra_neg)
 # checkIdNamespace(mtbls1586_qf_pos, ms2_spectra_pos)
+
 ```
 
 
@@ -137,6 +140,7 @@ reactions and their corresponding mass difference. Required columns are
 "group" and "mass". Additional columns as "formula" can be added.
 The transformation-list needs to be provided by the user. An example 
 can be found in the system files. 
+
 
 ```{r transformation}
 transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", 
@@ -157,6 +161,7 @@ ZZZ
 The <code>master</code>-list will contain all types of experimental 
 networks that have been created in this workflow. 
 
+
 ```{r}
 master <- list()
 ```
@@ -176,6 +181,7 @@ name of the mass-difference but also the value itself will be displayed
 as output adjacency matrix.
 The adjacency matrix will be than transformed to a <code>data.frame</code>. 
 
+
 ```{r mass_difference}
 # Create mass difference network
 massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
@@ -188,6 +194,7 @@ massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
 # Create data.frame of adjacency matrix
 massdiff_df <- as.data.frame(massdiff) |> 
   filter(binary == 1)
+
 
 massdiff_df[5:10,]
 ```
@@ -221,6 +228,7 @@ adjacency-list, for example the list from the mass-difference network.
 In order to check if the annotations match the mass-difference, a filter 
 is applied so that only features remains that have annotations in both 
 features. 
+
 
 ```{r manual_annotation}
 # Add annotations to mass-difference adjacency matrix
@@ -289,6 +297,7 @@ plot_custom <-ggplot2.customize(plot, xtitle="Correlation coefficient",
 plot_custom
 
 
+
 ```
 
 
@@ -349,7 +358,7 @@ master <- c(master, spect_adj)
 ```
 
 
-# Export networks to gml format 
+# Export networks to gml format
 
 Created networks are exported and saved as .gml file in the current 
 working-directory. Feature Ids will be stored as additional name in 
@@ -384,12 +393,13 @@ annotation, mz, and RT values from the <code>QFeatures</code>-object.
 # Create and export attribute file 
 attributes <- merge(corr_df, massdiff_df, by = c("Row", "Col"))
 
-# Prepare annotation file 
+
+# Prepare annotation file
 feat_anno <- as.data.frame(rowData(mtbls1586_qf_pos[["mtbls1586_pos"]]))
 feat_anno <- feat_anno[,c("metabolite_identification", "mz", "rtime")]
 colnames(feat_anno) <- c("Annotation", "mz", "RT")
 
-  
+
 # note: only first 10 features are exported
 exportAttributes2gml(attributes[1:10,], file = "attributes_mtbls1586_pos", 
                      anno = feat_anno)
@@ -404,11 +414,8 @@ Export of homologous series
 # 
 # g <- el |> select (c("peak ID", "to ID")) |> as.matrix |> graph_from_edgelist 
 # 
+
 # ## Write to File
 # write_graph(g, "/tmp/g.gml", "gml")
 
 ```
-
-
-
-
