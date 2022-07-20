@@ -1,4 +1,4 @@
-Name,Formula difference,mass,RT shift (RP),RT shift (HILIC)
+name,formula,mass,RT_RP,RT_HILIC
 Adenosine ,C10H11N5O3,249.0861892,,
 Guanosine,C10H11N5O4,265.0811039,,
 Thymidine,C10H12N2O4,224.0797069,,

@@ -45,7 +45,9 @@ library(Spectra)
 library(MsCoreUtils)
 library(MsBackendMgf)
 library(easyGgplot2)
-library(nontarget)
+library(QFeatures)
+library(tidyverse)
+#library(nontarget)
 # library(visNetwork) # for visNetwork() and friends
 # library(networkD3)  # for saveNetwork()
 ```
@@ -66,23 +68,14 @@ positive and negative ionization mode are stored in two different
 
 ```{r ms1, message=FALSE}
 # Metabolights MAF files
-pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", 
+pos_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv",
                        package = "MetClassNetR")
-neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv", 
+neg_maf <- system.file("extdata/MTBLS1586/m_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv",
                        package = "MetClassNetR")
 
-# create QFeature object
-mtbls1586_qf_pos <- readMaf(file(pos_maf),
-                                  ecol = 23:64,
-                                  fnames = 22,
-                                  name = "mtbls1586_pos",
-                                  sep = "\t")
-
-mtbls1586_qf_neg <- readMaf(file(neg_maf),
-                                  ecol = 23:64,
-                                  fnames = 22,
-                                  name = "mtbls1586_neg",
-                                  sep = "\t")
+# create QFeature objects
+mtbls1586_qf_pos <- readMaf(file(pos_maf), ecol = 23, name = "mtbls1586_pos")
+mtbls1586_qf_neg <- readMaf(file(neg_maf), ecol = 23, name = "mtbls1586_neg")
 ```
 
 
@@ -92,9 +85,9 @@ MS2 data is read from a .mgf or .msp file into a <code>Spectra</code> object.
 
 ```{r ms2, message=FALSE, warning=FALSE}
 # get MS2 data in .mgf files
-pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf", 
+pos_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling.mgf",
                        package = "MetClassNetR")
-neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf", 
+neg_mgf <- system.file("extdata/MTBLS1586/ms2_MTBLS1586_LC-MS_negative_reverse-phase_metabolite_profiling.mgf",
                        package = "MetClassNetR")
 
 # load MS2 data 
@@ -149,9 +142,7 @@ can be found in the system files.
 transformations_file <- system.file("extdata/MTBLS1586/transformations_MTBLS1586.csv", 
                                     package = "MetClassNetR")
 
-transformations <- read_csv(transformations_file, 
-                            col_names = TRUE) |> 
-  as.data.frame()
+transformations <- read_csv(transformations_file, col_names = TRUE)
 
 transformations[1:5,]
 ```
@@ -190,7 +181,8 @@ The adjacency matrix will be than transformed to a <code>data.frame</code>.
 massdiff <- qfeat_structural(x = mtbls1586_qf_pos,
                              assay_name = "mtbls1586_pos",
                              transformation = transformations,
-                             var = c("Name", "Formula difference", "mass"),
+#                             var = c("Name", "Formula difference", "mass"),
+                             var = c("name", "formula", "mass"),
                              ppm = 10)
 
 # Create data.frame of adjacency matrix
@@ -208,10 +200,10 @@ the number of determined mass-differences, e.g. by 1000 counts.
 
 ```{r}
 # Summary & filter for counts e.g. higher 1000
-sum_mz_f <- mz_summary(massdiff, filter = 1000, var = "group")
+#sum_mz_f <- mz_summary(massdiff, filter = 1000, var = "group")
 
 # some visualizations
-mz_vis(sum_mz_f, var = "group")
+#mz_vis(sum_mz_f, var = "group")
 
 # append mass difference network
 master <- c(master, massdiff)
