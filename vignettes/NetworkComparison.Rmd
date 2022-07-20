@@ -36,7 +36,7 @@ want to store them.
 
 ```{r readNet}
 # create toy networks
-netDir <- paste0(getwd(), "/ToyNetworks/")
+netDir <- tempdir()
 makeToyNet(netDir)
 directed <- FALSE
 

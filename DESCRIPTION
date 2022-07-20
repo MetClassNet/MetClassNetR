@@ -1,6 +1,6 @@
 Package: MetClassNetR
 Title: Create and analize networks built from metabolomics Data
-Version: 0.0.0.9011
+Version: 0.0.0.9013
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -22,13 +22,12 @@ Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data as a network system. 
 Depends:
     igraph (>= 1.3.0),
-    MetNet (>= 1.11.4), 
+    MetNet (>= 1.14.0), 
     MsCoreUtils,
-    MSnbase,
+    MSnbase
 Imports:
     ggplot2,
     methods,
-    MetNet,
     MsBackendMgf,
     QFeatures,
     plyr,

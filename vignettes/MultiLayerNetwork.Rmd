@@ -12,7 +12,6 @@ library(MetClassNetR)
 library(MsCoreUtils)
 library(tidyverse)
 library(dplyr)
-library(MetNet)
 library(QFeatures)
 ```
 
@@ -112,7 +111,11 @@ inputData <-
         package = "MetClassNetR"
         ), 
     resPath = "~/MetClassNetR_MultiLayerNetwork/", 
-    met2NetDir = "~/Documents/Python/metabolomics2network-master/",
+    met2NetDir = 
+      paste0(
+        find.package("MetClassNetR"), 
+        "/Python/metabolomics2network-master/"
+        ),
     configF =  
       system.file(
         paste0(path, "Metabolomics2NetworksData/JsonConf.txt"), 
@@ -182,7 +185,7 @@ the experimental networks using the `buildExpNet` function, which has up to
 The output of the `buildExpNet` function is a list of experimental networks as 
 igraph objects.
 
-```{r bildNetworks}
+```{r buildNetworks}
 expNetworks <-
   buildExpNet(
     inputData, 
@@ -249,7 +252,7 @@ the multi-layer network is to be visualized in Cytoscape or `FALSE` otherwise.
 Please be aware that Cytoscape should be open if `visualize == TRUE`.
 
 
-```{r multilayer}
+```{r multiLayer}
 mappingF <- paste0(inputData$resPath, resFile)
 
 multiLayer <- makeMultiLayer(inputData, expNetworks, mappingF)
@@ -267,7 +270,7 @@ which generates some plots and stores them in the `resPath` directory (defined
 in `inputData`.
 
 
-```{r multilayerStats}
+```{r multiLayerStats}
 calculateMultiLayerStats(multiLayer, inputData)
 ```
 
