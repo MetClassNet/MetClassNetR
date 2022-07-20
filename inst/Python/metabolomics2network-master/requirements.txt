@@ -1,0 +1,4 @@
+libchebipy
+urllib3
+Sphinx
+sphinxcontrib-napoleon

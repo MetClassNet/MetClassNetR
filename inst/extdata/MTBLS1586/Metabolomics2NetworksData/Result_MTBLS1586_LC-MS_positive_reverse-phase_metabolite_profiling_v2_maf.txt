@@ -1,0 +1,540 @@
+metabolite name	mapped on id	mapping types	distance	chebi	inchi	smiles	hmdb	kegg	pubchem	lipidmaps	swisslipids
+Cluster_2041	M_crm;	chebi class mapping;	2;	['17761'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2293	M_1ac2acglyc;	chebi class mapping;	1;	['17815'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2449	M_1ac2acglyc;	chebi class mapping;	1;	['17815'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_1704											
+Cluster_1766											
+Cluster_1864											
+Cluster_1848											
+Cluster_1815											
+Cluster_1808											
+Cluster_1958											
+Cluster_1936											
+Cluster_1921											
+Cluster_2094											
+Cluster_2058											
+Cluster_2059											
+Cluster_2098											
+Cluster_2037											
+Cluster_2017											
+Cluster_2004											
+Cluster_2007											
+Cluster_2296											
+Cluster_2251											
+Cluster_2254											
+Cluster_2231											
+Cluster_2212											
+Cluster_2213											
+Cluster_2196											
+Cluster_2197											
+Cluster_2198											
+Cluster_2158											
+Cluster_2412											
+Cluster_2509											
+Cluster_2515											
+Cluster_2494											
+Cluster_2495											
+Cluster_2472											
+Cluster_2450											
+Cluster_2754											
+Cluster_0497	M_eicostet;	chebi class mapping;	-2;	['82835'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_1136											
+Cluster_1137											
+Cluster_1328											
+Cluster_1199											
+Cluster_1282											
+Cluster_1271											
+Cluster_1272											
+Cluster_1362											
+Cluster_1351											
+Cluster_1352											
+Cluster_1353											
+Cluster_1497											
+Cluster_1341											
+Cluster_1342											
+Cluster_1329											
+Cluster_1309											
+Cluster_1534											
+Cluster_1516											
+Cluster_1517											
+Cluster_1639											
+Cluster_1498											
+Cluster_1499											
+Cluster_1624											
+Cluster_1625											
+Cluster_1479											
+Cluster_1208	M_2acg3pc;	chebi class mapping;	-1;	['78192'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_1138											
+Cluster_1123											
+Cluster_1235											
+Cluster_1113											
+Cluster_1110											
+Cluster_1200											
+Cluster_1249											
+Cluster_1234											
+Cluster_1236											
+Cluster_1232											
+Cluster_3429	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3562	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3563	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3717	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3718	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3744	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3745	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3863	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3864	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3886	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3909	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3910	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3978	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4005	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4038	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4137	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4254	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4256	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2411	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2546	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2669	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2655	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2825	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2776	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2762	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2764	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2743											
+Cluster_2744	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2543	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2893	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2894	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2881	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2862	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2863	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3029	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2839	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2840	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2841	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3000	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3001	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3224	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2986	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2987	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2970	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2971	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2972	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2954	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2955	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2956	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2936	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2937	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2921	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3141	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3142	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3143	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3116	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3358	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3093	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3094	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3333	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3336	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3074	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3075	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3076	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3055	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3056	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3057	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3027	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3028	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3264	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3012	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3013	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3269	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3243	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3244	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3511	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3513	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3222	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3223	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3486	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3201	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3202	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3203	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3204	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3178	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3179	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3433	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3152	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3153	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3154	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3155	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3161	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3404	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3437	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3412	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3413	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3414	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3415	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3416	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3417	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3383	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3384	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3356	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3357	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3360	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3361	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3362	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3330	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3331	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3332	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3335	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3302	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3304	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3305	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3309	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3313	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3586	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3587	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3589	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3282	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3283	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3261	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3262	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3263	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3615	M_1ac2acg3pc;	chebi class mapping;	1;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3592	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3593	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3594	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3595	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3598	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3843	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3845	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3569	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3541	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3542	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3543	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3544	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3509	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3510	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3512	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3515	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3771	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3772	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3481	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3482	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3483	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3484	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3487	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3488	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3741	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3742	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3459	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3460	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3461	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3462	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3465	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3466	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3995	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3778	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3750	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3751	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3752	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3753	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3754	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3760	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3723	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3724	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3982	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3695	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3696	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3698	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3958	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3959	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3960	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3961	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3632	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3670	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3671	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3672	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3673	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3674	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3936	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3938	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3939	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3648	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3650	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3651	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3912	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3913	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3914	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3915	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3630	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3631	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3889	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3890	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3607	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3608	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3610	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3611	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3588	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3838	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3839	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4159	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3918	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3919	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3923	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3893	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3894	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3895	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3896	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3867	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3868	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3869	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3840	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3841	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3844	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4099	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4100	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3813	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3814	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3817	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4079	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4080	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3792	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3793	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3795	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4328	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4083	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4061	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4040	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4041	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4008	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4009	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4012	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3979	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3980	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3981	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4238	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4240	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3956	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3957	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4212	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4213	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3934	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3937	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4190	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4191	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3911	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4168	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4169	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4174	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4368	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4334	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4335	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4235	M_1ac2acg3pc;	chebi class mapping;	2;	['64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3248											
+Cluster_3450											
+Cluster_3451											
+Cluster_3597											
+Cluster_3786											
+Cluster_3489											
+Cluster_2679	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3118	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3273	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3386	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3468	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3676	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3922	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4255	M_1ac2acg3pc;	chebi class mapping;	0;	['64482', '64482'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3091	M_cdpea;M_dmeap;M_ethamp;M_methamp;M_nmlamp;	chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;	-1;-1;-1;-1;-1;	['16732', '16732'];['31997'];['17553'];['16463', '16463'];['16463', '16463'];	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;
+Cluster_3405	M_cdpea;M_dmeap;M_ethamp;M_methamp;M_nmlamp;	chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;	-1;-1;-1;-1;-1;	['16732', '16732'];['31997'];['17553'];['16463', '16463'];['16463', '16463'];	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;
+Cluster_0984											
+Cluster_2391	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2525	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2507	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2493	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2651	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2652	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2634	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2777	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2760	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2761	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2746	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2747	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2748	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2723	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2724	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2725	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2704	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2705	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2693	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2877	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2878	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2879	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2860	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2861	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3247	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3225	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2988	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2989	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2974	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2975	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2976	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3188	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2957	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2958	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2960	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2934	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2935	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2938	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2939	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2917	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2918	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2919	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3095	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3096	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3052	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3054	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3058	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3073	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3024	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3025	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3034	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3035	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3015	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3016	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3206	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3207	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3185	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3186	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3187	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3156	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3158	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3135	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3136	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3441	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3314	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2;2;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3406	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	1;1;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_3897	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_4241	M_1ac2acg3pe_BAC;M_1ac2acg3pe;	chebi class mapping;chebi class mapping;	2.01;2.01;	['16038'];['16038'];	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;	N/A;N/A;
+Cluster_2656											
+Cluster_2882											
+Cluster_3061											
+Cluster_2864											
+Cluster_2865											
+Cluster_2866											
+Cluster_3039											
+Cluster_2846											
+Cluster_2847											
+Cluster_2848											
+Cluster_2991											
+Cluster_2992											
+Cluster_2978											
+Cluster_3164											
+Cluster_3169											
+Cluster_3097											
+Cluster_3060											
+Cluster_3079											
+Cluster_3342											
+Cluster_2849											
+Cluster_3081											
+Cluster_3420	M_cdpea;M_dmeap;M_ethamp;M_methamp;M_nmlamp;	chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;	-1;-1;-1;-1;-1;	['16732', '16732'];['31997'];['17553'];['16463', '16463'];['16463', '16463'];	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;
+Cluster_4462	M_cdpea;M_dmeap;M_ethamp;M_methamp;M_nmlamp;	chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;chebi class mapping;	-1;-1;-1;-1;-1;	['16732', '16732'];['31997'];['17553'];['16463', '16463'];['16463', '16463'];	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;	N/A;N/A;N/A;N/A;N/A;
+Cluster_4411	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4472	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4702	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4522	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4673	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4674	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4735	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4508	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4659	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4718	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4813	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4814	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4634	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4790	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4860	M_1ac2acg3pi;	chebi class mapping;	1;	['16749'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2519	M_sphmyln;	chebi class mapping;	1;	['64583'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3106	M_sphmyln;	chebi class mapping;	1;	['64583'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3256	M_sphmyln;	chebi class mapping;	1;	['64583'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3527	M_sphmyln;	chebi class mapping;	1;	['64583'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3530	M_sphmyln;	chebi class mapping;	1;	['64583'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_2946	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3217	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3368	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3369	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3370	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3553	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3702	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_3781	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4419	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4385	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4354	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4550	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4531	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4517	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4519	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4488	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4680	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4681	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4663	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4633	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4617	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4599	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4821	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4823	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4795	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4778	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4745	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4727	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4708	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4819	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4968	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4969	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4948	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4931	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4917	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4918	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4891	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4892	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4893	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4874	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4875	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4876	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_4850	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5104	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5081	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5048	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5031	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5010	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5011	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5098	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5099	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5100	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5078	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5079	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5061	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5226	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5211	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5184	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5171	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5172	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5151	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5153	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5133	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5134	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5135	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5115	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5116	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5117	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5259	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5310	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5299	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5300	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5286	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5287	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5273	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5274	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5275	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5256	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5257	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5402	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;
+Cluster_5355	M_1ac2ac3acglyc;	chebi class mapping;	1;	['17855'];	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;	N/A;

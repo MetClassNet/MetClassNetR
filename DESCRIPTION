@@ -1,6 +1,7 @@
 Package: MetClassNetR
-Title: Access, analysis and networking of Metabolomics Data
-Version: 0.0.1
+Title: Create and analize networks built from metabolomics Data
+Version: 0.0.0.9012
+
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -8,29 +9,50 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-7899-7192")),
            person(given = "Michael", family = "Witting",
            email = "michael.witting@helmholtz-muenchen.de",
-           role = "ctb")
+           role = "ctb"),
+           person(given = "Liesa", family = "Salzer",
+           email = "liesa.salzer@helmholtz-muenchen.de",
+           role = "aut",
+           comment = c(ORCID = "0000-0003-0761-0656")),
+           person(given = "Elva Maria", family = "Novoa-del-Toro",
+           email = "elva-maria.novoa-del-toro@inrae.fr",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-6135-5839"))
            )
-Author: Colin A. Smith <csmith@scripps.edu>,
-    Steffen Neumann <sneumann@ipb-halle.de>,
-    Michael Witting <michael.witting@helmholtz-muenchen.de>
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
-Description: MetClassNetR collects a tool set for integrating metabolomics data a network system.
+Description: MetClassNetR collects a tool set for integrating metabolomics data as a network system. 
 Depends:
-    Spectra (>= 0.5.0),
-    nontarget,
+    igraph (>= 1.3.0),
+    MetNet (>= 1.14.0), 
+    MsCoreUtils,
     MSnbase,
-    MetNet (>= 1.9.5),
     mpmi,
     QFeatures
 Imports:
-    methods
+    ggplot2,
+    methods,
+    MsBackendMgf,
+    QFeatures,
+    plyr,
+    RCy3,
+    readr,
+    Spectra,
+    UpSetR
+
 Suggests:
-    testthat,
-    knitr (>= 1.1.0),
-    roxygen2,
     BiocStyle (>= 2.5.19),
+    dplyr,
+    ggrepel,
+    grid,
+    knitr (>= 1.1.0),
     rmarkdown,
-    ggraph, VennDiagram, ontologyIndex,
+    roxygen2,
+    stringr,
+    testthat,
+    tidyverse, 
+    ggraph, 
+    VennDiagram, 
+    ontologyIndex,
     rcdk
 Remotes:
    RforMassSpectrometry/Spectra,
@@ -39,6 +61,5 @@ Remotes:
    CDK-R/rinchi
 License: Artistic-2.0
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
