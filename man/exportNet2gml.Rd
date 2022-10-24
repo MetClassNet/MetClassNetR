@@ -7,7 +7,7 @@
 exportNet2gml(x, file, select = F, ...)
 }
 \arguments{
-\item{x}{\code{data.frame} adjacency list having \code{Var1} and \code{Var2} in the first
+\item{x}{\code{data.frame} adjacency list having \code{Row} and \code{Col} in the first
 two columns and additional (edge) attributes in following columns.}
 
 \item{file}{\code{character}, the name which the gml should have, e.g. "mz"

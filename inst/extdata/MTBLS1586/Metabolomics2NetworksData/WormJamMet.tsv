@@ -1,0 +1,1127 @@
+ID	OldID	Name	Chebi	Compartment	Formula
+M_10fthf		10-formyltetrahydrofolate(2-)	CHEBI:15637	c | m	C20H21N7O7
+M_12ppd_R		(R)-propane-1,2-diol	CHEBI:28972	c | e	C3H8O2
+M_13dpg		3-Phospho-D-glyceroyl phosphate(4-)	CHEBI:16001	c	C3H4O10P2
+M_1ac2ac3acglyc	M_tag	triacylglycerol	CHEBI:17855	c	C6H5O6R3
+M_1ac2acg3pc	M_pchol	1,2-diacyl-sn-glycero-3-phosphocholine	CHEBI:64482	c | e | m | n	C10H18NO8PR2
+M_1ac2acg3pe_BAC	M_pe_BAC	1,2-diacyl-sn-glycero-3-phosphoethanolamine (bacteria)	CHEBI:16038	c | e | m	C7H12NO8PR2
+M_1ac2acg3pe	M_pe	1,2-diacyl-sn-glycero-3-phosphoethanolamine	CHEBI:16038	c | e | m	C7H12NO8PR2
+M_1ac2acg3pg_BAC	M_pg_BAC	1,2-diacyl-sn-glycero-3-phospho-(1'-sn-glycerol)(1-) (bacteria)	CHEBI:64961	c | e	C8H12O10PR2
+M_1ac2acg3pg	M_pglyc | M_pg	1,2-diacyl-sn-glycero-3-phospho-(1'-sn-glycerol)(1-)	CHEBI:64961	c | m	C8H12O10PR2
+M_1ac2acg3pg3p	M_pgp	1,2-diacyl-sn-glycero-3-phospho-(1'-sn-glycero-3'-phosphate)(3-)	CHEBI:37393	c | m	C8H11O13P2R2
+M_1ac2acg3pi	M_pail	1-phosphatidyl-1D-myo-inositol(1-)	CHEBI:16749	c | m | n	C11H16O13PR2
+M_1ac2acg3pi3p	M_pail3p	1-phosphatidyl-1D-myo-inositol 3-phosphate(3-)	CHEBI:17283	c | n	C11H15O16P2R2
+M_1ac2acg3pi3p4p	M_pail34p	1-phosphatidyl-1D-myo-inositol 3,4-bisphosphate(5-)	CHEBI:16152	c | n	C11H14O19P3R2
+M_1ac2acg3pi3p4p5p	M_pail345p	1-phosphatidyl-1D-myo-inositol 3,4,5-trisphosphate(7-)	CHEBI:16618	c	C11H13O22P4R2
+M_1ac2acg3pi3p5p	M_pail35p	1-phosphatidyl-1D-myo-inositol 3,5-bisphosphate(5-)	CHEBI:16851	c | n	C11H14O19P3R2
+M_1ac2acg3pi4p	M_pail4p	1-phosphatidyl-1D-myo-inositol 4-phosphate(3-)	CHEBI:17526	c | n	C11H15O16P2R2
+M_1ac2acg3pi4p5p	M_pail45p	1- phosphatidyl-1D-myo-inositol 4,5-bisphosphate(5-)	CHEBI:18348	c | m | n	C11H14O19P3R2
+M_1ac2acg3pi5p	M_pail5p	1-phosphatidyl-1D-myo-inositol 5-phosphate(3-)	CHEBI:16500	c | m | n	C11H15O16P2R2
+M_1ac2acg3ps_BAC	M_ps_BAC	1,2-diacyl-sn-glycero-3-phospho-L-serine(1-) (bacteria)	CHEBI:18303	c | e | m	C8H11NO10PR2
+M_1ac2acg3ps	M_ps	1,2-diacyl-sn-glycero-3-phospho-L-serine(1-)	CHEBI:18303	c | e | m	C8H11NO10PR2
+M_1ac2acglyc	M_12dag	1,2-diacyl-sn-glycerol	CHEBI:17815	c | m | n	C5H6O5R2
+M_1ac2acglyc3p	M_pa_tag | M_pa_pl	Phosphatidic acid(2-) (TAG) | 1,2-diacyl-sn-glycero-3-phosphate(2-)	 | CHEBI:29089	c | m | n	C5H5O8PR2
+M_1acg3pc	M_ag3pc	1-acyl-sn-glycero-3-phosphocholine	CHEBI:58168	c	C9H19NO7PR
+M_1acg3pe	M_acg3pe	1-acyl-sn-glycero-3-phosphoethanolamine	CHEBI:64381	c	C6H13NO7PR
+M_1acg3ps	M_acg3ps	1-Acyl-sn-glycero-3-phosphoserine(1-)	CHEBI:52603	c | e	C7H12NO9PR
+M_1acglyc	M_1magol	1-Acyl-glycerol	CHEBI:35759	c | m | n	C4H7O4R
+M_1acglyc3p	M_alpa_tag | M_alpa_pl | M_1ag3p_SC	1-Acyl-sn-glycerol 3-phosphate(2-) | 1-Acyl-sn-glycerol-3-phosphate(2-)	CHEBI:16975	c | m | n	C4H6O7PR
+M_1alk2acg3pc	M_akac2gchol	1-alkyl-2-acyl-sn-glycero-3-phosphocholine	CHEBI:78193	c	C9H19NO7PR2
+M_1alk2acg3pe	M_akac2gpe	1-alkyl-2-acyl-sn-glycero-3-phosphoethanolamine	CHEBI:36712	c	C6H12NO7PR2
+M_1alk2acglyc	M_akac2g	1-alkyl 2-acylglycerol	CHEBI:598	c	C4H6O4R2
+M_1alk2acglyc3p	M_akac2gp	1-alkyl-2-acyl-sn-glycero-3-phosphate(2-)	CHEBI:37296	c	C4H5O7PR2
+M_1alken2acg3pe	M_alkenac2gpe	1-(Z)-alk-1-enyl-2-acyl-sn-glycero-3-phosphoethanolamine	CHEBI:77290	c	C8H14NO7PR2
+M_1alkenglyc	M_alkenglyc	1-(1-Alkenyl)-sn-glycerol	CHEBI:73322	c	C5H9O3R
+M_1alkg3pc	M_ak2lgchol	1-alkyl-sn-glycero-3-phosphocholine	CHEBI:30909	c | n	C8H19NO6PR
+M_1mncam		1-Methylnicotinamide	CHEBI:16797	c | e | n	C7H9N2O
+M_1p3h5c		L-1-Pyrroline-3-hydroxy-5-carboxylate	CHEBI:6151	c | m	C5H6NO3
+M_1pyr5c		(S)-1-Pyrroline-5-carboxylate	CHEBI:371	c | m	C5H7NO2
+M_20HETE		20-Hydroxyeicosatetraenoic acid	CHEBI:34306	c	C20H31O3
+M_20oharach		20-hydroxyicosanoate	CHEBI:79190	c	C20H39O3
+M_21ohfa21		21-hydroxyhenicosanoate	CHEBI:79195	c	C21H41O3
+M_25aics		SAICAR(4-)	CHEBI:18319	c	C13H15N4O12P
+M_2acg3pc	M_2agpc	2-acyl-sn-glycero-3-phosphocholine	CHEBI:78192	c	C9H19NO7PR
+M_2acg3pe	M_2acg3pe	2-acyl-sn-glycero-3-phosphoethanolamine	CHEBI:65213	c	C6H13NO7PR
+M_2acglyc	M_mag	2-Acylglycerol	CHEBI:17389	c	C4H7O4R
+M_2agpe	M_2agpe	1-acyl-sn-glycero-3-phosphoethanolamine	CHEBI:64381	c	C6H13NO7PR
+M_2c23dh56dhoxin		leucodopachrome	CHEBI:60872	c	C9H8NO4
+M_2dr1p		2-deoxy-alpha-D-ribose 1-phosphate(2-)	CHEBI:11563	c | n	C5H9O7P
+M_2dr5p		2-deoxy-D-ribose 5-phosphate(2-)	CHEBI:16132	c | m	C5H9O7P
+M_2hb		2-Hydroxybutyrate	CHEBI:1148	c | e	C4H7O3
+M_2hglut		(S)-2-hydroxyglutarate(2-)	CHEBI:380;CHEBI:32797	c | e | m	C5H6O5
+M_2hyoxplac		2-Hydroxyphenylacetate	CHEBI:28478	c | e	C8H7O3
+M_2kmb		2-keto-4-methylthiobutyrate	CHEBI:33574	c | m	C5H7O3S
+M_2mb2coa		tiglyl-CoA(4-)	CHEBI:15478;CHEBI:1204	c | m	C26H38N7O17P3S
+M_2mbcoa		2-Methylbutanoyl-CoA(4-)	CHEBI:1201;CHEBI:15477	c | m	C26H40N7O17P3S
+M_2mop		2-Methyl-3-oxopropanoate	CHEBI:16256	m	C4H5O3
+M_2mp2coa		2-Methylprop-2-enoyl-CoA(4-)	CHEBI:1208;CHEBI:27754	c | m	C25H36N7O17P3S | C25H40N7O17P3S
+M_2obut		2-Oxobutanoate	CHEBI:30831	c | m	C4H5O3
+M_2oxoadp		2-Oxoadipate(2-)	CHEBI:15753	c | m	C6H6O5
+M_2pg		D-Glycerate 2-phosphate(3-)	CHEBI:17835	c | m	C3H4O7P
+M_2pglyc		2-Phosphoglycolate(3-)	CHEBI:17150;CHEBI:11652;CHEBI:19764	c	C2H2O6P
+M_2thexd		trans-hexadec-2-enal	CHEBI:19791;CHEBI:17585	c	C16H30O
+M_34dhmald		3,4-Dihydroxymandelaldehyde	CHEBI:1382;CHEBI:27852;CHEBI:19883	c	C8H8O4
+M_34dhoxpeg		3,4-Dihydroxyphenylethyleneglycol	CHEBI:1387	c | e	C8H10O4
+M_34dhpac		3,4-dihydroxyphenylacetaldehyde	CHEBI:27978	c	C8H8O3
+M_34dhpha		3,4-dihydroxyphenylacetate	CHEBI:41941	c	C8H7O4
+M_34dhphe		3,4-Dihydroxy-L-phenylalanine	CHEBI:15765	c | e	C9H11NO4
+M_34hpl		3-(4-Hydroxyphenyl)lactate	CHEBI:17385	c | m	C9H9O4
+M_34hpp		3-(4-Hydroxyphenyl)pyruvate	CHEBI:15999;CHEBI:20426	c | m | n	C9H7O4
+M_35cgmp		3,5-Cyclic GMP	CHEBI:16356	c | e | m | n	C10H11N5O7P
+M_35diotyr		3,5-Diiodo-L-tyrosine	CHEBI:15768	c	C9H9I2NO3
+M_3aib__D	M_3aib_D	(R)-3-aminoisobutyric acid	CHEBI:16320	c | e | m	C4H9NO2
+M_3aib		L-3-Amino-isobutanoate	CHEBI:16320	c | e | m	C4H8NO2
+M_3aOHd7da		3alpha-OH-(25S)-delta(7)-dafachronic acid	CHEBI:83149	c	C27H44O3
+M_3dhguln		3-Dehydro-L-gulonate	CHEBI:11777;CHEBI:16142	c	C6H9O7
+M_3dmub		3-demethylubiquinol-9	CHEBI:84423	m	
+M_3dpminol		3-diphospho-1D-myo-inositol (1,2,4,5,6)pentakisphosphate(13-)	CHEBI:62922	c | n	C6H6O27P7
+M_3dsphgn		3-Dehydrosphinganine	CHEBI:17862	c	C18H38NO2
+M_3hanthrn		3-Hydroxyanthranilate	CHEBI:15793	c	C7H6NO3
+M_3hbcoa		(S)-3-Hydroxybutanoyl-CoA(4-)	CHEBI:394;CHEBI:15453	c | m	C25H38N7O18P3S
+M_3hbcoa_R		(R)-3-hydroxybutanoyl-CoA(4-)	CHEBI:15452;CHEBI:323	c | m	C25H38N7O18P3S
+M_3hibutcoa		(S)-3-Hydroxyisobutyryl-CoA(4-)	CHEBI:28259;CHEBI:399	c | m | n	C25H38N7O18P3S
+M_3hivcoa		3-hydroxyisovaleryl-CoA(4-)	CHEBI:28291	c | m	C26H40N7O18P3S
+M_3hmbcoa		(S)-3-Hydroxy-2-methylbutyryl-CoA(4-)	CHEBI:15449;CHEBI:191	c | m	C26H40N7O18P3S
+M_3hmp		3-Hydroxy-2-methylpropanoate	CHEBI:18064;CHEBI:11805	c | m | n	C4H7O3
+M_3hpcoa		3-Hydroxypropionyl-CoA(4-)	CHEBI:27762	c | m | n	C24H36N7O18P3S
+M_3hpp		3-Hydroxypropanoate	CHEBI:33404	c | m | n	C3H5O3
+M_3htmelys		3-Hydroxy-N6,N6,N6-trimethyl-L-lysine	CHEBI:15786	c | m | n	C9H21N2O3
+M_3mb2coa		3-Methylbut-2-enoyl-CoA(4-)	CHEBI:15486	c | m	C26H38N7O17P3S
+M_3mgcoa		3-Methylglutaconyl-CoA(5-)	CHEBI:15488	c | m	C27H37N7O19P3S
+M_3mlda		3-Methylimidazoleacetate	CHEBI:1606	c | e	C6H7N2O2
+M_3mob		3-Methyl-2-oxobutanoate	CHEBI:16530	c | m	C5H7O3
+M_3mop		(S)-3-Methyl-2-oxopentanoate	CHEBI:15614	c | m	C6H9O3
+M_3npdhb		3-nonaprenyl-4,5-dihydroxybenzoate	CHEBI:62788	m	C52H77O4
+M_3npdhb_me		3-nonaprenyl-4-hydroxy-5-methoxybenzoate	CHEBI:62790	m	C53H79O4
+M_3nphb		3-Nonaprenyl-4-hydroxybenzoate	CHEBI:84501	m	C52H77O3
+M_3padsel		3-Phosphoadenylylselenate(4-)	CHEBI:28450	c	C10H11N5O13P2Se
+M_3pg		3-Phospho-D-glycerate(3-)	CHEBI:17794	c | m	C3H4O7P
+M_3php		3-Phosphohydroxypyruvate(3-)	CHEBI:1661;CHEBI:30933	c	C3H2O7P
+M_3sala		3-Sulfino-L-alanine	CHEBI:16345	c | m	C3H6NO4S
+M_3snpyr		3-Sulfinopyruvate(2-)	CHEBI:1665	c | m	C3H2O5S
+M_3spyr		3-Sulfopyruvate(2-)	CHEBI:16894;CHEBI:45736	m	C3H2O6S
+M_3uib		3-Ureidoisobutyrate	CHEBI:1670	c	C5H9N2O3
+M_4aabutn		4-Acetamidobutanoate	CHEBI:17645	c | m	C6H10NO3
+M_4abut		4-Aminobutanoate	CHEBI:16865	c | e | m	C4H9NO2
+M_4abz		p-aminobenzoate	CHEBI:30753;CHEBI:44778	c | e	C7H6NO2
+M_4aphdob		4-(2-Aminophenyl)-2,4-dioxobutanoate	CHEBI:17442	c	C10H8NO4
+M_4cmcoa		4-Coumaroyl-CoA(4-)	CHEBI:15499	c | m	C30H38N7O18P3S
+M_4fumacac		4-Fumarylacetoacetate(2-)	CHEBI:47904;CHEBI:30907	c	C8H6O6
+M_4h2oglt		4-Hydroxy-2-oxoglutarate(2-)	CHEBI:30923	c | m	C5H4O6 | C5H6O6
+M_4hbz		4-Hydroxybenzoate	CHEBI:30763	c | m	C7H5O3
+M_4hbzcoa		4-hydroxybenzoyl-CoA(4-)	CHEBI:40998;CHEBI:1859;CHEBI:15500	m	C28H36N7O18P3S
+M_4hglusa		L-4-Hydroxyglutamate semialdehyde	CHEBI:27809	c | m	C5H9NO4
+M_4hoxpacd		4-Hydroxyphenylacetaldehyde	CHEBI:15621	c	C8H8O2
+M_4hphac		4-Hydroxyphenylacetate	CHEBI:18101;CHEBI:12014	c | e	C8H7O3
+M_4hpro_LT		4-hydroxy-L-proline | trans-4-Hydroxy-L-proline	CHEBI:18240;CHEBI:63727 | CHEBI:58375;CHEBI:18095	c | m	C5H9NO3
+M_4izp		4-Imidazolone-5-propanoate	CHEBI:27384	c	C6H7N2O3
+M_4mlacac		4-Maleylacetoacetate(2-)	CHEBI:47904	c | n	C8H6O6
+M_4mop		4-Methyl-2-oxopentanoate	CHEBI:48430	c | m	C6H9O3
+M_4ogm		4-oxoglutaramate	CHEBI:30883	c	C5H6NO4
+M_4ppan		(R)-4'-phosphonatopantothenate(3-)	CHEBI:15905	c	C9H15NO8P
+M_4ppcys		N-((R)-4-Phosphopantothenoyl)-L-cysteine(3-)	CHEBI:15769	c	C12H20N2O9PS
+M_4tmeabut		4-Trimethylammoniobutanal	CHEBI:1940;CHEBI:18020	c	C7H16NO
+M_4tmeabutn		4-Trimethylammoniobutanoate	CHEBI:16244	c	C7H15NO2
+M_56dthm		5,6-Dihydrothymine	CHEBI:27468	c	C5H8N2O2
+M_56dura		5,6-dihydrouracil	CHEBI:15901	c	C4H6N2O2
+M_5adtststerone		5alpha-Dihydrotestosterone	CHEBI:16330;CHEBI:41876	c | e	C19H30O2
+M_5aizc		5-amino-1-(5-phosphonato-D-ribosyl)imidazole-4-carboxylate(3-)	CHEBI:28413	c	C9H11N3O9P
+M_5dpmev		(R)-5-diphosphonatomevalonate(4-)	CHEBI:15899	c	C6H10O10P2
+M_5g2oxpt		2-Oxoarginine	CHEBI:28116	c	C6H11N3O3
+M_5HETE		5-Hydroxyeicosatetraenoate	CHEBI:28209	c	C20H31O3
+M_5hoxindact		5-Hydroxyindoleacetaldehyde	CHEBI:50157	c	C10H9NO2
+M_5hoxindoa		5-Hydroxyindoleacetate	CHEBI:27823	c | e	C10H8NO3
+M_5HPET		5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate	CHEBI:15632	c	C20H31O4
+M_5htrp		5-Hydroxy-L-tryptophan	CHEBI:28171	c | e	C11H12N2O3
+M_5mdr1p		S-methyl-5-thio-D-ribose 1-phosphate(2-)	CHEBI:27859	c	C6H11O7PS
+M_5mdru1p		S-methyl-5-thio-D-ribulose 1-phosphate(2-)	CHEBI:28096	c	C6H11O7PS
+M_5mta		5-Methylthioadenosine	CHEBI:17509	c	C11H15N5O3S
+M_5mthf		5-Methyltetrahydrofolate(2-)	CHEBI:15641	c | e | m | n	C20H23N7O6
+M_5oxpro		5-Oxoproline	CHEBI:16010	c	C5H6NO3
+M_5pmev		(R)-5-phosphonatomevalonate(3-)	CHEBI:17436	c	C6H10O7P
+M_5thf		pentaglutamyl folate (6-)	CHEBI:140748	c | m	C39H41N11O18
+M_6bppoldm		1,5-bisdiphosphoinositol-1D-myo-inositol (2,3,4,6)tetrakisphosphate(13-)	CHEBI:77983;CHEBI:62923	c | n	C6H7O30P8
+M_6nadgpi		6-(N-acetyl-alpha-D-glucosaminyl)-1-phosphatidyl-1D-myo-inositol(1-)	CHEBI:12194	c | m | n	C19H29NO18PR2
+M_6pgc		6-Phospho-D-gluconate(3-)	CHEBI:48928;CHEBI:40282	c | m	C6H10O10P
+M_6pgl		6-phospho-D-glucono-1,5-lactone(2-)	CHEBI:16938	c | n	C6H9O9P
+M_6pthp		6-Pyruvoyl-5,6,7,8-tetrahydropterin	CHEBI:17804	c | n	C9H11N5O3
+M_7a3o4chlstnt		7alpha-Hydroxy-3-oxo-4-cholestenoate	CHEBI:83036	c | e | m	C27H41O4
+M_7dhchsterol		7-dehydrocholesterol	CHEBI:17759	c	C27H44O
+M_7dhchsterol_lum3		7-dehydro-cholesterol	CHEBI:17759	c	C27H44O
+M_7thf		heptaglutamyl folate (THF)	CHEBI:89846	c | m	C54H64N14O27
+M_8bppoldm		3,5-bisdiphosphoinositol-1D-myo-inositol (2,3,4,6)tetrakisphosphate(13-)	CHEBI:62924	c | n	C6H7O30P8
+M_aacoa		Acetoacetyl-CoA(4-)	CHEBI:15345	c | m	C25H36N7O18P3S
+M_aact		Aminoacetone	CHEBI:17906	c | m	C3H8NO
+M_abt		L-Arabinitol	CHEBI:18403	c | e	C5H12O5
+M_ac		Acetate	CHEBI:15366	c | e | m | n	C2H3O2
+M_acac		Acetoacetate	CHEBI:15344	c | e | m	C4H5O3
+M_acald		Acetaldehyde	CHEBI:15343	c | e | m	C2H4O
+M_acBgamam		N-Acetyl-beta-D-glucosaminylamine	CHEBI:15947	c	C8H16N2O5
+M_acBgamamAsn		N4-(Acetyl-beta-D-glucosaminyl)asparagine	CHEBI:17261	c	C12H21N3O8
+M_accoa		Acetyl-CoA(4-)	CHEBI:15351	c | m | n	C23H34N7O17P3S
+M_acetln		aspartylglycosamine	CHEBI:17261	c | m	C12H21N3O8
+M_acgal		N-Acetyl-D-galactosamine	CHEBI:28037	c | e	C8H15NO6
+M_acgam		N-Acetyl-D-glucosamine	CHEBI:28009;CHEBI:7169	c | e | m | n	C8H15NO6
+M_acgam1p		N-Acetyl-D-glucosamine 1-phosphate(2-)	CHEBI:50565	c | n	C8H14NO9P
+M_acgam6p		N-Acetyl-D-glucosamine 6-phosphate(2-)	CHEBI:7127;CHEBI:21521;CHEBI:15784	c | m | n	C8H14NO9P
+M_acgamam		N-Acetyl-beta-D-glucosaminylamine	CHEBI:15947	m	C8H16N2O5
+M_acgpail		6-(N-acetyl-a-D-glucosaminyl)-1-phosphatidyl-1D-myo-inositol(1-)	CHEBI:12194	c	C19H29NO18PR2
+M_ach		Acetylcholine	CHEBI:40559;CHEBI:15355	c | e | n	C7H16NO2
+M_acon_C		cis-aconitate(3-)	CHEBI:32805	c | m	C6H3O6
+M_acorn		N-acetyl-L-ornithine	CHEBI:57805;CHEBI:16543	c | e | n	C7H14N2O3
+M_acrn		O-Acetyl-L-carnitine	CHEBI:57589	c | m	C9H17NO4
+M_acser		O-Acetyl-L-serine	CHEBI:17981	c | e	C5H9NO4
+M_actACP	M_acetoACP	Acetoacetyl-[acp]	CHEBI:2393	c | m	C4H5O2SR
+M_ade		Adenine	CHEBI:16708	c | e | m | n	C5H5N5
+M_adgal		alpha-D-galactose	CHEBI:28260;CHEBI:28061;CHEBI:42741	c | m | n	C6H12O6
+M_adn		Adenosine	CHEBI:40558;CHEBI:16335	c | e | m | n	C10H13N5O4
+M_adocbi		adenosylcobinamide	CHEBI:2480	c	C58H84CoN16O11
+M_adocbl		Adenosylcobalamin	CHEBI:18408	c | e | m	C72H100CoN18O17P
+M_adp		ADP(3-)	CHEBI:16761	c | m | n	C10H12N5O10P2
+M_adpglc		ADP-alpha-D-glucose(2-)	CHEBI:15751	n	C16H23N5O15P2
+M_adpman		ADP-mannose	CHEBI:28845	n	C16H23N5O15P2
+M_adprib		ADP-D-ribose(2-)	CHEBI:16960	c | e	C15H21N5O14P2
+M_adsel		Adenylylselenate(2-)	CHEBI:2485	c	C10H12N5O10PSe
+M_ahcys		S-Adenosyl-L-homocysteine	CHEBI:45495;CHEBI:16680;CHEBI:57856	c | m | n	C14H20N6O5S
+M_ahdt		7,8-dihydroneopterin 3'-triphosphate(4-)	CHEBI:18372	c | n	C9H12N5O13P3
+M_aicar		5-amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide(2-)	CHEBI:18406	c	C9H13N4O8P
+M_air		5-amino-1-(5-phosphonato-?-D-ribosyl)imidazol-3-ium	CHEBI:138560;CHEBI:28843	c	C8H13N3O7P
+M_ak2gchol		1-alkyl-2-acetyl-sn-glycero-3-phosphocholine	CHEBI:36707	c | n	C10H22NO7PR
+M_akdhap	M_1alkdhap	1-alkylglycerone 3-phosphate(2-)	CHEBI:17197	c	C3H4O6PR
+M_akg		2-Oxoglutarate(2-)	CHEBI:30915	c | e | m | n	C5H4O5
+M_akgm		2-oxoglutaramate	CHEBI:30882	c | e	C5H6NO4
+M_ala__D	M_ala_D	D-Alanine	CHEBI:15570	c | e	C3H7NO2
+M_ala__L	M_ala_L	L-Alanine	CHEBI:16977	c | e | m | n	C3H7NO2
+M_ala_ala_ala		Ala-Ala-Ala	CHEBI:73313	c	C9H17N3O4
+M_ala_B		Beta-alanine | beta-Alanine	CHEBI:41050;CHEBI:16958;CHEBI:57966	c | e | m	C3H7NO2
+M_ala_L_val__L	M_ala_L_val_L	Ala-Val	CHEBI:73809	c	C8H16N2O3
+M_alkenac2g		1-(Z)-alk-1-enyl-2-acyl-sn-glycerol	CHEBI:16903	c	C6H8O4R2
+M_alkenac2gp		1-(Z)-alk-1-enyl-sn-glycero-3-phosphate(2-)	CHEBI:73423	c	C6H9O7PR2
+M_alkgp		1-Alkyl-sn-glycerol 3-phosphate(2-)	CHEBI:17106	c	C3H6O6PR
+M_am6sa		2-Aminomuconate 6-semialdehyde	CHEBI:15745	c	C6H6NO3
+M_amchb		4alpha-Methylcholest-8(14)-en-3beta-ol	CHEBI:71581	c	C28H48O
+M_amet		S-Adenosyl-L-methionine	CHEBI:67040	c | e | m | n	C15H23N6O5S
+M_ametam		S-Adenosylmethioninamine	CHEBI:15625	c	C14H24N6O3S
+M_amp		AMP(2-)	CHEBI:16027	c | e | m | n	C10H12N5O7P
+M_amuco		2-Aminomuconate	CHEBI:11524;CHEBI:16886	c	C6H6NO4
+M_andrstrn		Androsterone	CHEBI:16032	c | e	C19H30O2
+M_andrstrnglc		androsterone glucuronide	CHEBI:22556;CHEBI:28832	c | e	C25H37O8
+M_anth		Anthranilate	CHEBI:30754	c	C7H6NO2
+M_ap4a		P1,P4-bis(5'-adenosyl) tetraphosphate(4-)	CHEBI:17422	c | n	C20H24N10O19P4
+M_aprop		alpha-Aminopropiononitrile	CHEBI:27959	c	C3H7N2
+M_aprut		N-Acetylputrescine	CHEBI:17768;CHEBI:7222	c	C6H15N2O
+M_aps		5'-Adenylyl sulfate(2-)	CHEBI:17709	c | m	C10H12N5O10PS
+M_arab__L	M_arab__L	aldehydo-L-arabinose	CHEBI:6182	c | e	C5H10O5
+M_arg__D	M_arg_D	D-arginine	CHEBI:41855;CHEBI:15816	c	C6H15N4O2
+M_arg__L	M_arg_L	L-Arginine	CHEBI:32682;CHEBI:16467	c | e | m	C6H15N4O2
+M_ascb_L		L-Ascorbate	CHEBI:29073	c | e	
+M_ascr_1		ascr#1(1-)	CHEBI:78786	c | e	C13H23O6
+M_ascr_10		ascr#10(1-)	CHEBI:78838	c | e	C15H27O6
+M_ascr_10coa		ascr#10-CoA(4-)	CHEBI:139616	c	C36H58N7O21P3S
+M_ascr_11		ascr#11(1-)	CHEBI:78743	c | e	C10H17O6
+M_ascr_11coa		ascr#11-CoA(4-)	CHEBI:139619	c	C31H48N7O21P3S
+M_ascr_12		ascr#12(1-)	CHEBI:78841	c | e	C12H21O6
+M_ascr_12coa		ascr#12-CoA(4-)	CHEBI:139622	c	C33H52N7O21P3S
+M_ascr_13		ascr#13(1-)	CHEBI:78851	c | e	C14H23O6
+M_ascr_13coa		ascr#13-CoA(4-)	CHEBI:139625	c	C35H54N7O21P3S
+M_ascr_14		ascr#14(1-)	CHEBI:78905	c | e	C14H25O6
+M_ascr_14coa		ascr#14-CoA(4-)	CHEBI:139628	c	C35H56N7O21P3S
+M_ascr_15		ascr#15(1-)	CHEBI:78852	c | e	C16H27O6
+M_ascr_15coa		ascr#15-CoA(4-)	CHEBI:139631	c	C37H58N7O21P3S
+M_ascr_16		ascr#16(1-)	CHEBI:78950	c | e	C16H29O6
+M_ascr_16coa		ascr#16-CoA(4-)	CHEBI:139634	c	C37H60N7O21P3S
+M_ascr_17		ascr#17(1-)	CHEBI:78952	c | e	C17H29O6
+M_ascr_17coa		ascr#17-CoA(4-)	CHEBI:139637	c	C38H60N7O21P3S
+M_ascr_18		ascr#18(1-)	CHEBI:78955	c | e	C17H31O6
+M_ascr_18coa		ascr#18-CoA(4-)	CHEBI:139640	c	C38H62N7O21P3S
+M_ascr_19		ascr#19(1-)	CHEBI:78957	c | e	C18H31O6
+M_ascr_19coa		ascr#19-CoA(4-)	CHEBI:139643	c	C39H62N7O21P3S
+M_ascr_1coa		ascr#1-CoA(4-)	CHEBI:139645	c	C34H54N7O21P3S
+M_ascr_2		ascr#2	CHEBI:78812	c | e	C12H22O5
+M_ascr_20		ascr#20(1-)	CHEBI:78958	c | e	C18H33O6
+M_ascr_20coa		ascr#20-CoA(4-)	CHEBI:139648	c	C39H64N7O21P3S
+M_ascr_21		ascr#21(1-)	CHEBI:78959	c | e	C19H33O6
+M_ascr_21coa		ascr#21-CoA(4-)	CHEBI:139651	c	C40H64N7O21P3S
+M_ascr_22		ascr#22(1-)	CHEBI:78960	c | e	C19H35O6
+M_ascr_22coa		ascr#22-CoA(4-)	CHEBI:139654	c	C40H66N7O21P3S
+M_ascr_23		ascr#23(1-)	CHEBI:78961	c | e	C20H35O6
+M_ascr_23coa		ascr#23-CoA(4-)	CHEBI:139657	c	C41H66N7O21P3S
+M_ascr_24		ascr#24(1-)	CHEBI:78962	c | e	C20H37O6
+M_ascr_24coa		ascr#24-CoA(4-)	CHEBI:139660	c	C41H68N7O21P3S
+M_ascr_25		ascr#25(1-)	CHEBI:78963	c | e	C21H37O6
+M_ascr_25coa		ascr#25-CoA(4-)	CHEBI:139663	c	C42H68N7O21P3S
+M_ascr_26		ascr#26(1-)	CHEBI:78964	c | e	C21H39O6
+M_ascr_26coa		ascr#26-CoA(4-)	CHEBI:139666	c	C42H70N7O21P3S
+M_ascr_27		ascr#27(1-)	CHEBI:78965	c | e	C22H39O6
+M_ascr_27coa		ascr#27-CoA(4-)	CHEBI:139669	c	C43H70N7O21P3S
+M_ascr_28		ascr#28(1-)	CHEBI:78966	c | e	C22H41O6
+M_ascr_28coa		ascr#28-CoA(4-)	CHEBI:139672	c	C43H72N7O21P3S
+M_ascr_29		ascr#29(1-)	CHEBI:78967	c | e	C23H41O6
+M_ascr_29coa		ascr#29-CoA(4-)	CHEBI:139675	c	C44H72N7O21P3S
+M_ascr_3		ascr#3(1-)	CHEBI:78821	c | e	C15H25O6
+M_ascr_30		ascr#30(1-)	CHEBI:78968	c | e	C23H43O6
+M_ascr_30coa		ascr#30-CoA(4-)	CHEBI:139679	c	C44H74N7O21P3S
+M_ascr_31		ascr#31(1-)	CHEBI:78969	c | e	C24H43O6
+M_ascr_31coa		ascr#31-CoA(4-)	CHEBI:139682	c	C45H74N7O21P3S
+M_ascr_32		ascr#32(1-)	CHEBI:78970	c | e	C24H45O6
+M_ascr_32coa		ascr#32-CoA(4-)	CHEBI:139685	c	C45H76N7O21P3S
+M_ascr_33		ascr#33(1-)	CHEBI:78971	c | e	C25H45O6
+M_ascr_33coa		ascr#33-CoA(4-)	CHEBI:139688	c	C46H76N7O21P3
+M_ascr_34		ascr#34(1-)	CHEBI:78972	c | e	C25H47O6
+M_ascr_34coa		ascr#34-CoA(4-)	CHEBI:139691	c	C46H78N7O21P3S
+M_ascr_35		ascr#35(1-)	CHEBI:78973	c | e	C26H47O6
+M_ascr_35coa		ascr#35-CoA(4-)	CHEBI:139694	c	C47H78N7O21P3S
+M_ascr_36		ascr#36(1-)	CHEBI:78974	c | e	C26H49O6
+M_ascr_36coa		ascr#36-CoA(4-)	CHEBI:139697	c	C47H80N7O21P3S
+M_ascr_37		ascr#37(1-)	CHEBI:78975	c | e	C27H49O6
+M_ascr_37coa		ascr#37-CoA(4-)	CHEBI:139700	c	C48H80N7O21P3S
+M_ascr_38		ascr#38(1-)	CHEBI:78976	c | e	C27H51O6
+M_ascr_38coa		ascr#38-CoA(4-)	CHEBI:139703	c	C48H82N7O21P3S
+M_ascr_3coa		ascr#3-CoA(4-)	CHEBI:139705	c	C36H56N7O21P3S
+M_ascr_5		ascr#5(1-)	CHEBI:78829	c | e	C9H15O6
+M_ascr_5coa		ascr#5-CoA(4-)	CHEBI:139708	c	C30H46N7O21P3S
+M_ascr_7		ascr#7(1-)	CHEBI:78830	c | e	C13H21O6
+M_ascr_7coa		ascr#7-CoA(4-)	CHEBI:139711	c	C34H52N7O21P3S
+M_ascr_8		ascr#8(1-)	CHEBI:78834	c | e	C20H26NO7
+M_ascr_9		ascr#9(1-)	CHEBI:79018	c | e	C11H19O6
+M_ascr_9coa		ascr#9-CoA(4-)	CHEBI:139715	c	C32H50N7O21P3S
+M_ascr		Ascarylopyranose	CHEBI:78771	c	C6H12O4
+M_asehcys		Se-Adenosyl-L-selenohomocysteine	CHEBI:77028	c	C14H20N6O5Se
+M_asn__L	M_asn_L	L-Asparagine	CHEBI:17196	c | e | m	C4H8N2O3
+M_aso3		arsenite(1-)	CHEBI:49900	c	AsO3
+M_aso4		arsenate(2-)	CHEBI:18231	c	H3AsO4
+M_asp__D	M_asp_D	D-Aspartate	CHEBI:17364;CHEBI:41764	c | e	C4H6NO4
+M_asp__L	M_asp_L	L-Aspartate	CHEBI:17053;CHEBI:21244	c | e | m	C4H6NO4
+M_astndione		5-androstene-3,17-dione	CHEBI:83865	c	C19H26O2
+M_athr__L	M_athr_L	L-allo-threonine	CHEBI:28718	c | e | m	C4H9NO3
+M_atp		ATP(4-)	CHEBI:15422	c | m | n	C10H12N5O13P3
+M_b2coa		Crotonoyl-CoA(4-)	CHEBI:15473	c | m | n	C25H36N7O17P3S
+M_balab		Beta-alanine betaine	CHEBI:28825	c	C6H13NO2
+M_betald		Betaine aldehyde	CHEBI:15710	m	C5H12NO
+M_betnd		betanidin	CHEBI:3079	c | m | n	C18H13N2O8
+M_betqu		betanidin quinone(2-)	CHEBI:133394	c | m | n	C18H12N2O8
+M_bhas_1		bhas#1(1-)	CHEBI:139717	c | e	C13H23O7
+M_bhas_10		bhas#10(1-)	CHEBI:79223	c | e	C15H27O7
+M_bhas_10coa		bhas#10-CoA(4-)	CHEBI:139720	c	C36H58N7O22P3S
+M_bhas_12		bhas#12(1-)	CHEBI:139722	c | e	C12H21O7
+M_bhas_12coa		bhas#12-CoA(4-)	CHEBI:139724	c	C33H52N7O22P3S
+M_bhas_14		bhas#14(1-)	CHEBI:139726	c | e	C14H25O7
+M_bhas_14coa		bhas#14-CoA(4-)	CHEBI:139728	c	C35H56N7O22P3S
+M_bhas_16		bhas#16(1-)	CHEBI:79227	c | e	C16H29O7
+M_bhas_16coa		bhas#16-CoA(4-)	CHEBI:139731	c	C37H60N7O22P3S
+M_bhas_18		bhas#18(1-)	CHEBI:79229	c | e	C17H31O7
+M_bhas_18coa		bhas#18-CoA(4-)	CHEBI:139734	c	C38H62N7O22P3S
+M_bhas_1coa		bhas#1-CoA(4-)	CHEBI:139736	c	C34H54N7O22P3S
+M_bhas_20		bhas#20(1-)	CHEBI:79230	c | e	C18H33O7
+M_bhas_20coa		bhas#20-CoA(4-)	CHEBI:139739	c	C39H64N7O22P3S
+M_bhas_22		bhas#22(1-)	CHEBI:79231	c | e	C19H35O7
+M_bhas_22coa		bhas#22-CoA(4-)	CHEBI:139742	c	C40H66N7O22P3S
+M_bhas_24		bhas#24(1-)	CHEBI:79232	c | e	C20H37O7
+M_bhas_24coa		bhas#24-CoA(4-)	CHEBI:139745	c	C41H68N7O22P3S
+M_bhas_26		bhas#26(1-)	CHEBI:79233	c | e	C21H39O7
+M_bhas_26coa		bhas#26-CoA(4-)	CHEBI:139748	c	C42H70N7O22P3S
+M_bhas_28		bhas#28(1-)	CHEBI:79234	c | e	C22H41O7
+M_bhas_28coa		bhas#28-CoA(4-)	CHEBI:139751	c	C43H72N7O22P3S
+M_bhas_30		bhas#30(1-)	CHEBI:79235	c | e	C23H43O7
+M_bhas_30coa		bhas#30-CoA(4-)	CHEBI:139754	c	C44H74N7O22P3S
+M_bhas_32		bhas#32(1-)	CHEBI:79236	c | e	C24H45O7
+M_bhas_32coa		bhas#32-CoA(4-)	CHEBI:139757	c	C45H76N7O22P3S
+M_bhas_34		bhas#34(1-)	CHEBI:79237	c | e	C25H47O7
+M_bhas_34coa		bhas#34-CoA(4-)	CHEBI:139760	c	C46H78N7O22P3S
+M_bhas_36		bhas#36(1-)	CHEBI:79238	c | e	C26H49O7
+M_bhas_36coa		bhas#36-CoA(4-)	CHEBI:139763	c	C47H80N7O22P3S
+M_bhas_38		bhas#38(1-)	CHEBI:79239	c | e	C27H51O7
+M_bhas_38coa		bhas#38-CoA(4-)	CHEBI:139766	c	C48H82N7O22P3S
+M_bhas_9		bhas#9(1-)	CHEBI:139768	c | e	C11H19O7
+M_bhas_9coa		bhas#9-CoA(4-)	CHEBI:139770	c	C32H50N7O22P3S
+M_bhos_1		bhos#1(1-)	CHEBI:139772	c | e	C13H23O7
+M_bhos_10		bhos#10(1-)	CHEBI:79256	c | e	C15H27O7
+M_bhos_10coa		bhos#10-CoA(4-)	CHEBI:139775	c	C36H58N7O22P3S
+M_bhos_12		bhos#12(1-)	CHEBI:139777	c | e	C12H21O7
+M_bhos_12coa		bhos#12-CoA(4-)	CHEBI:139779	c	C33H52N7O22P3S
+M_bhos_14		bhos#14(1-)	CHEBI:139781	c | e	C14H25O7
+M_bhos_14coa		bhos#14-CoA(4-)	CHEBI:139783	c	C35H56N7O22P3S
+M_bhos_16		bhos#16(1-)	CHEBI:79258	c | e	C16H29O7
+M_bhos_16coa		bhos#16-CoA(4-)	CHEBI:139786	c	C37H60N7O22P3S
+M_bhos_18		bhos#18(1-)	CHEBI:79259	c | e	C17H31O7
+M_bhos_18coa		bhos#18-CoA(4-)	CHEBI:139789	c	C38H62N7O22P3S
+M_bhos_1coa		bhos#1-CoA(4-)	CHEBI:139791	c	C34H54N7O22P3S
+M_bhos_20		bhos#20(1-)	CHEBI:79260	c | e	C18H33O7
+M_bhos_20coa		bhos#20-CoA(4-)	CHEBI:139794	c	C39H64N7O22P3S
+M_bhos_22		bhos#22(1-)	CHEBI:79261	c | e	C19H35O7
+M_bhos_22coa		bhos#22-CoA(4-)	CHEBI:139797	c	C40H66N7O22P3S
+M_bhos_24		bhos#24(1-)	CHEBI:79262	c | e	C20H37O7
+M_bhos_24coa		bhos#24-CoA(4-)	CHEBI:139800	c	C41H68N7O22P3S
+M_bhos_26		bhos#26(1-)	CHEBI:79263	c | e	C21H39O7
+M_bhos_26coa		bhos#26-CoA(4-)	CHEBI:139803	c	C42H70N7O22P3S
+M_bhos_28		bhos#28(1-)	CHEBI:79264	c | e	C22H41O7
+M_bhos_28coa		bhos#28-CoA(4-)	CHEBI:139806	c	C43H72N7O22P3S
+M_bhos_30		bhos#30(1-)	CHEBI:79265	c | e	C23H43O7
+M_bhos_30coa		bhos#30-CoA(4-)	CHEBI:139809	c	C44H74N7O22P3S
+M_bhos_32		bhos#32(1-)	CHEBI:79266	c | e	C24H45O7
+M_bhos_32coa		bhos#32-CoA(4-)	CHEBI:139812	c	C45H76N7O22P3S
+M_bhos_34		bhos#34(1-)	CHEBI:79267	c | e	C25H47O7
+M_bhos_34coa		bhos#34-CoA(4-)	CHEBI:139815	c	C46H78N7O22P3S
+M_bhos_36		bhos#36(1-)	CHEBI:79268	c | e	C26H49O7
+M_bhos_36coa		bhos#36-CoA(4-)	CHEBI:139818	c	C47H80N7O22P3S
+M_bhos_38		bhos#38(1-)	CHEBI:79269	c | e	C27H51O7
+M_bhos_38coa		bhos#38-CoA(4-)	CHEBI:139821	c	C48H82N7O22P3S
+M_bhos_9coa		bhos#9-CoA(4-)	CHEBI:139825	c	C32H50N7O22P3S
+M_bilirub		Bilirubin(2-)	CHEBI:72719;CHEBI:16990	c | e	C33H34N4O6 | C33H36N4O6
+M_bkas_1		bkas#1(1-)	CHEBI:139827	c | e	C13H21O7
+M_bkas_10		bkas#10(1-)	CHEBI:139829	c | e	C15H25O7
+M_bkas_10coa		bkas#10-CoA(4-)	CHEBI:139831	c	C36H56N7O22P3S
+M_bkas_12		bkas#12(1-)	CHEBI:139833	c | e	C12H19O7
+M_bkas_12coa		bkas#12-CoA(4-)	CHEBI:139835	c	C33H50N7O22P3S
+M_bkas_14		bkas#14(1-)	CHEBI:139837	c | e	C14H23O7
+M_bkas_14coa		bkas#14-CoA(4-)	CHEBI:139839	c	C35H54N7O22P3S
+M_bkas_16		bkas#16(1-)	CHEBI:139841	c | e	C16H27O7
+M_bkas_16coa		bkas#16-CoA(4-)	CHEBI:139843	c	C37H58N7O22P3S
+M_bkas_18		bkas#18(1-)	CHEBI:139845	c | e	C17H29O7
+M_bkas_18coa		bkas#18-CoA(4-)	CHEBI:139847	c	C38H60N7O22P3S
+M_bkas_1coa		bkas#1-CoA(4-)	CHEBI:139849	c	C34H52N7O22P3S
+M_bkas_20		bkas#20(1-)	CHEBI:139851	c | e	C18H31O7
+M_bkas_20coa		bkas#20-CoA(4-)	CHEBI:139853	c	C39H62N7O22P3S
+M_bkas_22		bkas#22(1-)	CHEBI:139855	c | e	C19H33O7
+M_bkas_22coa		bkas#22-CoA(4-)	CHEBI:139858	c	C40H64N7O22P3S
+M_bkas_24		bkas#24(1-)	CHEBI:139860	c | e	C20H35O7
+M_bkas_24coa		bkas#24-CoA(4-)	CHEBI:139862	c	C41H66N7O22P3S
+M_bkas_26		bkas#26(1-)	CHEBI:139864	c | e	C21H37O7
+M_bkas_26coa		bkas#26-CoA(4-)	CHEBI:139866	c	C42H68N7O22P3S
+M_bkas_28		bkas#28(1-)	CHEBI:139868	c | e	C22H39O7
+M_bkas_28coa		bkas#28-CoA(4-)	CHEBI:139870	c	C43H70N7O22P3S
+M_bkas_30		bkas#30(1-)	CHEBI:139872	c | e	C23H41O7
+M_bkas_30coa		bkas#30-CoA(4-)	CHEBI:139874	c	C44H72N7O22P3S
+M_bkas_32		bkas#32(1-)	CHEBI:139876	c | e	C24H43O7
+M_bkas_32coa		bkas#32-CoA(4-)	CHEBI:139878	c	C45H74N7O22P3S
+M_bkas_34		bkas#34(1-)	CHEBI:139880	c | e	C25H45O7
+M_bkas_34coa		bkas#34-CoA(4-)	CHEBI:139882	c	C46H76N7O22P3S
+M_bkas_36		bkas#36(1-)	CHEBI:139884	c | e	C26H47O7
+M_bkas_36coa		bkas#36-CoA(4-)	CHEBI:139886	c	C47H78N7O22P3S
+M_bkas_38		bkas#38(1-)	CHEBI:139888	c | e	C27H49O7
+M_bkas_38coa		bkas#38-CoA(4-)	CHEBI:139890	c	C48H80N7O22P3S
+M_bkas_9		bkas#9(1-)	CHEBI:139892	c | e	C11H17O7
+M_bkas_9coa		bkas#9-CoA(4-)	CHEBI:139894	c	C32H48N7O22P3S
+M_bkos_1		bkos#1(1-)	CHEBI:139896	c | e	C13H21O7
+M_bkos_10		bkos#10(1-)	CHEBI:139898	c | e	C15H25O7
+M_bkos_10coa		bkos#10-CoA(4-)	CHEBI:139900	c	C36H56N7O22P3S
+M_bkos_12		bkos#12(1-)	CHEBI:139902	c | e	C12H19O7
+M_bkos_12coa		bkos#12-CoA(4-)	CHEBI:139904	c	C33H50N7O22P3S
+M_bkos_14		bkos#14(1-)	CHEBI:139906	c | e	C14H23O7
+M_bkos_14coa		bkos#14-CoA(4-)	CHEBI:139908	c	C35H54N7O22P3S
+M_bkos_16		bkos#16(1-)	CHEBI:139910	c | e	C16H27O7
+M_bkos_16coa		bkos#16-CoA(4-)	CHEBI:139912	c	C37H58N7O22P3S
+M_bkos_18		bkos#18(1-)	CHEBI:139914	c | e	C17H29O7
+M_bkos_18coa		bkos#18-CoA(4-)	CHEBI:139916	c	C38H60N7O22P3S
+M_bkos_1coa		bkos#1-CoA(4-)	CHEBI:139918	c	C34H52N7O22P3S
+M_bkos_20		bkos#20(1-)	CHEBI:139920	c | e	C18H31O7
+M_bkos_20coa		bkos#20-CoA(4-)	CHEBI:139922	c	C39H62N7O22P3S
+M_bkos_22		bkos#22(1-)	CHEBI:139924	c | e	C19H33O7
+M_bkos_22coa		bkos#22-CoA(4-)	CHEBI:139926	c	C40H64N7O22P3S
+M_bkos_24		bkos#24(1-)	CHEBI:139928	c | e	C20H35O7
+M_bkos_24coa		bkos#24-CoA(4-)	CHEBI:139930	c	C41H66N7O22P3S
+M_bkos_26		bkos#26(1-)	CHEBI:139932	c | e	C21H37O7
+M_bkos_26coa		bkos#26-CoA(4-)	CHEBI:139934	c	C42H68N7O22P3S
+M_bkos_28		bkos#28(1-)	CHEBI:139936	c | e	C22H39O7
+M_bkos_28coa		bkos#28-CoA(4-)	CHEBI:139938	c	C43H70N7O22P3S
+M_bkos_30		bkos#30(1-)	CHEBI:139940	c | e	C23H41O7
+M_bkos_30coa		bkos#30-CoA(4-)	CHEBI:139942	c	C44H72N7O22P3S
+M_bkos_32		bkos#32(1-)	CHEBI:139944	c | e	C24H43O7
+M_bkos_32coa		bkos#32-CoA(4-)	CHEBI:139946	c	C45H74N7O22P3S
+M_bkos_34		bkos#34(1-)	CHEBI:139948	c | e	C25H45O7
+M_bkos_34coa		bkos#34-CoA(4-)	CHEBI:139950	c	C46H76N7O22P3S
+M_bkos_36		bkos#36(1-)	CHEBI:139952	c | e	C26H47O7
+M_bkos_36coa		bkos#36-CoA(4-)	CHEBI:139954	c	C47H78N7O22P3S
+M_bkos_38		bkos#38(1-)	CHEBI:139956	c | e	C27H49O7
+M_bkos_38coa		bkos#38-CoA(4-)	CHEBI:139958	c	C48H80N7O22P3S
+M_bkos_9		bkos#9(1-)	CHEBI:139960	c | e	C11H17O7
+M_bkos_9coa		bkos#9-CoA(4-)	CHEBI:139962	c	C32H48N7O22P3S
+M_btcoa		Butanoyl-CoA(4-)	CHEBI:15517	c | m	C25H38N7O17P3S
+M_btcrn		O-butanoyl-L-carnitine	CHEBI:21949	c | m	C11H21NO4
+M_btn		biotinate	CHEBI:15956;CHEBI:41236	c | e	C10H15N2O3S
+M_but		butyrate	CHEBI:41208;CHEBI:30772	c | m	C4H7O2
+M_c15isoal		13-methyltetradecanal	CHEBI:71034	c	C15H30O
+M_c15isoenal		trans-13-methyltetradec-2-enal	CHEBI:70995	c	C15H28O
+M_c17iso3dsphgn		3-dehydro-15-methylhexadecasphinganine(1+)	CHEBI:70843	c	C17H36NO2
+M_c17isocrm		N-acyl-15-methylhexadecasphing-4-enine (C17iso Cer)	CHEBI:70846	c	C18H34NO3R
+M_c17isocrmp		N-acyl-15-methylhexadecasphing-4-enine-1-phosphate(2-)	CHEBI:71165	c	C18H33NO6PR
+M_c17isodhcrm		N-acyl-15-methylhexadecasphinganine (C17iso DhCer)	CHEBI:70845	c	C18H36NO3R
+M_c17isodhsphmyln		N-acyl-15-methylhexadecasphinganine-1-phosphocholine	CHEBI:82899	c	C23H48N2O6PR
+M_c17isogalside		N-acyl-1-O-galactosyl-15-methylhexadecasphing-4-enine	CHEBI:140530	c	C24H44NO8R
+M_c17isogluside		N-acyl-1-O-beta-D-glucosyl-15-methylhexadecasphing-4-enine	CHEBI:70815	c | m | n	C24H44NO8R
+M_c17isospc		15-methylhexadecasphing-4-enine-1-phosphocholine(1+)	CHEBI:71056	c	C22H48N2O5P
+M_c17isosph1p		15-methylhexadecasphinganine 1-phosphate(1-)	CHEBI:71059	c	C17H37NO5P
+M_c17isosphgn		15-methylhexadecasphinganine(1+)	CHEBI:70852	c	C17H38NO2
+M_c17isosphings		15-methylhexadecasphing-4-enine(1+)	CHEBI:70798	c	C17H36NO2
+M_c17isosphmyln		N-acyl-15-methylhexadecasphing-4-enine-1-phosphocholine	CHEBI:70775	c	C23H46N2O6PR
+M_c17isosphs1p		15-methylhexadecasphing-4-enine 1-phosphate(1-)	CHEBI:71036	c	C17H35NO5P
+M_c35rnmp		nucleoside 3,5-cyclic phosphate	CHEBI:18375	c | m | n	C5H7O5PR2
+M_cala		N-Carbamoyl-beta-alanine	CHEBI:18261;CHEBI:46352;CHEBI:11892	c	C4H7N2O3
+M_camp		3',5'-cyclic AMP(1-)	CHEBI:17489	c | e | m | n	C10H11N5O6P
+M_carn10_0__L	M_dcacrn	O-decanoyl-L-carnitine	CHEBI:28717	c | m	C17H33NO4
+M_carn12_0__L	M_ddcacrn	O-lauroyl-L-carnitine	CHEBI:77086	c | m	C19H37NO4
+M_carn14_0__L	M_ttdcrn	O-tetradecanoyl-L-carnitine	CHEBI:84634	c | m	C21H41NO4
+M_carn16_0__L	M_pmtcrn	O-palmitoyl-L-carnitine	CHEBI:17490	c | m	C23H45NO4
+M_carn18_1_11z__L	M_vacccrn	O-vaccenyl-L-carnitine	CHEBI:89742	c | m	C25H47NO4
+M_carn18_1_9z__L	M_ocdce9crn	oleoyl-L-carnitine	CHEBI:84651	c | m	C25H47NO4
+M_carn20_0__L	M_arachcrn	O-arachidoyl-L-carnitine	CHEBI:84645	c | m	C27H53NO4
+M_carn6_0__L	M_lhexcar	O-hexanoyl-L-carnitine	CHEBI:84834	c | m	C13H25NO4
+M_carn8_0__L	M_occrn	O-octanoyl-L-carnitine	CHEBI:18102	c | m	C15H29NO4
+M_caro		beta-Carotene	CHEBI:17579	c | e | n	C40H56
+M_cbasp		N-Carbamoyl-L-aspartate(2-)	CHEBI:15859	c	C5H6N2O5
+M_cbl1		Cob(I)alamin	CHEBI:3784;CHEBI:15982	c | e | m	C62H89CoN13O14P
+M_cbp		Carbamoyl phosphate(2-)	CHEBI:17672	c	CH2NO5P
+M_cdp		CDP(3-)	CHEBI:17239	c | m | n	C9H12N3O11P2
+M_cdpchol		CDP-choline(1-)	CHEBI:49086	c	C14H25N4O11P2
+M_cdpdag		CDP diacylglycerol(2-)	CHEBI:17962	c | m	C14H17N3O15P2R2
+M_cdpea		CDP-ethanolamine(1-)	CHEBI:16732;CHEBI:13257	c	C11H19N4O11P2
+M_cgly		Cys-Gly	CHEBI:61694;CHEBI:4047	c | e | m	C5H10N2O3S
+M_chlstol		cholesta-7,24-dien-3-beta-ol	CHEBI:16290;CHEBI:2140	c	C27H44O
+M_chol		Choline	CHEBI:15354	c | e | m | n	C5H14NO
+M_cholate		Cholate	CHEBI:41494;CHEBI:16359	c | e	C24H39O5
+M_cholcoa		Choloyl-CoA(4-)	CHEBI:15519;CHEBI:3671	c	C45H70N7O20P3S
+M_cholcoads		3alpha,7alpha,12alpha-Trihydroxy-5beta-cholest-24-enoyl-CoA(4-)	CHEBI:52432	c	C48H74N7O20P3S
+M_cholcoaone		3alpha,7alpha,12alpha-Trihydroxy-5beta-24-oxocholestanoyl-CoA(4-)	CHEBI:27379	c	C48H74N7O21P3S
+M_cholcoar		(25R)-3a,7a,12a-trihydroxy-5&lt;df&gt;-cholestan-26-oyl-CoA(4-)	CHEBI:37642	c	C48H76N7O20P3S
+M_cholcoas		(25S)-3a,7a,12a-trihydroxy-5&lt;df&gt;-cholestan-26-oyl-CoA(4-)	CHEBI:37643	c	C48H76N7O20P3S
+M_cholp		Choline phosphate(1-)	CHEBI:18132;CHEBI:44707	c | m | n	C5H13NO4P
+M_chstenone		Cholestenone	CHEBI:16175	c	C27H44O
+M_chsterol		Cholesterol	CHEBI:16113	c | e | m	C27H46O
+M_chtbs		N,N-diacetylchitobiose	CHEBI:28681	c	C16H28N2O11
+M_cinnavalininate		Cinnavalininate(2-)	CHEBI:3715	c	C14H6N2O6
+M_cit		Citrate(3-)	CHEBI:30769	c | e | m	C6H5O7
+M_citr__L	M_citr_L	L-Citrulline	CHEBI:16349	c | m	C6H13N3O3
+M_clb		Cellobiose	CHEBI:17057;CHEBI:41353	c | e	C12H22O11
+M_clpn_BAC		Cardiolipin (2-, bacteria)	CHEBI:28494	c | e	C13H16O17P2R4
+M_clpn		Cardiolipin(2-)	CHEBI:28494	c | m	C13H16O17P2R4
+M_cmp		CMP(2-)	CHEBI:23520;CHEBI:17361	c | m | n	C9H12N3O8P
+M_cmusa		2-Amino-3-carboxymuconate semialdehyde	CHEBI:19448;CHEBI:994	c	C7H6NO5
+M_co		carbon monoxide	CHEBI:17245	c	CO
+M_co2		carbon dioxide	CHEBI:16526	c | e | m | n	CO2
+M_coa		Coenzyme A(4-)	CHEBI:15346	c | m | n	C21H32N7O16P3S
+M_coa10_0_3o	M_3odcoa	3-Oxo-decanoyl-CoA(4-)	CHEBI:28528;CHEBI:1633	c | m	C31H48N7O18P3S
+M_coa10_0_3oh__S	M_3hdcoa	(S)-3-Hydroxydecanoyl-CoA(4-)	CHEBI:28325	c | m	C31H50N7O18P3S
+M_coa10_0	M_dcacoa	decanoyl-CoA(4-)	CHEBI:28493;CHEBI:4348	c | m	C31H50N7O17P3S
+M_coa10_1_2e	M_dc2coa	trans-Dec-2-enoyl-CoA(4-)	CHEBI:10723	c | m	C31H48N7O17P3S
+M_coa12_0_3o	M_3oddcoa	3-Oxo-dodecanoyl-CoA(4-)	CHEBI:27868;CHEBI:1636	c | m	C33H52N7O18P3S
+M_coa12_0_3oh__S	M_3hddcoa	(S)-3-hydroxydodecanoyl-CoA(4-)	CHEBI:27668	c | m	C33H54N7O18P3S
+M_coa12_0	M_ddcacoa	Dodecanoyl-CoA(4-)	CHEBI:15521	c | m	C33H54N7O17P3S
+M_coa12_1_2e	M_dd2coa	trans-Dodec-2-enoyl-CoA(4-)	CHEBI:15471	c | m	C33H52N7O17P3S
+M_coa12_1_3z	M_dd3coa	(3Z)-Dodecenoyl-CoA(4-)	CHEBI:27989	m	C33H52N7O17P3S
+M_coa12_2_2e6z	M_dd26coa	(2E,6Z)-Dodecadienoyl-CoA(4-)	CHEBI:28387	m	C33H50N7O17P3S
+M_coa14_0_3o	M_3otdcoa	3-Oxo-tetradecanoyl-CoA(4-)	CHEBI:1654;CHEBI:28726	c | m	C35H56N7O18P3S
+M_coa14_0_3oh__S	M_3htdcoa	(S)-3-hydroxytetradecanoyl-CoA(4-)	CHEBI:27466;CHEBI:400	c | m	C35H58N7O18P3S
+M_coa14_0	M_tdcacoa	Myristoyl-CoA(4-)	CHEBI:15532	c | m	C35H58N7O17P3S
+M_coa14_1_2e	M_td2coa	trans-Tetradec-2-enoyl-CoA(4-)	CHEBI:10734;CHEBI:27721	c | m	C35H56N7O17P3S
+M_coa14_1_5z	M_td5coa	(5Z)-Tetradecenoyl-CoA(4-)	CHEBI:70712	m	C35H56N7O17P3S
+M_coa14_1_5z3o	M_3otd5coa	3-Oxo-5Z-Tetradecenoyl-CoA(4-)	CHEBI:88080	m	C35H54N7O18P3S
+M_coa14_1_5z3oh__S	M_3htd5coa	(S)-3-Hydroxy-5Z-Tetradecenoyl-CoA(4-)	CHEBI:88072	m	C35H56N7O18P3S
+M_coa14_2_2e5z	M_td25coa	(2E,5Z)-Tetradecadienoyl-CoA(4-)	CHEBI:88067	m	C35H54N7O17P3S
+M_coa14_2_5z8z	M_td58coa	(5Z,8Z)-Tetradecadienoyl-CoA(4-)	CHEBI:70713	m	C35H54N7O17P3S
+M_coa16_0_3o	M_3ohdcoa	3-Oxohexadecanoyl-CoA(4-)	CHEBI:15491;CHEBI:1647	c | m	C37H60N7O18P3S
+M_coa16_0_3oh__S	M_3hhdcoa	(S)-3-Hydroxyhexadecanoyl-CoA(4-)	CHEBI:27402	c | m	C37H62N7O18P3S
+M_coa16_0	M_pmtcoa	Palmitoyl-CoA (4-)	CHEBI:15525	c | m | n	C37H62N7O17P3S
+M_coa16_1_2e	M_hdd2coa	trans-Hexadec-2-enoyl-CoA(4-)	CHEBI:28935	c | m	C37H60N7O17P3S
+M_coa16_1_7z	M_hd7coa	(7Z)-Hexadecenoyl-CoA(4-)	CHEBI:88008	m	C37H60N7O17P3S
+M_coa16_1_7z3o	M_3ohd7coa	3-Oxo-7Z-Hexadecenoyl-CoA(4-)	CHEBI:88090	m	C37H58N7O18P3S
+M_coa16_1_7z3oh__S	M_3hhd7coa	(S)-3-Hydroxy-7Z-Hexadecenoyl-CoA(4-)	CHEBI:88087	m	C37H60N7O18P3S
+M_coa16_1_9z	M_fa16p1n7coa	Palmitoleyl-CoA(4-)	CHEBI:53152	c | m	C37H60N7O17P3S
+M_coa16_2_2e7z	M_hd27coa	(2E,7Z)-Hexadecadienoyl-CoA(4-)	CHEBI:88086	m	C37H58N7O17P3S
+M_coa16_2_2e9z	M_hd29coa	(2E,9Z)-Hexadecadienoyl-CoA(4-)	CHEBI:78178	m	C37H58N7O17P3S
+M_coa18_0_3o	M_3ohodcoa	3-Oxo-stearoyl-CoA(4-)	CHEBI:50571	c | m	C39H64N7O18P3S
+M_coa18_0_3oh__S	M_3hodcoa	(S)-3-Hydroxyoctadecanoyl-CoA(4-)	CHEBI:50577	c | m	C39H66N7O18P3S
+M_coa18_0	M_stcoa	Stearoyl-CoA(4-)	CHEBI:15541	c | m	C39H66N7O17P3S
+M_coa18_1_11z_3oh__S	M_3hod11coa	(3R,11Z)-3-hydroxyoctadecenoyl-CoA(4-)	CHEBI:76900	c	C39H64N7O18P3S
+M_coa18_1_11z	M_vaccoa	cis-Vaccenoyl-CoA(4-)	CHEBI:75354	m	C39H64N7O17P3S
+M_coa18_1_11z3o	M_3ood11coa	3-Oxo-11Z-Octadecenoyl-CoA(4-)	CHEBI:76896	c | m	C39H62N7O18P3S
+M_coa18_1_2e	M_od2coa	trans-Octadec-2-enoyl-CoA(4-)	CHEBI:50570	c | m	C39H64N7O17P3S
+M_coa18_1_9z	M_odecoa	Oleoyl-CoA(4-)	CHEBI:7743;CHEBI:15534	c | m	C39H64N7O17P3S
+M_coa18_1_9z3o	M_3ood9coa	3-Oxo-Oleoyl-CoA(4-)	CHEBI:88007	m	C39H62N7O18P3S
+M_coa18_1_9z3oh__S	M_3hod9coa	(S)-3-Hydroxyoleoyl-CoA(4-)	CHEBI:87781	m	C39H64N7O18P3S
+M_coa18_2_2e11z	M_od211coa	(2E,11Z)-octadecadienoyl-CoA(4-)	CHEBI:76904	c | m	C39H62N7O17P3S
+M_coa18_2_2e9z	M_od29coa	(2E,9Z)-octadecadienoyl-CoA(4-)	CHEBI:78187	m	C39H62N7O17P3S
+M_coa18_2_9z12z	M_lnlccoa	linoleic coenzyme A(4-)	CHEBI:6480;CHEBI:15530	c | m	C39H62N7O17P3S
+M_coa18_2_9z12z3o	M_3ood912coa	3-Oxo-(9Z,12Z)-Octadecadienoyl-CoA(4-)	CHEBI:74090	m	C39H60N7O18P3S
+M_coa18_3_2e9z12z	M_od2912coa	(2E,9Z,12Z)-octadecatrienoyl-CoA(4-)	CHEBI:78190	m	C39H60N7O17P3S
+M_coa18_3_6z9z12	M_lnlncgcoa	gamma-linolenoyl-CoA(4-)	CHEBI:15508;CHEBI:10574	c	C39H60N7O17P3S
+M_coa18_3_9z12z15z	M_lnlncacoa	alpha-Linolenoyl-CoA(4-)	CHEBI:51985	c | m	C39H60N7O17P3S
+M_coa20_0_3o	M_CE2251	3-Oxo-icosanoyl-CoA(4-)	CHEBI:52327	c | m	C41H68N7O18P3S
+M_coa20_0_3oh__S	M_hoxiccoa	(R)-3-hydroxyicosanoyl-CoA(4-)	CHEBI:76459	c | m	C41H70N7O18P3S
+M_coa20_0	M_arachcoa	arachidoyl-CoA(4-)	CHEBI:15527	c | m	C41H70N7O17P3S
+M_coa20_1_2e	M_CE2243	trans-eicos-2-enoyl-CoA(4-)	CHEBI:75061	c | m	C41H68N7O17P3S
+M_coa20_3_8z11z14z	M_3o81114eicoa	(8Z,11Z,14Z)-3-oxoicosa-8,11,14-trienoyl-CoA(4-)	CHEBI:71539	c	C41H62N7O18P3S
+M_coa20_3_8z11z14z3oh__R	M_3oh81114eicoa	(3R,8Z,11Z,14Z)-3-hydroxyicosatrienoyl-CoA(4-)	CHEBI:76536	c	C41H64N7O18P3S
+M_coa20_4_2e8z11z14z	M_281114eicoa	(2E,8Z,11Z,14Z)-icosatetraenoyl-CoA(4-)	CHEBI:76538	c	C41H62N7O17P3S
+M_coa20_4_5z8z11z14z	M_arachdcoa	arachidonoyl-CoA(4-)	CHEBI:15514	c | m	C41H62N7O17P3S
+M_coa20_4_8z11z14z17z	M_eicostetcoa	(8Z,11Z,14Z,17Z)-icosatetraenoyl-CoA(4-)	CHEBI:63542	c | m	C41H62N7O17P3S
+M_coa22_0_3o	M_3oxbcoa	3-Oxo-behenyl-CoA(4-)	CHEBI:52328	c | m	C43H72N7O18P3S
+M_coa22_0_3oh__R	M_hoxdcoa	(R)-3-hydroxydocosanoyl-CoA(4-)	CHEBI:76459	c | m	C43H74N7O18P3S
+M_coa22_0	M_docoscoa	docosanoyl-CoA(4-)	CHEBI:65088	c | m	C43H74N7O17P3S
+M_coa22_1_2e	M_tdencoa	trans-2-docos-enoyl-CoA(4-)	CHEBI:75064	c | m	C43H72N7O17P3S
+M_coa24_0_3o	M_CE2253	3-Oxo-tetracosanoyl-CoA(4-)	CHEBI:52329	c | m	C45H76N7O18P3S
+M_coa24_0_3oh__S	M_CE2249	3-hydroxytetracosanoyl-CoA(4-)	CHEBI:52326	c | m	C45H78N7O18P3S
+M_coa24_0	M_lgnccoa	tetracosanoyl-CoA(4-)	CHEBI:52974	c | m	C45H78N7O17P3S
+M_coa24_1_2e	M_CE2245	trans-tetracos-2-enoyl-CoA(4-)	CHEBI:75068	c | m	C45H76N7O17P3S
+M_coa26_0_3o	M_3oxhcoa	3-Oxo-hexacosanoyl-CoA(4-)	CHEBI:52977	c | m	C47H80N7O18P3S
+M_coa26_0_3oh__S	M_hoxhccoa	(S)-3-hydroxyhexacosanoyl-CoA(4-)	CHEBI:52976	c | m	C47H82N7O18P3S
+M_coa26_0	M_hexccoa	cerotoyl-CoA(4-)	CHEBI:52966	c | m	C47H82N7O17P3S
+M_coa26_1_2e	M_hxc2coa	trans-2-hexacosenoyl-CoA(4-) | trans-hexacos-2-enoyl-CoA(4-)	CHEBI:52975	c | m	C47H80N7O17P3S
+M_coa28_0_3o	M_3ooctaccoa	3-Oxo-octacosanoyl-CoA(4-)	CHEBI:73975	c	C49H84N7O18P3S
+M_coa28_0	M_octaccoa	octacoasanoyl-CoA(4-)	CHEBI:74150	c	C49H86N7O17P3S
+M_coa28_1_2e	M_octac2coa	trans-octacos-2-enoyl-CoA(4-)	CHEBI:76490	c	C49H84N7O17P3S
+M_coa30_0_3o	M_3otriaccoa	3-Oxo-tricontanoyl-CoA(4-)	CHEBI:74355	c	C51H88N7O18P3S
+M_coa30_0	M_triaccoa	Triacontanoyl-CoA(4-)	CHEBI:76500	c	C51H90N7O17P3S
+M_coa30_1_2e	M_triac2coa	trans-triacot-2-enoyl-CoA(4-)	CHEBI:76492	c	C51H88N7O17P3S
+M_coa6_0_3o	M_3ohcoa	3-Oxo-hexanoyl-CoA(4-)	CHEBI:27648	c | m	C27H40N7O18P3S
+M_coa6_0_3oh__S	M_3hhcoa	(S)-3-Hydroxyhexanoyl-CoA(4-)	CHEBI:28276	c | m	C27H42N7O18P3S
+M_coa6_0	M_hxcoa	Hexanoyl-CoA(4-)	CHEBI:24575;CHEBI:5703;CHEBI:27540	c | m	C27H42N7O17P3S
+M_coa6_1_2e	M_hx2coa	trans-Hex-2-enoyl-CoA(4-)	CHEBI:28706;CHEBI:10726	c | m	C27H40N7O17P3S
+M_coa8_0_3o	M_3oocoa	3-Oxo-octanoyl-CoA(4-)	CHEBI:28264;CHEBI:1645	c | m	C29H44N7O18P3S
+M_coa8_0_3o7me	M_3oc9isocoa	3-Oxo-7-methyloctanoyl-CoA(4-)	CHEBI:12258;CHEBI:15506;CHEBI:2272	c | m	C30H46N7O18P3S
+M_coa8_0_3oh__S	M_3hocoa	(S)-3-hydroxyoctanoyl-CoA(4-)	CHEBI:28632	m	C29H46N7O18P3S
+M_coa8_1_2e	M_oc2coa	trans-Oct-2-enoyl-CoA(4-)	CHEBI:27537;CHEBI:10732	c | m	C29H44N7O17P3S
+M_cpmp		cyclic pyranopterin monophosphate	CHEBI:60210	c | m	C10H13N5O8P
+M_crm		ceramide	CHEBI:17761	c | m | n	C19H36NO3R
+M_crmp		ceramide 1-phosphate(2-)	CHEBI:13956	c | e	C19H37NO6PR
+M_crn		L-Carnitine	CHEBI:16347	c | e | m	C7H15NO3
+M_csn		cytosine	CHEBI:16040	c	C4H5N3O
+M_ct_frdp		cis,trans- Farnesyl diphosphate(3-)	CHEBI:19515	c	C15H25O7P2
+M_ctp		CTP(4-)	CHEBI:17677	c | m | n	C9H12N3O14P3
+M_cyan		Hydrogen cyanide	CHEBI:18407	c | e | m	CHN
+M_cyanala		3-cyanoalanine	CHEBI:132546	c | e | m	C4H6N2O2
+M_cys__L	M_cys_L	L-cysteine	CHEBI:35235;CHEBI:17561;CHEBI:41227;CHEBI:35237	c | e | m	C3H7NO2S
+M_cyst__L	M_cyst_L	L-cystathionine	CHEBI:17482	c	C7H14N2O4S
+M_cytd		Cytidine	CHEBI:28680;CHEBI:17562	c | e | m | n	C9H13N3O5
+M_d0da		(5alpha)-3-oxocholestan-26-oic acid	CHEBI:78701	c	C27H43O3
+M_d1d7da		(25S)-delta(1,7)-dafachronic acid	CHEBI:83137	c	C27H39O3
+M_d4da		(25S)-delta(4)-dafachronic acid	CHEBI:71560	c	C27H41O3
+M_d7da		(25S)-delta(7)-dafachronic acid	CHEBI:71556	c	C27H41O3
+M_dad_2		2-deoxyadenosine | Deoxyadenosine	CHEBI:17256	c | e | n	C10H13N5O3
+M_dad_5		5-deoxyadenosine	CHEBI:17319;CHEBI:40099	c	C10H13N5O3
+M_dadp		dADP(3-)	CHEBI:16174	c | m | n	C10H12N5O9P2
+M_damp		dAMP(2-)	CHEBI:17713	c | m | n	C10H12N5O6P
+M_datp		dATP(4-)	CHEBI:16284	c | m | n	C10H12N5O12P3
+M_dcamp		N6-(1,2-Dicarboxyethyl)-AMP(4-)	CHEBI:15919	c	C14H14N5O11P
+M_dcdp		dCDP(3-)	CHEBI:28846	c | m | n	C9H12N3O10P2
+M_dcmp		dCMP(2-)	CHEBI:15918	c | n	C9H12N3O7P
+M_dctp		dCTP(4-)	CHEBI:16311	c | m | n	C9H12N3O13P3
+M_dcyt		Deoxycytidine	CHEBI:15698	c | e	C9H13N3O4
+M_ddsmsterol		cholesta-5,7,24-trien-3beta-ol	CHEBI:27910;CHEBI:2257	c	C27H42O
+M_dgdp		dGDP(3-)	CHEBI:28862	c | m | n	C10H12N5O10P2
+M_dgmp		dGMP(2-)	CHEBI:16192	c | m | n	C10H12N5O7P
+M_dgsn		Deoxyguanosine	CHEBI:17172	c | e | m | n	C10H13N5O4
+M_dgtp		dGTP(4-)	CHEBI:16497	c | m | n	C10H12N5O13P3
+M_dha		Dihydroxyacetone	CHEBI:16016	c | n	C3H6O3
+M_dhap		Dihydroxyacetone phosphate(2-)	CHEBI:16108;CHEBI:5454	c | m | n	C3H5O6P | C3H7O6P
+M_dhbpt		6,7-Dihydrobiopterin	CHEBI:20680	c | m	C9H13N5O3
+M_dhdascb		L-Dehydroascorbate	CHEBI:27956	c | e	C6H5O6
+M_dhet		11,12-DHET	CHEBI:34129;CHEBI:63969	c	C20H33O4
+M_dhf		7,8-Dihydrofolate	CHEBI:15633	c | m | n	C19H21N7O6
+M_dhmtp		1,2-dihydroxy-5-(methylthio)pent-1-en-3-one	CHEBI:49252	c	C6H9O3S
+M_dhnpt		Dihydroneopterin	CHEBI:17001	c | m	C9H13N5O4
+M_dhor_S		(S)-dihydroorotate	CHEBI:17025	c	C5H5N2O4
+M_dhpt		7,8-dihydropteroate	CHEBI:4581	c | m	C14H13N6O3
+M_didp		dIDP(3-)	CHEBI:28823	c | n	C10H11N4O10P2
+M_dimp		dIMP(2-)	CHEBI:41998;CHEBI:28806;CHEBI:837	c | n	C10H11N4O7P
+M_din		Deoxyinosine	CHEBI:4413;CHEBI:28997	c | e | n	C10H12N4O4
+M_ditp		dITP(4-)	CHEBI:28807	c | n	C10H11N4O13P3
+M_dkmpp		2,3-diketo-5-methylthio-1-phosphopentane(2-)	CHEBI:50604	c	C6H9O6PS
+M_dlnlcgcoa		dihomo-gamma-linolenyl coenzyme A(4-)	CHEBI:27979	c | m	C41H64N7O17P3S
+M_dmeap		N-dimethylethanolamine phosphate	CHEBI:31997	c | m	C4H11NO4P
+M_dmpp		prenyl diphosphate(3-)	CHEBI:16057	c	C5H9O7P2
+M_dnad		Deamido-NAD(2-)	CHEBI:14105	c | m | n	C21H24N6O15P2
+M_doldp		dolichyl diphosphate	CHEBI:15750	c	C20H35O7P2(C5H8)n
+M_dolmanp		Dolichyl phosphate D-mannose(1-)	CHEBI:15809	c | n	C26H46O9P(C5H8)n
+M_dolp		Dolichol phosphate(2-)	CHEBI:16214	c | n	C20H35O4P(C5H8)n
+M_dopa		Dopamine	CHEBI:1764;CHEBI:18243	c | e	C8H12NO2
+M_dopaqn		Dopaquinone	CHEBI:23887;CHEBI:4699;CHEBI:57924;CHEBI:16852	c	C9H9NO4
+M_dpcoa		Dephospho-CoA(2-)	CHEBI:15468	c | m	C21H33N7O13P2S
+M_dpminol		1-diphospho-1D-myo-inositol (2,3,4,5,6)pentakisphosphate(13-)	CHEBI:62919	c | n	C6H19O27P7
+M_dsmsterol		desmosterol	CHEBI:17737	c	C27H44O
+M_dtdp		dTDP(3-)	CHEBI:18075	c | m | n	C10H13N2O11P2
+M_dtmp		dTMP(2-)	CHEBI:17013	c | n	C10H13N2O8P
+M_dtt		dithiothreitol	CHEBI:42106	c | n	C4H10O2S2
+M_dttOX		trans-1,2-dithiane-4,5-diol	CHEBI:41837;CHEBI:41830	c | n	C4H8O2S2
+M_dttp		dTTP(4-)	CHEBI:18077	c | e | m | n	C10H13N2O14P3
+M_dudp		dUDP(3-)	CHEBI:28850	c | m | n	C9H11N2O11P2
+M_dump		dUMP(2-)	CHEBI:17622	c | m | n	C9H11N2O8P
+M_duri		Deoxyuridine	CHEBI:16450	c | e | n	C9H12N2O5
+M_dutp		dUTP(4-)	CHEBI:17625	c | m | n	C9H11N2O14P3
+M_e4p		D-Erythrose 4-phosphate(2-)	CHEBI:48153	c | m | n	C4H7O7P
+M_eet		11,12-EET	CHEBI:34130	c	C20H31O3
+M_eicostet		(5Z,11Z,14Z,17Z)-icosatetraenoate	CHEBI:82835	c	C20H31O2
+M_enphpyr		enol-Phenylpyruvate	CHEBI:32815;CHEBI:10548	c | e	C9H7O3
+M_etha		Ethanolamine	CHEBI:16000	c	C2H8NO
+M_ethamp		O-phosphoethanolamine(1-)	CHEBI:17553	c	C2H7NO4P
+M_etoh		Ethanol	CHEBI:16236	c | e | m	C2H6O
+M_f1p		fructose-1-phosphate(2-)	CHEBI:37515	c | n	C6H11O9P
+M_f26bp		D-Fructose 2,6-bisphosphate(4-)	CHEBI:28602	c | n	C6H10O12P2
+M_f6p		beta-D-fructofuranose 6-phosphate(2-)	CHEBI:16084	c | m | n	C6H11O9P
+M_fa10_0_10o	M_oxdca	10-oxodecanoate	CHEBI:17130	c	C10H17O3
+M_fa10_0_10oh	M_ohdca	10-hydroxycaprate	CHEBI:17409	c	C10H19O3
+M_fa10_0	M_dca	caprate	CHEBI:30813	c | m	C10H19O2
+M_fa12_0_11me	M_c13iso	11-Methyldodecanoate	CHEBI:77359	c | m	C13H25O2
+M_fa12_0	M_ddca	Dodecanoate (n-C12:0)	CHEBI:30805;CHEBI:41882	c | m	C12H23O2
+M_fa14_0_13me	M_c15iso	13-Methyltetradecanoate	CHEBI:39250	c	C15H29O2
+M_fa14_0	M_ttdca	tetradecanoate	CHEBI:44232;CHEBI:28875	c | e | m	C14H27O2
+M_fa16_0_15me	M_c17iso	15-Methylhexadecanoate	CHEBI:70850	c	C17H33O2
+M_fa16_0	M_hdca	Hexadecanoate	CHEBI:15756	c | e | m | n	C16H31O2
+M_fa16_1_9z		Palmitoleic acid	CHEBI:78095;CHEBI:28716;CHEBI:44696	c	C16H29O2
+M_fa18_0	M_ocdca	octadecanoate	CHEBI:28842;CHEBI:45710	c | e | m	C18H35O2
+M_fa18_1_9z	M_ocdce9a	oleate	CHEBI:16196	c	C18H33O2
+M_fa18_2_9z12z	M_lnlc	linoleate	CHEBI:17351;CHEBI:42395	c | e	C18H31O2
+M_fa18_3_6z9z12z	M_lnlncg	gamma-linolenate	CHEBI:28661	c	C18H29O2
+M_fa18_3_9z12z15	M_lnlnca	alpha-linolenate	CHEBI:43891;CHEBI:27432	c	C18H29O2
+M_fa20_0	M_arach	arachidate	CHEBI:28822	c | e | m	C20H39O2
+M_fa20_3_8z11z14z	M_dlnlcg	dihomo-gamma-linolenate	CHEBI:53486	c	C20H33O2
+M_fa20_4_5z8z11z14z	M_arachd	arachidonate	CHEBI:15843;CHEBI:40501	c | e	C20H31O2
+M_fa21_0	M_fa21	henicosanoate	CHEBI:39248	c	C21H41O2
+M_fa22_0	M_docosac	behenate	CHEBI:28941	c | m	C22H43O2
+M_fa24_0	M_ttc	lignocerate	CHEBI:28866	c | e | m	C24H47O2
+M_fa26_0	M_hexc	cerotate	CHEBI:31009	c | m	C26H51O2
+M_fa28_0	M_octaco	octacosanoate	CHEBI:31001	c	C28H55O2
+M_fa30_0	M_triac	triacontanoate	CHEBI:31003	c	C30H59O2
+M_fa6_0	M_hxa	Hexanoate	CHEBI:17120;CHEBI:30776	c | m	C6H11O2
+M_fa8_0	M_octa	octanoate	CHEBI:25646;CHEBI:28837	c | m	C8H15O2
+M_fad		FAD(3-)	CHEBI:16238	c | e | m | n	C27H30N9O15P2
+M_fadh2		FADH2(2-)	CHEBI:17877	c | m | n	C27H33N9O15P2
+M_fald		Formaldehyde	CHEBI:16842	c | m | n	CH2O
+M_fataccoa		fatty acyl CoA(4-)	CHEBI:37554	c | m | n	C22H31N7O17P3SR
+M_fatacid		fatty acid	CHEBI:35366	c | m	CO2R
+M_fdp		D-Fructose 1,6-bisphosphate(4-)	CHEBI:40595;CHEBI:28013	c | n	C6H10O12P2
+M_fecost		fucosterol	CHEBI:27865	c	C29H48O
+M_fmn		FMN(3-)	CHEBI:42587;CHEBI:17621	c | e | m	C17H18N4O9P
+M_fol		Folate(2-)	CHEBI:27470;CHEBI:42610	c | e	C19H17N7O6
+M_for		Formate	CHEBI:42460;CHEBI:30751	c | e | m | n	CHO2
+M_for_isogln		formyl-isoglutamine(1-)	CHEBI:80654	c	C6H9N2O4
+M_forglu		N-Formimidoyl-L-glutamate	CHEBI:7274	c	C6H9N2O4
+M_fprica		5-formamido-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide(2-)	CHEBI:18381	c	C10H13N4O9P
+M_frdp		2-trans,6-trans-farnesyl diphosphate(3-) | trans, trans -Farnesyl diphosphate	CHEBI:17407	c | n	C15H25O7P2
+M_fru_B		Beta-D-fructose	CHEBI:47693;CHEBI:28645	c | n	C6H12O6
+M_fuc1p_L		Beta-L-fucose 1-phosphate(2-)	CHEBI:12387	c | n	C6H11O8P
+M_fum		Fumarate(2-)	CHEBI:18012	c | e | m	C4H2O4
+M_g1p_B		beta-D-glucose 1-phosphate(2-)	CHEBI:16218;CHEBI:10398	c	C6H11O9P
+M_g1p		alpha-D-Glucose 1-phosphate(2-)	CHEBI:29042	c | m | n	C6H11O9P
+M_g3p		Glyceraldehyde 3-phosphate(2-)	CHEBI:17138	c | m | n	C3H5O6P
+M_g3pc		sn-Glycero-3-phosphocholine	CHEBI:16870	c	C8H21NO6P
+M_g3pe		sn-Glycero-3-phosphoethanolamine	CHEBI:16929	c	C5H14NO6P
+M_g6p_A		alpha-D-glucose 6-phosphate(2-)	CHEBI:17665	c | m | n	C6H11O9P
+M_g6p_B		beta-D-glucose-6-phosphate(2-)	CHEBI:17719	c | m | n	C6H11O9P
+M_gal		D-Galactose	CHEBI:10384;CHEBI:10383;CHEBI:27667;CHEBI:42776	c | e | m | n	C6H12O6
+M_gal1p		alpha-D-Galactose 1-phosphate(2-)	CHEBI:16077;CHEBI:17973	c | m	C6H11O9P
+M_galside_cho		cerebroside	CHEBI:23079	c	C25H46NO8R
+M_galt		Galactitol	CHEBI:16813	c | e	C6H14O6
+M_gam		D-Glucosamine(1+)	CHEBI:28393	c | e	C6H14NO5
+M_gam6p		D-Glucosamine 6-phosphate(1-)	CHEBI:47987	c | e | m | n	C6H13NO8P
+M_gcald		Glycolaldehyde	CHEBI:17071	c | e | m	C2H4O2
+M_gchola		glycocholate	CHEBI:42804;CHEBI:17687	c | e	C26H42NO6
+M_gcynala		gamma-Glutamyl-beta-cyanoalanine(1-)	CHEBI:10565	c	C9H12N3O5
+M_gdp		GDP(3-)	CHEBI:17552	c | m | n	C10H12N5O11P2
+M_gdpddman		GDP-4-dehydro-6-deoxy-D-mannose(2-)	CHEBI:16955;CHEBI:5214	c | m	C16H21N5O15P2
+M_gdpfuc		GDP-L-fucose(2-)	CHEBI:17009	c | m | n	C16H23N5O15P2
+M_gdpg		GDP-D-glucose(2-)	CHEBI:17383	c	C16H23N5O16P2
+M_gdpmann		GDP-D-mannose(2-)	CHEBI:84880	c | m | n	C16H23N5O16P2
+M_ggdp		all-trans-geranyl-geranyl diphosphate(3-)	CHEBI:48861	c	C20H33O7P2
+M_glc_aD		alpha-D-Glucose	CHEBI:17925;CHEBI:10242;CHEBI:40557	c | m | n	C6H12O6
+M_glc_bD		Beta-D-glucose	CHEBI:10397;CHEBI:15903;CHEBI:41140	c | e | m | n	C6H12O6
+M_glcn		D-Gluconate	CHEBI:33198	c | e	C6H11O7
+M_glcr		D-Glucarate(2-)	CHEBI:5393;CHEBI:16002;CHEBI:14311	c | e	C6H8O8
+M_gln__L	M_gln_L	L-glutamine	CHEBI:18050;CHEBI:42812;CHEBI:21308;CHEBI:5432	c | e | m	C5H10N2O3
+M_glu__L	M_glu_L	L-glutamate	CHEBI:21301;CHEBI:16015	c | e | m	C5H8NO4
+M_glu_gly_phe		Glu-Gly-Phe(1-)	CHEBI:140739	c	C16H21N3O6
+M_glu5p		L-Glutamate 5-phosphate(2-)	CHEBI:17798	c | m	C5H8NO7P
+M_glu5sa		L-Glutamate 5-semialdehyde	CHEBI:17232	c | m	C5H9NO3
+M_gluala		5-L-Glutamyl-L-alanine	CHEBI:50619	c	C8H13N2O5
+M_glucys		gamma-L-Glutamyl-L-cysteine	CHEBI:17515;CHEBI:39975	c	C8H13N2O5S
+M_glutaconyl_coa		glutaconyl-CoA(5-)	CHEBI:15497	c	C26H35N7O19P3S
+M_glutcoa		Glutaryl-CoA(5-)	CHEBI:15524;CHEBI:5436	c | m | n	C26H37N7O19P3S
+M_glx		Glyoxylate	CHEBI:16891;CHEBI:42767	c | m | n	C2HO3
+M_gly		Glycine	CHEBI:15428;CHEBI:57305;CHEBI:42964	c | e | m	C2H5NO2
+M_glyald		D-Glyceraldehyde	CHEBI:17378	c | m | n	C3H6O3
+M_glyb		Glycine betaine	CHEBI:17750	c | e | m	C5H11NO2
+M_glyc		Glycerol	CHEBI:42998;CHEBI:17754	c | e | m	C3H8O3
+M_glyc_R		D-glycerate	CHEBI:32398	c | m	C3H5O4
+M_glyc3p		Glycerol 3-phosphate(2-)	CHEBI:15978	c | m	C3H7O6P
+M_glyclt		glycolate	CHEBI:17497	c | e | n	C2H3O3
+M_glyglygly		glycyl-glycyl-glycine	CHEBI:63961	c	C6H11N3O4
+M_gmp		GMP(2-)	CHEBI:17345	c | m | n	C10H12N5O8P
+M_grdp		Geranyl diphosphate(3-)	CHEBI:17211	c	C10H17O7P2
+M_gsn		Guanosine	CHEBI:42847;CHEBI:16750	c | e | m | n	C10H13N5O5
+M_gthox		Oxidized glutathione(2-)	CHEBI:17858	c | e | m	C20H30N6O12S2
+M_gthrd		Reduced glutathione	CHEBI:16856	c | e | m | n	C10H16N3O6S
+M_gtp		GTP(4-)	CHEBI:15996	c | m | n	C10H12N5O14P3
+M_gua		Guanine	CHEBI:16235	c | e | m | n	C5H5N5O
+M_gullac		L-gulono-1,4-lactone	CHEBI:58198;CHEBI:17587;CHEBI:6236	c	C6H10O6
+M_guln		L-Gulonate	CHEBI:16154	c	C6H11O7
+M_h2co3		carbonic acid	CHEBI:28976	c | m | n	H2CO3
+M_h2o		H2O	CHEBI:15377	c | e | m | n	H2O
+M_h2o2		Hydrogen peroxide	CHEBI:16240;CHEBI:44812	c | e | m | n	H2O2
+M_h2s		Hydrogen sulfide	CHEBI:16136	c | m	H2S
+M_hbas_3		hbas#3(1-)	CHEBI:79321	c	C22H29O8
+M_hco3		Bicarbonate	CHEBI:28976	c | e | m | n	HCO3
+M_hcys__L	M_hcys_L	L-homocysteine	CHEBI:17588	c | n	C4H9NO2S
+M_hexdp		all-trans-hexaprenyl diphosphate(3-)	CHEBI:17528;CHEBI:22343;CHEBI:10192	c	C30H49O7P2
+M_hgentis		Homogentisate	CHEBI:44747	c | n	C8H7O4
+M_his__L	M_his_L	L-histidine	CHEBI:15971	c | e | m	C6H9N3O2
+M_hista		Histamine	CHEBI:43187;CHEBI:18295	c | e	C5H10N3
+M_hLkynr		3-Hydroxy-L-kynurenine	CHEBI:17380	c	C10H12N2O4
+M_hmgcoa		Hydroxymethylglutaryl-CoA(5-)	CHEBI:15467	c | m	C27H39N7O20P3S
+M_hmgth		S-hydroxymethylglutathione	CHEBI:48926	c	C11H18N3O7S
+M_homoval		homovanillate	CHEBI:545959	c	C9H9O4
+M_hpglu		tetrahydropteroyltri-L-glutamate(4-)	CHEBI:17420	c	C29H33N9O12
+M_hpyr		Hydroxypyruvate	CHEBI:30841	c | m	C3H3O4
+M_hxan		Hypoxanthine	CHEBI:17368;CHEBI:43237	c | e | n	C5H4N4O
+M_hxdcal		Hexadecanal	CHEBI:17600	c	C16H32O
+M_hyptaur		Hypotaurine	CHEBI:16668	c	C2H7NO2S
+M_ibcoa		Isobutyryl-CoA(4-)	CHEBI:15479	c | m	C25H38N7O17P3S
+M_ica		indole-3-carboxylate	CHEBI:24809	c	C9H6NO2
+M_icas_1		icas#1(1-)	CHEBI:79051	c	C22H28NO7
+M_icas_10		icas#10(1-)	CHEBI:79029	c	C24H32NO7
+M_icas_3		icas#3(1-)	CHEBI:79052	c	C24H30NO7
+M_icas_7		icas#7(1-)	CHEBI:79023	c	C22H26NO7
+M_icas_9		icas#9(1-)	CHEBI:79028	c	C20H24NO7
+M_icit		Isocitrate(3-)	CHEBI:151	c | m | n	C6H5O7
+M_id3acald		Indole-3-acetaldehyde	CHEBI:18086	c | m	C10H9NO
+M_idp		IDP(3-)	CHEBI:17808	c | n	C10H11N4O11P2
+M_ile__L	M_ile_L	L-isoleucine	CHEBI:17191;CHEBI:43443;CHEBI:43290	c | e | m	C6H13NO2
+M_imp		IMP(2-)	CHEBI:17202	c | n	C10H11N4O8P
+M_ind3ac		Indole-3-acetate	CHEBI:16411	c | e | m	C10H8NO2
+M_ind56qn		Indole-5,6-quinone	CHEBI:5912;CHEBI:27406	c	C8H5NO2
+M_inost		myo-Inositol	CHEBI:17268	c | e | n	C6H12O6
+M_ins		Inosine	CHEBI:44407;CHEBI:17596	c | e | m | n	C10H12N4O5
+M_ipdp		Isopentenyl diphosphate(3-)	CHEBI:16584	c | n	C5H9O7P2
+M_itp		ITP(4-)	CHEBI:16039	c | n	C10H11N4O14P3
+M_ivcoa		Isovaleryl-CoA(4-)	CHEBI:15487	c | m	C26H40N7O17P3S
+M_kynate		kynurenate	CHEBI:18344	c	C10H6NO3
+M_L_dpchrm		L-dopachrome	CHEBI:15772	c	C9H6NO4
+M_L2aadp		L-2-Aminoadipate	CHEBI:37023	c | m	C6H10NO4
+M_L2aadp6sa		L-2-Aminoadipate 6-semialdehyde	CHEBI:17917	c | m	C6H11NO3
+M_lac__D	M_lac_D	(R)-Lactate	CHEBI:42111	c | e | m | n	C3H5O3
+M_lac__L	M_lac_L	L-lactate	CHEBI:42111;CHEBI:422	c | e | m	C3H5O3
+M_LalaLglu		L-Ala-L-Glu(1-)	CHEBI:61565	c	C8H13N2O5
+M_lald_D		D-Lactaldehyde	CHEBI:340;CHEBI:18683;CHEBI:17167	c	C3H6O2
+M_lcts		Lactose	CHEBI:6353	c | e	C12H22O11
+M_Lcyst		L-Cysteate	CHEBI:17285	c | m	C3H6NO5S
+M_leu__L	M_leu_L	L-leucine	CHEBI:15603;CHEBI:43646	c | e | m	C6H13NO2
+M_leuktrA4		Leukotriene A4(1-)	CHEBI:15651	c	C20H29O3
+M_leuktrB4		Leukotriene B4(1-)	CHEBI:15647;CHEBI:63981	c	C20H31O4
+M_leuktrB4woh		w-hydroxyl leukotriene B4	CHEBI:15646;CHEBI:1293	c	C20H31O5
+M_Lfmkynr		L-Formylkynurenine	CHEBI:30249;CHEBI:58629	c	C11H12N2O4
+M_LgluDala		Gamma-L-glutamyl-D-alanine	CHEBI:16834	c	C8H13N2O5
+M_lgt_S		(R)-S-lactoylglutathionate	CHEBI:15694	c | m | n	C13H20N3O8S
+M_lipa_BAC		KDO(2)-lipid (A) (6-, bacteria)	CHEBI:27963	c | e	C110H196N2O39P2
+M_lipoamp		lipoyl-AMP(1-)	CHEBI:55451	c	C18H25N5O8PS2
+M_lipoate		(R)-lipoate	CHEBI:30314	c | e	C8H13O2S2
+M_Lkynr		L-Kynurenine	CHEBI:16946	c	C10H12N2O3
+M_lnlccrn	M_lnlccrn	O-linoleoyl-L-carnitine	CHEBI:84098	c | m	C25H45NO4
+M_long_fatacid		long-chain fatty acid anion	CHEBI:15904	c | n	CO2R
+M_lpglyc		1-Acyl-sn-glycero-3-phosphoglycerol(1-)	CHEBI:62747	c | e	C7H14O9PR
+M_lphol		lophenol	CHEBI:18378	c	C28H48O
+M_lthstrl		Lathosterol	CHEBI:17168	c	C27H46O
+M_lthstrone		lathosterone	CHEBI:71550	c	C27H44O
+M_lxhexll		L-xylo-hex-2-ulono-1,4-lactone	CHEBI:73681	c	C6H8O6
+M_lys__L	M_lys_L	L-lysine	CHEBI:18019	c | e | m | n	C6H15N2O2
+M_mal__L	M_mal_L	L-Malate(2-)	CHEBI:30797	c | e | m	C4H4O5
+M_malt		Maltose	CHEBI:18147;CHEBI:10431	c | e	C12H22O11
+M_malttr		maltotetraose	CHEBI:28460	c	C24H42O21
+M_man		D-Mannose	CHEBI:4208;CHEBI:14575	c | e | m | n	C6H12O6
+M_man1p		D-Mannose 1-phosphate(2-)	CHEBI:18205	c | m | n	C6H11O9P
+M_man6p		D-Mannose 6-phosphate(2-)	CHEBI:48066	c | m | n	C6H11O9P
+M_mar		Maradolipid	CHEBI:139545	c	C14H20O13R2
+M_mbas_10		mbas#10(1-)	CHEBI:79129	c	C20H33O7
+M_mbas_3		mbas#3(1-)	CHEBI:79128	c	C20H31O7
+M_mdascb		monodehydroascorbate	CHEBI:16504	c	C6H6O6
+M_melib		Melibiose	CHEBI:4808	c | e	C12H22O11
+M_meoh		Methanol	CHEBI:17790	c | e	CH4O
+M_mercplac		3-Mercaptolactate	CHEBI:1572;CHEBI:28580	c	C3H5O3S
+M_mercppyr		Mercaptopyruvate	CHEBI:16208	c | m	C3H3O3S
+M_met__L	M_met_L	L-Methionine	CHEBI:16643	c | e | m | n	C5H11NO2S
+M_methamp		N-Methylethanolamine phosphate	CHEBI:7314;CHEBI:16463	c	C3H9NO4P
+M_metsel		Methylselenol	CHEBI:64685	c	CH4Se
+M_mev_R		(R)-mevalonate	CHEBI:25351;CHEBI:17710	c	C6H11O4
+M_mhista		N-Methylhistamine	CHEBI:29009	c | e	C6H12N3
+M_mhpglu		5-methyltetrahydropteroyltri-L-glutamate(4-)	CHEBI:17614	c	C30H35N9O12
+M_mi13456p		1D-myo-Inositol 1,3,4,5,6-pentakisphosphate(10-)	CHEBI:16322	c | n	C6H7O21P5
+M_mi1345p		1D-myo-Inositol 1,3,4,5-tetrakisphosphate(8-)	CHEBI:16783	c | n	C6H8O18P4
+M_mi1346p		D-myo-inositol (1,3,4,6)-tetrakisphosphate(8-)	CHEBI:16155	c	C6H8O18P4
+M_mi134p		1D-myo-Inositol 1,3,4-trisphosphate(6-)	CHEBI:43378;CHEBI:18228	c	C6H9O15P3
+M_mi1456p		D-myo-inositol (1,4,5,6)-tetrakisphosphate(8-)	CHEBI:811;CHEBI:16067	c | n	C6H8O18P4
+M_mi145p		1D-myo-Inositol 1,4,5-trisphosphate(6-)	CHEBI:16595	c | m | n	C6H9O15P3
+M_mi14p		1D-myo-Inositol 1,4-bisphosphate(4-)	CHEBI:17816	c	C6H10O12P2
+M_mi1p_D		1D-myo-Inositol 1-phosphate(2-)	CHEBI:818;CHEBI:18297	c	C6H11O9P
+M_mi3p_D		1D-myo-Inositol 3-phosphate(2-)	CHEBI:814;CHEBI:18169	c	C6H11O9P
+M_mi4p_D		1D-myo-Inositol 4-phosphate (2-)	CHEBI:18384	c	C6H11O9P
+M_minohp		phytate(12-)	CHEBI:10603;CHEBI:17401	c | n	C6H6O24P6
+M_mlclpn		1-monolysocardiolipin(2-)	CHEBI:65106	m	C12H17O16P2R3
+M_mlthf		(6R)-5,10-methylenetetrahydrofolic acid	CHEBI:10925;CHEBI:1989	c | m | n	C20H23N7O6
+M_mm		methylmalonate(2-)	CHEBI:42270;CHEBI:30860	c | m	C4H4O4
+M_mmcoa_R		(R)-methylmalonyl-CoA(5-)	CHEBI:15465	c | m	C25H35N7O19P3S
+M_mmcoa_S		(S)-methylmalonyl-CoA(5-)	CHEBI:15466	c | m	C25H35N7O19P3S
+M_mmtsa		methylmalonate-semialdehyde	CHEBI:27821	c | m	C4H6O3 | C4H5O3
+M_mn		beta-D-Manp-(1-4)-beta-D-GlcpNAc	CHEBI:71553	c | m	C14H25NO11
+M_mobd		Molybdate	CHEBI:25371	c | e | n	MoO4
+M_mpt		molybdopterin(3-)	CHEBI:6969;CHEBI:44074	c | n	C10H11N5O6PS2
+M_mptamp		adenylyl-molybdopterin(3-)	CHEBI:62728	c | n	C20H23N10O12P2S2
+M_msa		Malonate semialdehyde	CHEBI:17960	c | m	C3H3O3
+M_mthgxl		Methylglyoxal	CHEBI:17158	c | e | m	C3H4O2
+M_mtpp		3-methylthiopropionate	CHEBI:1438	c	C4H7O2S
+M_n4abutn		N4-Acetylaminobutanal	CHEBI:7386	c | m	C6H11NO2
+M_nac		Nicotinate	CHEBI:15940	c | e | m	C6H4NO2
+M_nadh		Nicotinamide adenine dinucleotide - reduced	CHEBI:16908	c | m | n	C21H27N7O14P2
+M_nadp		Nicotinamide adenine dinucleotide phosphate	CHEBI:44409	c | m | n	C21H25N7O17P3
+M_nadph		Nicotinamide adenine dinucleotide phosphate - reduced	CHEBI:16474	c | m | n	C21H26N7O17P3
+M_naglc2p		N-Acetyl-D-glucosaminyldiphosphodolichol	CHEBI:18278	c	(C5H8)n.C28H49NO12P2
+M_ncam		Nicotinamide	CHEBI:17154	c | e | n	C6H6N2O
+M_Nforglu		N-Formyl-L-glutamate(2-)	CHEBI:48309;CHEBI:21711	c	C6H7NO5
+M_nformanth		N-Formylanthranilate	CHEBI:36575	c	C8H6NO3
+M_nh3		Ammonia	CHEBI:16134	c | e | m | n	H3N
+M_nh4		Ammonium	CHEBI:16134	c | e | m	H4N
+M_nhoxmox		3-nonaprenyl-4-hydroxy-5-methoxybenzoate	CHEBI:62790	m	C53H79O4
+M_nicrns		Nicotinate D-ribonucleoside	CHEBI:58527	c	C11H13NO6
+M_nmlamp		N-methylethanolamine phosphate	CHEBI:7314;CHEBI:16463	c | m	C3H9NO4P
+M_nmn		NMN	CHEBI:16171	c | e | m | n	C11H14N2O8P
+M_nmp		nucleoside monophosphate	CHEBI:17188	c | m | n	C5H10O7PR
+M_nonadp		all-trans-Nonaprenyl diphosphate(3-)	CHEBI:18144	c | m	C45H73O7P2
+M_npddhoxb		3-nonaprenyl-4,5-dihydroxybenzoate	CHEBI:62788	m	C52H77O4
+M_npmmoxbq		2-nonaprenyl-3-methyl-6-methoxy-1,4-benzoquinol	CHEBI:84531	m	C53H82O3
+M_npmoxbq		2-nonaprenyl-6-methoxy-1,4-benzoquinol	CHEBI:84529	m	C52H80O3
+M_npr4hben		nonaprenyl-4-hydroxybenzoate	CHEBI:18162	m	C52H78O3
+M_nrpphr		(R)-noradrenaline(1+)	CHEBI:43725;CHEBI:18357	c | e	C8H12NO3
+M_o2		dioxygen	CHEBI:15379	c | e | m | n	O2
+M_oaa		Oxaloacetate(2-)	CHEBI:30744	c | m	C4H2O5
+M_octpam		Octopamine	CHEBI:17134	c	C8H12NO2
+M_octpmn		Octopamine	CHEBI:17134	c | e	C8H12NO2 | C8H11NO2
+M_orn		Ornithine	CHEBI:15729	c | e | m | n	C5H13N2O2
+M_orot		Orotate	CHEBI:44781;CHEBI:16742	c	C5H3N2O4
+M_orot5p		orotidine-5-phosphate(3-)	CHEBI:15842	c	C10H10N2O11P
+M_osas_1		osas#1(1-)	CHEBI:140786	c	C25H36NO10
+M_osas_10		osas#10(1-)	CHEBI:140787	c	C27H40NO10
+M_osas_9		osas#9(1-)	CHEBI:140788	c	C23H32NO10
+M_oscr_1		oscr#1(1-)	CHEBI:79130	c | e	C13H23O6
+M_oscr_10		oscr#10(1-)	CHEBI:79134	c | e	C15H27O6
+M_oscr_12		oscr#12(1-)	CHEBI:79135	c | e	C12H21O6
+M_oscr_12coa		oscr#12-CoA(4-)	CHEBI:139969	c	C33H52N7O21P3S
+M_oscr_13		oscr#13(1-)	CHEBI:139971	c | e	C14H23O6
+M_oscr_13coa		oscr#13-CoA(4-)	CHEBI:139973	c	C35H54N7O21P3S
+M_oscr_14		oscr#14(1-)	CHEBI:79136	c | e	C14H25O6
+M_oscr_14coa		oscr#14-CoA(4-)	CHEBI:139976	c	C35H56N7O21P3S
+M_oscr_15		oscr#15(1-)	CHEBI:79137	c | e	C16H27O6
+M_oscr_15coa		oscr#15-CoA(4-)	CHEBI:139979	c	C37H58N7O21P3S
+M_oscr_16		oscr#16(1-)	CHEBI:79138	c | e	C16H29O6
+M_oscr_16coa		oscr#16-CoA(4-)	CHEBI:139982	c	C37H60N7O21P3S
+M_oscr_17		oscr#17(1-)	CHEBI:79139	c | e	C17H29O6
+M_oscr_17coa		oscr#17-CoA(4-)	CHEBI:139985	c	C38H60N7O21P3S
+M_oscr_18		oscr#18(1-)	CHEBI:79140	c | e	C17H31O6
+M_oscr_18coa		oscr#18-CoA(4-)	CHEBI:139988	c	C38H62N7O21P3S
+M_oscr_19		oscr#19(1-)	CHEBI:79141	c | e	C18H31O6
+M_oscr_19coa		oscr#19-CoA(4-)	CHEBI:139991	c	C39H62N7O21P3S
+M_oscr_1coa		oscr#1-CoA(4-)	CHEBI:139993	c	C34H54N7O21P3S
+M_oscr_20		oscr#20(1-)	CHEBI:79142	c | e	C18H33O6
+M_oscr_20coa		oscr#20-CoA(4-)	CHEBI:139996	c	C39H64N7O21P3S
+M_oscr_21		oscr#21(1-)	CHEBI:79143	c | e	C19H33O6
+M_oscr_21coa		oscr#21-CoA(4-)	CHEBI:139999	c	C40H64N7O21P3S
+M_oscr_22		oscr#22(1-)	CHEBI:79144	c | e	C19H35O6
+M_oscr_22coa		oscr#22-CoA(4-)	CHEBI:140002	c	C40H66N7O21P3S
+M_oscr_23		oscr#23(1-)	CHEBI:79145	c | e	C20H35O6
+M_oscr_23coa		oscr#23-CoA(4-)	CHEBI:140005	c	C41H66N7O21P3S
+M_oscr_24		oscr#24(1-)	CHEBI:79146	c | e	C20H37O6
+M_oscr_24coa		oscr#24-CoA(4-)	CHEBI:140008	c	C41H68N7O21P3S
+M_oscr_25		oscr#25(1-)	CHEBI:79147	c | e	C21H37O6
+M_oscr_25coa		oscr#25-CoA(4-)	CHEBI:140011	c	C42H68N7O21P3S
+M_oscr_26		oscr#26(1-)	CHEBI:79148	c | e	C21H39O6
+M_oscr_26coa		oscr#26-CoA(4-)	CHEBI:140014	c	C42H70N7O21P3S
+M_oscr_27		oscr#27(1-)	CHEBI:79149	c | e	C22H39O6
+M_oscr_27coa		oscr#27-CoA(4-)	CHEBI:140017	c	C43H70N7O21P3S
+M_oscr_28		oscr#28(1-)	CHEBI:79150	c | e	C22H41O6
+M_oscr_28coa		oscr#28-CoA(4-)	CHEBI:140020	c	C43H72N7O21P3S
+M_oscr_29		oscr#29(1-)	CHEBI:79151	c | e	C23H41O6
+M_oscr_29coa		oscr#29-CoA(4-)	CHEBI:140023	c	C44H72N7O21P3S
+M_oscr_3		oscr#3(1-)	CHEBI:79131	c | e	C15H25O6
+M_oscr_30		oscr#30(1-)	CHEBI:79152	c | e	C23H43O6
+M_oscr_30coa		oscr#30-CoA(4-)	CHEBI:140027	c	C44H74N7O21P3S
+M_oscr_31		oscr#31(1-)	CHEBI:79153	c | e	C24H43O6
+M_oscr_31coa		oscr#31-CoA(4-)	CHEBI:140030	c	C45H74N7O21P3S
+M_oscr_32		oscr#32(1-)	CHEBI:79154	c | e	C24H45O6
+M_oscr_32coa		oscr#32-CoA(4-)	CHEBI:140033	c	C45H76N7O21P3S
+M_oscr_33		oscr#33(1-)	CHEBI:79155	c | e	C25H45O6
+M_oscr_33coa		oscr#33-CoA(4-)	CHEBI:140036	c	C46H76N7O21P3S
+M_oscr_34		oscr#34(1-)	CHEBI:79156	c | e	C25H47O6
+M_oscr_34coa		oscr#34-CoA(4-)	CHEBI:140039	c	C46H78N7O21P3S
+M_oscr_35		oscr#35(1-)	CHEBI:79157	c | e	C26H47O6
+M_oscr_35coa		oscr#35-CoA(4-)	CHEBI:140042	c	C47H78N7O21P3S
+M_oscr_36		oscr#36(1-)	CHEBI:79158	c | e	C26H49O6
+M_oscr_36coa		oscr#36-CoA(4-)	CHEBI:140045	c	C47H80N7O21P3S
+M_oscr_37		oscr#37(1-)	CHEBI:79159	c | e	C27H49O6
+M_oscr_37coa		oscr#37-CoA(4-)	CHEBI:140048	c	C48H80N7O21P3S
+M_oscr_38		oscr#38(1-)	CHEBI:79160	c | e	C27H51O6
+M_oscr_38coa		oscr#38-CoA(4-)	CHEBI:140051	c	C48H82N7O21P3S
+M_oscr_3coa		oscr#3-CoA(4-)	CHEBI:140053	c	C36H56N7O21P3S
+M_oscr_7		oscr#7(1-)	CHEBI:79132	c | e	C13H21O6
+M_oscr_7coa		oscr#7-CoA(4-)	CHEBI:140056	c	C34H52N7O21P3S
+M_oscr_9		oscr#9(1-)	CHEBI:79133	c | e	C11H19O6
+M_oscr_9coa		oscr#9-CoA(4-)	CHEBI:140059	c	C32H50N7O21P3S
+M_oxa		oxalate(-2)	CHEBI:44583;CHEBI:16995	c | e | m	C2O4
+M_pad		2-Phenylacetamide	CHEBI:16562	c | e	C8H9NO
+M_pan4p		Pantetheine 4-phosphate(2-)	CHEBI:16858	c | m	C11H21N2O7PS
+M_pap		Adenosine 3',5'-bisphosphate(4-)	CHEBI:17985	c | e | m	C10H11N5O10P2
+M_paps		3-Phosphoadenylyl sulfate(4-)	CHEBI:17980	c | m	C10H11N5O13P2S
+M_pcrn		O-propanoyl-L-carnitine	CHEBI:53210	c | m	C10H19NO4
+M_pdx5p		Pyridoxine 5-phosphate(2-)	CHEBI:28803;CHEBI:45202	c | m	C8H10NO6P
+M_peamn		Phenethylamine	CHEBI:18397	c | e	C8H12N
+M_pep		Phosphoenolpyruvate(3-)	CHEBI:44897	c | m	C3H2O6P
+M_phe__L	M_phe_L	L-Phenylalanine	CHEBI:17295;CHEBI:8089;CHEBI:58095	c | e | m | n	C9H11NO2
+M_pheme		Protoheme	CHEBI:17627;CHEBI:26355	c | e | m	C34H32FeN4O4
+M_phpyr		Phenylpyruvate	CHEBI:30851;CHEBI:45005	c | m	C9H7O3
+M_pi		Phosphate	CHEBI:26078	c | e | m | n	HPO4
+M_pnto_R		(R)-pantothenate	CHEBI:46905	c | e	C9H16NO5
+M_ppa		Propionate	CHEBI:30768	c | e | m | n	C3H5O2
+M_ppi		Diphosphate(3-)	CHEBI:29888	c | m | n	HO7P2
+M_ppip		[PP]2-IP4	CHEBI:52965	c | n	C6H7O30P8
+M_ppmi12346p		5-diphospho-1D-myo-inositol (1,2,3,4,6)pentakisphosphate(13-)	CHEBI:30164	c | n	C6H6O27P7
+M_pppi		Inorganic triphosphate(4-)	CHEBI:39949	c | m | n	HO10P3
+M_pram		5-phospho-&lt;df&gt;-D-ribosylaminium(1-)	CHEBI:37737	c	C5H11NO7P
+M_pro__L	M_pro_L	L-proline	CHEBI:17203	c | e | m	C5H9NO2
+M_prostgd2		Prostaglandin D2(1-)	CHEBI:15555	c | e	C20H31O5
+M_prostge2		prostaglandin E2(1-) | Prostaglandin E2(1-)	CHEBI:15551	c | e | m	C20H31O5
+M_prostgh2		prostaglandin H2(1-)	CHEBI:15554	c | m	C20H31O5
+M_prpncoa		Acryloyl-CoA(4-)	CHEBI:15513	c | m | n	C24H34N7O17P3S
+M_prpp		5-Phospho-alpha-D-ribose 1-diphosphate(5-)	CHEBI:20625;CHEBI:2121;CHEBI:17111;CHEBI:45139	c | m | n	C5H8O14P3
+M_psd5p		Pseudouridine 5-phosphate(2-)	CHEBI:18116	c	C9H11N2O9P
+M_psduri		Pseudouridine	CHEBI:17802	c	C9H12N2O6
+M_pser_L		O-phosphonato-L-serine(2-)	CHEBI:15811;CHEBI:37712	c | m	C3H6NO6P
+M_psqldp		presqualene diphosphate(3-)	CHEBI:15442;CHEBI:8401	c	C30H49O7P2
+M_ptrc		Putrescine	CHEBI:17148	c | e	C4H14N2
+M_pyam5p		Pyridoxamine 5-phosphate	CHEBI:18335	c | m	C8H12N2O5P
+M_pydam		Pyridoxamine(1+)	CHEBI:16410	c | e | m	C8H13N2O2
+M_pydx		Pyridoxal	CHEBI:17310	c | e | m	C8H9NO3
+M_pydx5p		Pyridoxal 5-phosphate(2-)	CHEBI:18405	c | m	C8H8NO6P
+M_pydxn		Pyridoxine	CHEBI:16709	c | e | m	C8H11NO3
+M_pyr		Pyruvate	CHEBI:45253;CHEBI:32816	c | e | m	C3H3O3
+M_q8		Ubiquinone-8	CHEBI:61683	c | e | m	C49H74O4
+M_q8h2		ubiquinol-8	CHEBI:61682	m	C49H76O4
+M_q9		Ubiquinone-9	CHEBI:18160	m	C54H82O4
+M_q9h2		ubiquinol-9	CHEBI:84424	m	C54H84O4
+M_quln		Quinolinate(2-)	CHEBI:44529;CHEBI:16675	c | m	C7H3NO4
+M_r1p		alpha-D-Ribose 1-phosphate(2-)	CHEBI:16300;CHEBI:45429	c | n	C5H9O8P
+M_r5p		alpha-D-Ribose 5-phosphate(2-)	CHEBI:18189	c | m | n	C5H9O8P
+M_raffin		Raffinose	CHEBI:16634	c	C18H32O16
+M_retest		all-trans-retinyl ester	CHEBI:63410	c | n	C21H29O2R
+M_retinal		Retinal	CHEBI:45487;CHEBI:17898	c | n	C20H28O
+M_retinal_cis_9		cis-9-retinal	CHEBI:78273;CHEBI:45487	c	C20H28O
+M_retinol_9_cis		9-cis-retinol	CHEBI:78272;CHEBI:45479	c	C20H30O
+M_retinol		all-trans-retinol	CHEBI:45479;CHEBI:17336	c | e | n	C20H30O
+M_retinol_cis_11		cis-11-retinol	CHEBI:45479;CHEBI:16302	c	C20H30O
+M_retn		Retinoate	CHEBI:26536	c | e	C20H27O2
+M_retnglc		1-O-(all-trans-retinoyl)-&lt;df&gt;-D-glucuronate	CHEBI:28870	c | e	C26H35O8
+M_retpalm		all-trans-retinyl palmitate	CHEBI:17616	c	C36H60O2
+M_retpalm_cis_11		11-cis-Retinyl palmitate	CHEBI:19121;CHEBI:729;CHEBI:16254	c	C36H60O2
+M_ribflv		Riboflavin	CHEBI:17015;CHEBI:45214;CHEBI:529204	c | e | m	C17H19N4O6
+M_rnam		N-Ribosylnicotinamide	CHEBI:15927;CHEBI:7337;CHEBI:47589	c | n	C11H15N2O5
+M_rq9		Rhodoquinone-9	CHEBI:140751	m	C53H81NO3
+M_rq9h2		Rhodoquinonol-9	CHEBI:140752	m	C53H83NO3
+M_ru5p_D		D-ribulose-5-phosphate(2-)	CHEBI:17363	c | m	C5H9O8P
+M_s17bp		Sedoheptulose 1,7-bisphosphate(4-)	CHEBI:17969	c	C7H12O13P2
+M_s2		Sulfide(2-)	CHEBI:16136	c	S
+M_S3hb		(S)-3-Hydroxybutanoate	CHEBI:17290	c | e | m	C4H7O3
+M_s7p		Sedoheptulose 7-phosphate(2-)	CHEBI:15721;CHEBI:9083	c | m | n	C7H13O10P
+M_saccrp__L	M_saccrp_L	L-saccharopine(1-)	CHEBI:16927	c | m	C11H19N2O6
+M_sarcs		sarcosine	CHEBI:45531;CHEBI:57433;CHEBI:15611	c | m	C3H7NO2
+M_sbt_D		D-Sorbitol	CHEBI:17924;CHEBI:15093;CHEBI:30911;CHEBI:9201;CHEBI:45559	e	C6H14O6
+M_seasmet		Se-Adenosylselenomethionine	CHEBI:9066;CHEBI:62227	c	C15H23N6O5Se
+M_sedh		sedoheptulose	CHEBI:16802	c | e	C7H14O7
+M_sel		Selenate(2-)	CHEBI:18170;CHEBI:15075	c | e	O4Se
+M_selcyst		L-Selenocystathionine	CHEBI:62226;CHEBI:21384;CHEBI:6297;CHEBI:27760	c	C7H14N2O4Se
+M_selmeth		L-Selenomethionine	CHEBI:30021	c | e | m	C5H11NO2Se
+M_selnp		Selenophosphate(3-)	CHEBI:29269	c | m	O3PSe
+M_selnt		Selenite	CHEBI:26642	c | e	SeO3
+M_ser__L	M_ser_L	L-serine	CHEBI:9116;CHEBI:17115	c | e | m	C3H7NO3
+M_Sfglutth		S-Formylglutathione	CHEBI:8956;CHEBI:16225	c	C11H16N3O7S
+M_sl__L	M_sl_L	L-sulfolactate(2-)	CHEBI:17943	c | e | m	C3H4O6S
+M_smscys		Se-Methyl-L-selenocysteine	CHEBI:27812	c	C4H9NO2Se
+M_so3		Sulfite(2-)	CHEBI:48854	c | m	O3S
+M_so4		Sulfate(2-)	CHEBI:45693;CHEBI:26836	c | e | m	O4S
+M_sorbitol		D-sorbitol	CHEBI:17924;CHEBI:15093;CHEBI:30911;CHEBI:9201;CHEBI:45559	c | m | n	C6H14O6
+M_spc		sphingosylphosphorylcholine	CHEBI:17689	c | e	C23H50N2O5P
+M_sph1p		Sphinganine 1-phosphate	CHEBI:16893	c | e	C18H39NO5P
+M_sphgn		Sphinganine	CHEBI:16566	c	
+M_sphings		Sphingosine	CHEBI:16393;CHEBI:45719	c	C18H38NO2
+M_sphmyln		Sphingomyelin	CHEBI:64583	c	C24H49N2O6PR
+M_sphs1p		Sphingosine 1-phosphate	CHEBI:37550	c | e	C18H37NO5P
+M_spmd		Spermidine(3+)	CHEBI:15097;CHEBI:45647;CHEBI:16610	c | e	C7H22N3
+M_sprm		Spermine(4+)	CHEBI:15746;CHEBI:45583	c | e	C10H30N4
+M_sql		squalene	CHEBI:15440	c	C30H50
+M_srtn		Serotonin	CHEBI:28790;CHEBI:49894	c | e	C10H13N2O
+M_Ssq23epx		(S)-2,3-epoxysqualene	CHEBI:15441	c	C30H50O
+M_sstol		sitosterol	CHEBI:27693	c | e	C29H50O
+M_stachyose		Stachyose	CHEBI:17164	c | e	C24H42O21
+M_strdnc		stearidonate	CHEBI:32389	c	C18H27O2
+M_strdnccoa		stearidonyl coenzyme A(4-)	CHEBI:63545	c	C39H62N7O17P3S | C39H58N7O17P3S
+M_succ		Succinate(2-)	CHEBI:37952;CHEBI:45639;CHEBI:15741	c | e | m | n	C4H4O4
+M_succoa		Succinyl-CoA(5-)	CHEBI:45541;CHEBI:15380	c | m	C25H35N7O19P3S
+M_sucr		Sucrose	CHEBI:17992	c | e	C12H22O11
+M_sucsal		Succinic semialdehyde	CHEBI:16265;CHEBI:15126	c | m	C4H5O3
+M_taur		Taurine	CHEBI:507393;CHEBI:15891	c | e	C2H7NO3S
+M_tchola		taurocholate	CHEBI:28865	c | e	C26H44NO7S
+M_tcynt		Thiocyanate	CHEBI:29200	c | e | m	CNS
+M_thbpt		Tetrahydrobiopterin	CHEBI:15372	c | n	C9H15N5O3
+M_thcholst		3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestan-26-al	CHEBI:11896;CHEBI:1696;CHEBI:16466	c | m	C27H46O4
+M_thcholstoic		3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestanoate	CHEBI:18402	c | m	C27H45O5 | C27H46O5
+M_thf		(6S)-5,6,7,8-tetrahydrofolate(2-)	CHEBI:15635	c | e | m | n	C19H21N7O6
+M_thm		Thiamin	CHEBI:18385	c | e | m	C12H17N4OS
+M_thmpp		Thiamine diphosphate(2-)	CHEBI:45931	c | e | m	C12H17N4O7P2S
+M_thp2c		Delta1-piperideine-6-carboxylate	CHEBI:49015;CHEBI:16987	c | m	C6H8NO2
+M_thr__L	M_thr_L	L-threonine	CHEBI:16857;CHEBI:57926;CHEBI:45843	c | e | m	C4H9NO3
+M_thym		Thymine	CHEBI:17821;CHEBI:46017	c | e	C5H6N2O2
+M_thymd		Thymidine	CHEBI:17748;CHEBI:45834	c | e | m	C10H14N2O5
+M_tma		trimethylamine	CHEBI:18139	c | e	C3H10N
+M_tmao		Trimethylamine N-oxide	CHEBI:15724	c	C3H9NO
+M_tmlys		N6,N6,N6-Trimethyl-L-lysine	CHEBI:17311	c | m | n	C9H21N2O2
+M_tmndnc		(5Z,8Z,11Z,14Z,17Z)-eicosapentaenoate	CHEBI:28364	c	C20H29O2
+M_tre		Trehalose	CHEBI:16551	c | e | m	C12H22O11
+M_tre6p		alpha,alpha-Trehalose 6-phosphate(2-)	CHEBI:18283	c	C12H21O14P
+M_trp__L	M_trp_L	L-tryptophan	CHEBI:16828;CHEBI:21407;CHEBI:57912	c | e | m	C11H12N2O2
+M_trypta		Tryptamine	CHEBI:16765	c	C10H13N2
+M_tststerone		Testosterone	CHEBI:42534;CHEBI:17347;CHEBI:45798	c | e	C19H28O2
+M_tsul		Thiosulfate	CHEBI:29279;CHEBI:5587	c | e | m	HO3S2
+M_ttc_ggdp		2-cis,6-trans,10-trans-geranylgeranyl diphosphate(3-)	CHEBI:10698	c	C20H33O7P2
+M_tym		Tyramine	CHEBI:15760	c	C8H12NO
+M_tyr__L	M_tyr_L	L-tyrosine	CHEBI:17895;CHEBI:46161	c | e | m | n	C9H11NO3
+M_uacgam		UDP-N-acetyl-D-glucosamine(2-)	CHEBI:9823;CHEBI:16264	c | m | n	C17H25N3O17P2
+M_udp		UDP(3-)	CHEBI:17659	c | m | n	C9H11N2O12P2
+M_udp4k6dg		UDP-4-keto-6-deoxy-D-glucose(-2)	CHEBI:85804	c	C15H20N2O16P2
+M_udpacgal		UDP-N-acetyl-D-galactosamine(2-)	CHEBI:16650;CHEBI:9820	c | m	C17H25N3O17P2
+M_udpg		UDP-D-glucose(2-)	CHEBI:18066	c | m | n	C15H22N2O17P2
+M_udpgal		UDP-D-galactose(2-)	CHEBI:18307	c | m	C15H22N2O17P2
+M_udpglcur		UDP-D-glucuronate(3-)	CHEBI:17200;CHEBI:9846	c | m | n	C15H19N2O18P2
+M_udpxyl		UDP-a-D-xylose(2-)	CHEBI:16082	c	C14H20N2O16P2
+M_ump		UMP(2-)	CHEBI:46362;CHEBI:16695;CHEBI:46347	c | m | n	C9H11N2O9P
+M_ura		Uracil	CHEBI:46375;CHEBI:17568	c | e | m | n	C4H4N2O2
+M_urate		Urate	CHEBI:27226	c | e	C5H2N4O3
+M_urcan		Urocanate	CHEBI:30817	c	C6H5N2O2
+M_urea		Urea	CHEBI:16199	c | e | m	CH4N2O
+M_uri		Uridine	CHEBI:16704	c | e | m | n	C9H12N2O6
+M_utp		UTP(4-)	CHEBI:15713	c | m | n	C9H11N2O15P3
+M_vacc		Vaccenic acid	CHEBI:36023	c | e	C18H33O2
+M_vacccoa		Vaccenyl coenzyme A(4-)	CHEBI:75354	c | m	C39H64N7O17P3S
+M_val__L	M_val_L	L-valine	CHEBI:57762;CHEBI:46418;CHEBI:46282;CHEBI:16414	c | e | m	C5H11NO2
+M_xan		Xanthine	CHEBI:17712	c | e | n	C5H4N4O2
+M_xanate		Xanthurenic acid	CHEBI:10072	c | e	C10H6NO4
+M_xmp		Xanthosine 5-phosphate(2-)	CHEBI:15652	c	C10H11N4O9P
+M_xol25oh		25-Hydroxycholesterol	CHEBI:42977;CHEBI:42972	c	C27H46O2
+M_xol25one		7alpha,25-Dihydroxy-4-cholesten-3-one	CHEBI:81013	c	C27H44O3
+M_xol27oh		27-Hydroxycholesterol	CHEBI:17703	c | m	C27H46O2
+M_xol27one		7alpha,26-Dihydroxy-4-cholesten-3-one	CHEBI:48825	c	C27H44O3
+M_xol7a		7 alpha-Hydroxycholesterol	CHEBI:17500	c	C27H46O2
+M_xol7aone		7alpha-Hydroxycholest-4-en-3-one	CHEBI:2292;CHEBI:58317;CHEBI:17899	c	C27H44O2
+M_xoldiolone		7alpha,12alpha-Dihydroxycholest-4-en-3-one	CHEBI:28477;CHEBI:2289	c | m	C27H44O3
+M_xoldioloneh		7alpha,12alpha-Dihydroxy-5beta-cholestan-3-one	CHEBI:2288	c	C27H46O3
+M_xoltetrol		3alpha,7alpha,12alpha,26-Tetrahydroxy-5beta-cholestane	CHEBI:17278;CHEBI:12178	c | m	C27H48O4
+M_xoltri25		7-alpha,25-Dihydroxycholesterol	CHEBI:37623	c | e	C27H46O3
+M_xoltri27		7-alpha,27-Dihydroxycholesterol	CHEBI:18431	c | e	C27H46O3
+M_xoltriol		3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestane	CHEBI:16496	c | m	C27H48O3
+M_xtsn		Xanthosine	CHEBI:18107	c | e | n	C10H12N4O6
+M_xu5p_D		D-xylulose-5-phosphate(2-)	CHEBI:16332	c | m | n	C5H9O8P
+M_xyl_D		D-xylose	CHEBI:15936;CHEBI:53455	c | e	C5H10O5
+M_xylt		Xylitol	CHEBI:17151	c | e | n	C5H12O5
+M_xylu_D		D-xylulose	CHEBI:17140	c | n	C5H10O5
+M_xylu_L		L-xylulose	CHEBI:17399	c | n	C5H10O5
