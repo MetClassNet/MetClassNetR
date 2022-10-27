@@ -431,7 +431,7 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 #'
 #' @description
 #' Function to map the identified experimental nodes to the
-#' corresponding GSMN nodes, using the CHeBI ontology. This function calls the
+#' corresponding GSMN nodes, using the ChEBI ontology. This function calls the
 #' Metabolomics2Networks Python package
 #'
 #' @param inputData
