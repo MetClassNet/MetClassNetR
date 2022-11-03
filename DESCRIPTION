@@ -1,7 +1,6 @@
 Package: MetClassNetR
 Title: Create and analize networks built from metabolomics Data
 Version: 0.0.0.9012
-
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -38,7 +37,6 @@ Imports:
     readr,
     Spectra,
     UpSetR
-
 Suggests:
     BiocStyle (>= 2.5.19),
     dplyr,
