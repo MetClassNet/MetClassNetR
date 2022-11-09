@@ -23,13 +23,16 @@ readMaf <- function(x, ecol = NA, ...) {
 
   }
 
-  if(length(ecol) == 1 && is.na(ecol)) {
-    ecol <- 23:ncol(data)
+  if(length(ecol) == 1) {
+    if (is.na(ecol)) {
+      ecol <- 23:ncol(data)
+    } else {
+      ecol <- ecol:ncol(data)
+    }
   }
 
   # create QFeatures
-  readQFeatures(data, ecol = ecol, ...)
-
+  readQFeatures(data, ecol = ecol, fnames = which(colnames(data) == "id"), ...)
 }
 
 #'

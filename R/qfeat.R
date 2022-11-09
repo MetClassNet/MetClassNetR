@@ -136,9 +136,15 @@ qfeat_structural <- function(x, assay_name = "features", ...) {
 #' ####### To be added
 #'
 #' @export
-qfeat_statistical <- function(x, assay_name = "features", ...) {
+qfeat_statistical <- function(x, assay_name = "features",
+                              na.omit = FALSE, ...) {
 
-  feat_int <- as.matrix(assay(x[[assay_name]]))
+  feat_int <- as.matrix(assay(x[[assay_name]])) %>% log()
+
+  if (na.omit == TRUE) {
+    feat_int <- feat_int %>% na.omit() %>% as.matrix()
+  }
+
 
   MetNet::statistical(feat_int, ...)
 
@@ -229,8 +235,6 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   homol <- nontarget::homol.search(peaklist,
                                    isotopes,
                                    ...)
-
-  #(4.2) Plot results
   if(plot) {
 
     nontarget::plothomol(homol,
@@ -241,5 +245,13 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   }
 
   homol
+  # ## assign rownames to homol
+  # rownames(homol[[1]]) <- rownames(feat_int)
+  #
+  # df <- homol[[1]] |>
+  #   filter(`to ID` != "0") |>
+  #   select (c("peak ID", "to ID", "m/z increment", "RT increment"))
+  #
+  # df %>% separate_rows(`to ID`, `m/z increment`, `RT increment`)
 
 }
