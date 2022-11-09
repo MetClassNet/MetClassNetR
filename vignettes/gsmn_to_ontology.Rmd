@@ -1,0 +1,132 @@
+---
+title: "GSMN to Ontology"
+author: "Sarah Scharfenberg"
+date: "29 7 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Description
+
+
+## Input
+GSMN either as tabular file or SMBL file. 
+
+The tabular file will contain:
+* one row per compound
+* a unique identifier in the first column
+* either the InChI, InChIKey or the SMILES for each compound
+
+## Output
+
+A tabular file is generated that holds at least the unique identifier from the
+input and the classification. There is code to get 
+
+## Files
+
+```{r}
+network_file <-  system.file("extdata/Example_Coverage/iHY3410_Compound-SBtab.tsv", package = "MetClassNetR")
+
+inchikey_colum <- ""
+smiles_column <- ""
+```
+
+## Script
+
+Read tsv file and select the InChIKey column. 
+
+```{r, warning=FALSE}
+network <- read.csv(network_file,
+                    header = TRUE, 
+                    skip=1, 
+                    stringsAsFactors = FALSE, 
+                    sep="\t", 
+                    na.strings = "")
+
+colnames(network) <- gsub(pattern = "X.", 
+                          replacement = "", 
+                          x = colnames(network))
+  
+network_tibble <- as_tibble(network[c("ID","Identifiers.inchikey","Notes.SMILES")])
+ 
+```
+
+If no inchikeys are available it is possible to convert SMILES to inchikeys using RCDK.
+
+```{r, dependson=network_tibble, message=FALSE, warnings=FALSE}
+
+netinchiks <- data.frame(sapply(network_tibble$Notes.SMILES,function(smi){
+  if(!is.na(smi)){
+    smim <- rcdk::parse.smiles(smi)
+    if(!is.null(unlist(smim))){
+      res <- rinchi::get.inchi.key(smi)
+      return(res)
+    }else{return(NA)}
+  }else{return(NA)}
+}))
+  
+network_tibble <- network_tibble %>%
+  add_column(inchikeyFromRCDK=as.character(unlist(netinchiks)))
+```
+
+
+# Class Annotation using ClassyfireR
+
+For a given SMILES or InChIKey the package classyfireR will report the classes that the compound would be sorted into in ChemOnt. Usually all IDs are already classified. Still there remain some unclassified compounds that appear in this script as NULL value in the result list. These queries can be filtered and manually requested for a new classification via the Webservice available at http://classyfire.wishartlab.com/. We filter the unclassified compounds and parse their SMILES manually to ChemOnt. Afterwards we replace the NULL entries by their classification.
+
+When requesting a high number of queries within classyfireR you might get the error message:
+"Error in classyfireR::get_classification(ik) : Request rate limit exceeded!"
+You might want to address that by adding a Sys.sleep() command between the queries to reduce the request rate per minute.
+
+For this example the classification results are loaded.
+
+## ChemOnt Class Annotation Network
+
+```{r, message=FALSE, eval=FALSE}
+## snipped is not executed in this vignette 
+
+# #Example for one classification
+# classification_result <- get_classification(network_tibble$inchikeyFromRCDK[1])
+# classification_result@classification
+# classification_result@classification$CHEMONT
+
+net_classes <- sapply(network_tibble$inchikeyFromRCDK,function(ik){
+  # Sys.sleep(10)
+  classific <- eval(classyfireR::get_classification(ik))
+  if(!is.null(classific)){return(classific@classification)}
+  return(NULL)
+  })
+  
+## if all are classified correctly the output of sapply is not a list of tibbles
+## but a hughe matrix with level, classification and chemont as lists of characters
+network_tibble <- network_tibble %>%
+  add_column(classyfire_classes = net_classes)
+
+# find NULL entries
+tmp <- sapply(network_tibble$classyfire_classes,
+              function(x){return(!is.null(unlist(x)))})
+network_tibble <- network_tibble %>%
+  mutate(classified = tmp)
+rm(tmp)
+```
+
+```{r, message=FALSE}
+load(system.file("extdata/Example_Coverage/network_tibble.Rdata", 
+                 package = "MetClassNetR"))
+```
+
+
+Write mapping to csv.
+
+ACHTUNG Hier auswählen welche klasse reported wird
+die niedrigste
+alle
+
+```{r}
+network_tibble %>%
+  select("ID","classyfire_classes")
+```
+
