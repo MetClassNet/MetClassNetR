@@ -5,7 +5,7 @@ date: '2022-06-08'
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(MetClassNetR)
@@ -272,5 +272,9 @@ in `inputData`.
 
 ```{r multiLayerStats}
 calculateMultiLayerStats(multiLayer, inputData)
+```
+
+```{r}
+sessionInfo()
 ```
 
