@@ -15,7 +15,7 @@ loadInputData(
   met2NetDir,
   configF,
   idenMetF,
-  compF
+  metF
 )
 }
 \arguments{
@@ -64,10 +64,14 @@ NOTE. This information will be used to do the metabolite mapping to the GSMN
 that were identified and that have a CHEBI id associated. The header of this
 file must match the aliases from the configuration file (configF)}
 
-\item{compF}{\code{path}, path to the TSV file containing the list of compounds in the GSMN of
-the organism of interest. They must contain at least two columns: ID and
-Chebi. An example can be found in
-extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv}
+\item{metF}{\code{path}, path to the TSV file containing the list of metabolites in the GSMN
+of the organism of interest. They must contain at least two columns: ID and
+Chebi. It is important that all the metabolites have a chebi ID, that there
+is a single chebi ID per metabolite, and that it corresponds to the main
+chebi ID. If you are not sure that your list of chebi IDs fits these
+requirement, set the \code{cleanMetF} parameter to TRUE.
+An example of a correct list of metabolites can be found in
+extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMetWithMasses.tsv }
 }
 \value{
 Named list containing all the data (peakList, spectra, transformations, and

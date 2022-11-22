@@ -66,11 +66,19 @@
 #' that were identified and that have a CHEBI id associated. The header of this
 #' file must match the aliases from the configuration file (configF)
 #'
-#' @param compF
-#' `path`, path to the TSV file containing the list of compounds in the GSMN of
-#' the organism of interest. They must contain at least two columns: ID and
-#' Chebi. An example can be found in
-#' extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
+#' @param metF
+#' `path`, path to the TSV file containing the list of metabolites in the GSMN
+#' of the organism of interest. They must contain at least two columns: ID and
+#' Chebi. It is important that all the metabolites have a chebi ID, that there
+#' is a single chebi ID per metabolite, and that it corresponds to the main
+#' chebi ID. If you are not sure that your list of chebi IDs fits these
+#' requirement, set the `cleanMetF` parameter to TRUE.
+#' An example of a correct list of metabolites can be found in
+#' extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMetWithMasses.tsv
+#'
+#' @param cleanMetF
+#' `boolean`, set it to TRUE if  you want to clean your metabolites' file, as
+#' previously described
 #'
 #' @import igraph Spectra
 #'
@@ -88,7 +96,8 @@
 #'
 #' @export
 loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
-  spectraSS = NULL, resPath, met2NetDir, configF, idenMetF, compF, fixSpectra = TRUE) {
+  spectraSS = NULL, resPath, met2NetDir, configF, idenMetF, metF,
+  cleanMetF = TRUE, fixSpectra = TRUE) {
 
   # read peak list
   peakList <- readMaf(peakListF, ecol = intCol)
@@ -163,7 +172,30 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
   gsmn <- igraph::set.vertex.attribute(gsmn, name = "name", value = labels)
   ############################################################# TO REMOVE ????
 
+  # create results' path
   dir.create(resPath, recursive = TRUE)
+
+  # check whether the metabolites' file is to be cleaned
+  if (cleanMetF == TRUE) {
+    # build command to run python code
+    com <-
+      paste0(
+        "python3 ",
+        find.package("MetClassNetR"),
+        "/Python/cleanMetaboliteTable.py ",
+        metF
+      )
+
+    # execute code
+    system(com)
+
+    # update metabolites' file name
+    metF <-
+      paste0(
+        substr(inputData$metF, 1, nchar(inputData$metF) - 4),
+        "_Processed.tsv"
+      )
+  }
 
   return (
     list(
@@ -176,7 +208,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
       resPath = resPath,
       configF = configF,
       idenMetF = idenMetF,
-      compF = compF,
+      metF = metF,
       met2NetDir = met2NetDir
       )
     )
@@ -461,28 +493,6 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 #' @export
 mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
-  # ################################################################################### TO BE REMOVED
-  # ## --- temporary code to clean the WormJamMet.tsv file, so that all IDs
-  # ## --- match the node names from the GSMN, since currently there are some
-  # ## --- OldIDs that match the node names, but not the main IDs
-  #
-  # # read compounds' table
-  # compounds <- read.csv(inputData$compF, sep = "\t")
-  #
-  # # verify if there is at least one compound in the list that is not in the GSMN
-  # if (!all(compounds$ID %in% names(V(inputData$gsmn)))) {
-  #   # get mismatches
-  #   mismatches <- which(!compounds$ID %in% names(V(inputData$gsmn)))
-  #
-  #   # remove mismatches
-  #   compounds <- compounds[-mismatches, ]
-  #   print(paste0(length(mismatches), " compounds were removed from the list because they were not found on the GSMN"))
-  #
-  #   write.table(compounds, inputData$compF, sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE)
-  # }
-  #
-  # ################################################################################### TO BE REMOVED
-
   # generate command line to execute metabolites2Network
   com <-
     paste0(
@@ -492,13 +502,13 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
       " tsv ",                    # file_type
       inputData$idenMetF,         # metabolomics_path
       " ",
-      inputData$compF,            # network_metabolites_path
+      inputData$metF,            # network_metabolites_path
       " ",
       inputData$resPath,          # output_path
       resFile,
       " ",
       inputData$configF,          # conf_file_path
-      " 2"                        # mapping_types, 1: exact multimapping, 2: chebi class mapping
+      " 1,2"                        # mapping_types, 1: exact multimapping, 2: chebi class mapping
       )
 
   # execute code
@@ -557,14 +567,16 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
   # filter list to keep only mapped nodes
   mappingFiltered <- mapping[mapping$mapped.on.id != "", colsToKeep]
 
-  # remove complement of feature names (i.e., "_N")
-  mappingFiltered$metabolite.name <-
-    sapply(
-      mappingFiltered$metabolite.name,
-      function(X) {
-        substr(X, 1, nchar(X)-2)
-      }
-    )
+  # check if feature names had a complement (i.e., "_N") and remove it
+  if (length(grep("_[0-9]{1,2}$", mappingFiltered$metabolite.name)) > 0) {
+    mappingFiltered$metabolite.name <-
+      sapply(
+        mappingFiltered$metabolite.name,
+        function(X) {
+          substr(X, 1, nchar(X)-2)
+        }
+      )
+  }
 
   # create an empty data frame
   interLayerEdges <-
@@ -843,22 +855,55 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
       edgesLayer <-
         allEdges[allEdges$layerNum == layerN & allEdges$mxNum == mxN, ]
 
-      # get node type of current layer
-      nodeType <-
-        unique(
-          allNodes$nodeType[
-            allNodes$node %in% rbind(edgesLayer$source, edgesLayer$target)
+      # check if we are in the last layer of the current multiplex network
+      if (layerN == layers[length(layers)]) {
+        # get node type of current layer
+        nodeType <-
+          unique(
+            allNodes$nodeType[
+              allNodes$node %in% rbind(edgesLayer$source, edgesLayer$target)
             ]
           )
 
-      # get nodes from current multiplex
-      nodesLayer <- allNodes$numericId[allNodes$nodeType == nodeType]
+        # get nodes from current multiplex
+        nodesLayer <- allNodes$numericId[allNodes$nodeType == nodeType]
 
-      # add artificial self-loops to each node so that they are retrievable
-      # by the random walk
-      edgesLayerNum <-
-        edgesLayer[, c("sourceNum", "targetNum")] %>%
-        rbind(data.frame(sourceNum = nodesLayer, targetNum = nodesLayer))
+        # add artificial self-loops to each node so that they are retrievable
+        # by the random walk
+        edgesLayerNum <-
+          edgesLayer[, c("sourceNum", "targetNum")] %>%
+          rbind(data.frame(sourceNum = nodesLayer, targetNum = nodesLayer))
+
+        # # get nodes from all the other multiplex networks
+        # nodesOtherMx <- sort(allNodes$numericId[allNodes$nodeType != nodeType])
+        #
+        # # add self loops to the nodes in the list to the list of edges in
+        # # the current layer
+        # edgesLayerNum <-
+        #   edgesLayer[, c("sourceNum", "targetNum")] %>%
+        #   rbind(data.frame(sourceNum = nodesOtherMx, targetNum = nodesOtherMx))
+
+      } else {
+        # add the edges from the current layer
+        edgesLayerNum <- edgesLayer[, c("sourceNum", "targetNum")]
+      }
+
+      # # get node type of current layer
+      # nodeType <-
+      #   unique(
+      #     allNodes$nodeType[
+      #       allNodes$node %in% rbind(edgesLayer$source, edgesLayer$target)
+      #     ]
+      #   )
+      #
+      # # get nodes from current multiplex
+      # nodesLayer <- allNodes$numericId[allNodes$nodeType == nodeType]
+      #
+      # # add artificial self-loops to each node so that they are retrievable
+      # # by the random walk
+      # edgesLayerNum <-
+      #   edgesLayer[, c("sourceNum", "targetNum")] %>%
+      #   rbind(data.frame(sourceNum = nodesLayer, targetNum = nodesLayer))
 
       # save layer (only numeric source and target)
       write.table(
@@ -1011,7 +1056,7 @@ getEdgeList <- function(multiLayer, allNodes) {
       multiLayer$interLayerEdges[, 2],
       function(X) {
         ############## TEMPORARY CODE TO MATCH THE NODES EITHER BY THE ID OR THE OLDID
-        compounds <- read.csv(inputData$compF, sep = "\t")
+        compounds <- read.csv(inputData$metF, sep = "\t")
 
         if (any(allNodes$node == X)) {
           allNodes$numericId[allNodes$node == X]
