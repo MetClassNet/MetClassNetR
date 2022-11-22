@@ -514,7 +514,83 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
   # execute code
   system(com)
 
+  # process the mapings to clean the results
+  processMappings(pathToMappings = inputData$resPath, resFile = resFile)
+
   return()
+}
+
+
+# Function to process the mapping data to clean it, i.e., remove empty
+# mappings, collapse multi-mappings and remove the ";"
+processMappings <- function(pathToMappings, resFile) {
+
+  # read mapping results
+  mapRes <- read.csv(paste0(pathToMappings, resFile), sep = "\t")
+
+  # remove rows that have no mapping to the GSMN and keep only interesting cols
+  mapRes <- mapRes[mapRes$mapped.on.id != "", 1:5]
+
+  # empty data frame to save the multi-mappings
+  multiMappings <- mapRes[0, ]
+
+  # check for multi-mappings and collapse them
+  for (i in seq_len(nrow(mapRes))) {
+    # separate all elements from second column
+    dataCol <- unlist(strsplit(mapRes[i, 2], ";"))
+
+    # collapse all mappings of current feature
+    collapsedMappings <-
+      lapply((mapRes[i, 2:5]), function(X) { strsplit(X, ";") } )
+
+    # check if feature names had a complement (i.e., "_N") and remove it
+    featName <- mapRes[i, 1]
+    if (length(grep("_[0-9]{1,2}$", featName)) > 0) {
+      featName <- substr(featName, 1, nchar(featName)-2)
+    }
+
+    # add multi-mappings
+    multiMappings <-
+      rbind(
+        multiMappings,
+        cbind(
+          data.frame(
+            metabolite.name =
+              rep(featName, length(collapsedMappings[[1]]))
+          ),
+          as.data.frame(
+            lapply(
+              collapsedMappings,
+              function(X) {
+                X[[1]][1:length(X[[1]])]
+              }
+            )
+          )
+        )
+      )
+  }
+
+  # save original mappings with a different name
+  write.table(
+    mapRes,
+    paste0(
+      pathToMappings,
+      gsub("[.].{3}$", "", resFile),
+      "_OriginalRawMappings.txt"
+    ),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
+
+  # save multi-mappings in the original final
+  write.table(
+    multiMappings,
+    paste0(pathToMappings, resFile),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
 }
 
 
@@ -566,17 +642,6 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
 
   # filter list to keep only mapped nodes
   mappingFiltered <- mapping[mapping$mapped.on.id != "", colsToKeep]
-
-  # check if feature names had a complement (i.e., "_N") and remove it
-  if (length(grep("_[0-9]{1,2}$", mappingFiltered$metabolite.name)) > 0) {
-    mappingFiltered$metabolite.name <-
-      sapply(
-        mappingFiltered$metabolite.name,
-        function(X) {
-          substr(X, 1, nchar(X)-2)
-        }
-      )
-  }
 
   # create an empty data frame
   interLayerEdges <-
