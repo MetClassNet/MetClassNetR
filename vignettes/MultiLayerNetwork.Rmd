@@ -1,7 +1,7 @@
 ---
 title: "MultiLayer"
 author: "Elva Novoa"
-date: '2022-06-08'
+date: '2022-09-07'
 output: pdf_document
 ---
 
@@ -74,7 +74,7 @@ The first step in this workflow is to load the input data, using the
     features that were identified and that have a CHEBI id associated. The
     header of this file must match the aliases from the configuration file
     (configF)
-11. `compF`. Path to the file that contains the list of compounds in the GSMN
+11. `metF`. Path to the file that contains the list of compounds in the GSMN
     of the organism of interest. They must contain at least two columns: ID 
     and Chebi. An example can be found in
     extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
@@ -131,12 +131,14 @@ inputData <-
           ), 
         package = "MetClassNetR"
         ),
-    compF = 
+    metF = 
       system.file(
-        paste0(path, "Metabolomics2NetworksData/WormJamMet.tsv"), 
+        paste0(path, "Metabolomics2NetworksData/WormJamMet_2019.tsv"), 
         package = "MetClassNetR"
         ), 
-    spectraSS = 50
+    spectraSS = 50,
+    fixSpectra = TRUE,
+    cleanMetF = FALSE
     ) 
 
 ```

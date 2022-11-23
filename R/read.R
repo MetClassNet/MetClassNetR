@@ -3,7 +3,7 @@
 #' @export
 readMaf <- function(x, ecol = NA, ...) {
 
-  data <- read.table(x, sep = "\t", header = TRUE)
+  data <- read.table(x, sep = "\t", header = TRUE, quote = "")
 
   # rename column names according to conventions
   names(data)[names(data) == "mass_to_charge"] <- "mz"
