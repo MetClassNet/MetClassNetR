@@ -243,8 +243,9 @@ mapMetToGSMN(inputData, resFile)
 Finally, we are ready to finish building the multi-layer network, joining the 
 experimental networks with the GSMN, thanks to the mappings we just obtained. 
 To this end, we call the `makeMultiLayer` function with the `inputData` object,
-the experimental networks (stored in `expNetworks`), and the name of the file 
-that contains the mappings. 
+the experimental networks (stored in `expNetworks`), and the path to the folder 
+that contains the mappings, which is called `GMSNMappings`, and it is located
+inside `inpuData$resPath`. 
 
 In order to visualize and/or save the multi-layer network as two files: one
 containing the list of edges and another one with the list of nodes, we call 
@@ -255,9 +256,9 @@ Please be aware that Cytoscape should be open if `visualize == TRUE`.
 
 
 ```{r multiLayer}
-mappingF <- paste0(inputData$resPath, resFile)
+pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
 
-multiLayer <- makeMultiLayer(inputData, expNetworks, mappingF)
+multiLayer <- makeMultiLayer(inputData, expNetworks, pathToMappings)
 
 writeMultiLayer(inputData, multiLayer, visualize = FALSE)
 ```
