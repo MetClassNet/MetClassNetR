@@ -192,7 +192,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
     # update metabolites' file name
     metF <-
       paste0(
-        substr(inputData$metF, 1, nchar(inputData$metF) - 4),
+        substr(metF, 1, nchar(metF) - 4),
         "_Processed.tsv"
       )
   }
@@ -493,6 +493,9 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 #' @export
 mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
+  pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
+  dir.create(pathToMappings)
+
   # generate command line to execute metabolites2Network
   com <-
     paste0(
@@ -504,7 +507,7 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
       " ",
       inputData$metF,            # network_metabolites_path
       " ",
-      inputData$resPath,          # output_path
+      pathToMappings,          # output_path
       resFile,
       " ",
       inputData$configF,          # conf_file_path
@@ -513,6 +516,110 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
   # execute code
   system(com)
+
+  # process the mappings to clean the results
+  processMappings(identMetF = inputData$idenMetF, pathToMappings, resFile)
+
+  return()
+}
+
+
+# Function to process the mapping data to clean it, i.e., remove empty
+# mappings, collapse multi-mappings and remove the ";"
+# INPUTS:
+#  identMetF      - file name containing the identified metabolites
+#  pathToMappings - path to the folder that contains the mappings generated
+#                   by map2network (Python tool)
+#  resFile        - name of the file to process
+# OUTPUT: nothing, but it generates 2 files: one with the original mappings
+#         and another one with the processed mappings
+processMappings <- function(identMetF, pathToMappings, resFile) {
+
+  # read mapping results
+  mapRes <- read.csv(paste0(pathToMappings, resFile), sep = "\t")
+
+  # remove rows that have no mapping to the GSMN and keep only interesting cols
+  mapRes <- mapRes[mapRes$mapped.on.id != "", 1:5]
+
+  # open file with the original annotations
+  anno <- read.csv(identMetF, sep = "\t")
+
+  colnames(anno)[2] <- c("originalChebi")
+
+  # merge mappings and original annotations data frames
+  mapRes <- merge(mapRes, anno, by.x = "metabolite.name", by.y = "id")
+
+  # check if feature names had a complement (i.e., "_N") and remove it
+  mapRes[, "metabolite.name"] <-
+    sapply(
+      mapRes[, "metabolite.name"],
+      function(featName) {
+        if (length(grep("_[0-9]{1,2}$", featName)) > 0) {
+          substr(featName, 1, nchar(featName)-2)
+        } else {
+          featName
+        }
+      }
+    )
+
+  # empty data frame to save the multi-mappings
+  multiMappings <- mapRes[0, ]
+
+  # check for multi-mappings and collapse them
+  for (i in seq_len(nrow(mapRes))) {
+
+    # collapse all mappings of current feature
+    collapsedMappings <-
+      lapply(
+        mapRes[i, 2:ncol(mapRes)],
+        function(X) {
+          X <- as.character(X)
+          strsplit(X, ";")
+          }
+        )
+
+    # add multi-mappings
+    multiMappings <-
+      rbind(
+        multiMappings,
+        cbind(
+          data.frame(
+            metabolite.name =
+              rep(mapRes[i, 1], length(collapsedMappings[[1]]))
+          ),
+          as.data.frame(
+            lapply(
+              collapsedMappings,
+              function(X) {
+                X[[1]][1:length(X[[1]])]
+              }
+            )
+          )
+        )
+      )
+  }
+
+  # save original mappings with a different name
+  write.table(
+    mapRes,
+    paste0(
+      pathToMappings,
+      gsub("[.].{3}$", "", resFile),
+      "_OriginalRawMappings.txt"
+    ),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
+
+  # save multi-mappings in the original final
+  write.table(
+    multiMappings,
+    paste0(pathToMappings, resFile),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
 
   return()
 }
@@ -534,8 +641,8 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #' @param expNetworks
 #' `list`, list returned by the buildExpNet function
 #'
-#' @param mappingF
-#' `path`, path to file in table format containing the mapping between the
+#' @param pathToMappings
+#' `path`, path to folder containing the file(s) with the mapping between the
 #' metabolites from the  experimental networks and those from the GSMN. Such
 #' mapping  can be obtained with tools such as Metabolomics2Networks (see
 #' the MultiLayerNetwork vignette). The file must contain at least 4 columns,
@@ -556,27 +663,16 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #' # See the MultiLayerNetwork vignette
 #'
 #' @export
-makeMultiLayer <- function(inputData, expNetworks, mappingF) {
+makeMultiLayer <- function(inputData, expNetworks, pathToMappings) {
 
-  # read table
-  mapping <- read.table(mappingF, header = TRUE, sep = "\t")
+  # get list of files in the mapping folder
+  mappingFiles <- list.files(pathToMappings)
 
-  # list of columns to keep
-  colsToKeep <-  c("metabolite.name", "mapped.on.id", "distance")
-
-  # filter list to keep only mapped nodes
-  mappingFiltered <- mapping[mapping$mapped.on.id != "", colsToKeep]
-
-  # check if feature names had a complement (i.e., "_N") and remove it
-  if (length(grep("_[0-9]{1,2}$", mappingFiltered$metabolite.name)) > 0) {
-    mappingFiltered$metabolite.name <-
-      sapply(
-        mappingFiltered$metabolite.name,
-        function(X) {
-          substr(X, 1, nchar(X)-2)
-        }
-      )
-  }
+  # remove original mappings and keep only the processed ones
+  mappingFiles <-
+    mappingFiles[
+      grep(mappingFiles, pattern = "OriginalRawMappings[.]txt$", invert = TRUE)
+    ]
 
   # create an empty data frame
   interLayerEdges <-
@@ -584,34 +680,55 @@ makeMultiLayer <- function(inputData, expNetworks, mappingF) {
       expNode = character(),
       gsmnNode = character(),
       distance = character(),
+      chebi    = character(),
+      mapType  = character(),
+      msi      = numeric(),
       mx1      = numeric(),
       mx2      = numeric(),
       bipN     = numeric()
     )
 
-  # loop to collapse multiple mappings and get all the inter-layer edges
-  for (i in seq_len(nrow(mappingFiltered))) {
-    feat <- as.character(mappingFiltered[i, 1])
-    met <- mappingFiltered[i, 2]
-    dis <- mappingFiltered[i, 3]
+  # loop through mapping files
+  for (mapF in mappingFiles) {
+    # read table
+    mapping <-
+      read.table(paste0(pathToMappings, mapF), header = TRUE, sep = "\t")
 
-    # split metabolite names and distances, if needed
-    met <- unlist(str_split(str_remove(met, ";$"), ";"))
-    dis <- unlist(str_split(str_remove(dis, ";$"), ";"))
+    # loop to collapse multiple mappings and get all the inter-layer edges
+    for (i in seq_len(nrow(mapping))) {
+      feat <- as.character(mapping[i, "metabolite.name"])
+      met <- mapping[i, "mapped.on.id"]
+      dis <- mapping[i, "distance"]
+      chebi <- mapping[i, "chebi"]
+      msi <- ifelse(any(colnames(mapping) == "MSI"), mapping$MSI, -1)
 
-    # add current inter-layer edges
-    interLayerEdges <-
-      rbind(
-        interLayerEdges,
-        data.frame(
-          expNode  = feat,
-          gsmnNode = met,
-          distance = dis,
-          mx1      = 1,   # multiplex # 1 contains the experimental networks
-          mx2      = 2,   # multiplex # 2 is the GSMN and has 1 layer
-          bipN     = 1    # bipartite interactions number
+      # get mapping type from the file name (e.g., ManualAnnotation) or from
+      # the table
+      mapType <-
+        ifelse(
+          any(colnames(mapping) == "annotationType"),
+          mapping$annotationType,
+          gsub(".*_(.*)[.]txt$", "\\1", mapF, perl = TRUE)
+          )
+
+      # add current inter-layer edges
+      interLayerEdges <-
+        rbind(
+          interLayerEdges,
+          data.frame(
+            expNode  = feat,
+            gsmnNode = met,
+            distance = dis,
+            chebi    = chebi,
+            mapType  = mapType,
+            msi      = msi,
+            mx1      = 1,   # multiplex # 1 contains the experimental networks
+            mx2      = 2,   # multiplex # 2 is the GSMN and has 1 layer
+            bipN     = 1    # bipartite interactions number
           )
         )
+    }
+
   }
 
   # make a multi-layer network with the GSMN and the experimental networks
