@@ -133,7 +133,7 @@ inputData <-
         ),
     metF = 
       system.file(
-        paste0(path, "Metabolomics2NetworksData/WormJamMet_2019.tsv"), 
+        paste0(path, "WormJamMet_2019.tsv"), 
         package = "MetClassNetR"
         ), 
     spectraSS = 50,

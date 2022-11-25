@@ -499,7 +499,7 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
       "python3 ",
       inputData$met2NetDir,
       "metabolomics2network.py",  # Python package file
-      " tsv ",                    # file_type
+      " tsv",                    # file_type
       inputData$idenMetF,         # metabolomics_path
       " ",
       inputData$metF,            # network_metabolites_path
