@@ -36,8 +36,7 @@ Installation re-load R and load required libraries.
 # installation of additional packages
 #devtools::install_github("tnaake/MetNet") 
 # note: Re-load R studio after installation
-devtools::install_github("MetClassNet/MetClassNetR", 
-                         ref = "devel_liesa") 
+devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
 
 
 # load required libraries
@@ -48,9 +47,9 @@ library(MsBackendMgf)
 library(easyGgplot2)
 library(QFeatures)
 library(tidyverse)
-#library(nontarget)
-# library(visNetwork) # for visNetwork() and friends
-# library(networkD3)  # for saveNetwork()
+library(nontarget)
+library(visNetwork) # for visNetwork() and friends
+library(networkD3)  # for saveNetwork()
 ```
 ## Parallelization 
 Parallelization can be done to speed up calculations. 

@@ -48,9 +48,6 @@ exceeded!" That refers to a limit of requests per time. To address that set
 delay=10 meaning that the script will wait 10 seconds after each request.
 The result will take much longer but will finish in the end.
 }
-\note{
-
-}
 \examples{
 \dontrun{
 file <- system.file("extdata/Example_Coverage/iHY3410_Compound-SBtab.tsv", package = "MetClassNetR")
