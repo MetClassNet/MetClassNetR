@@ -221,7 +221,7 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   feat_names <- as.data.frame(rowData(x[[assay_name]]))
 
   ## Extract feature definitions
-  featid <- feat_names$database_identifier
+  #featid <- feat_names$database_identifier
   rt <- feat_names$rtime
   mz <- feat_names$mz
 
@@ -229,8 +229,10 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
 
   ## Use peaklist
   peaklist <- data.frame(mass=mz,
-                         intensity=feat_int[,1],
+                         intensity=feat_int[,2],
                          rt=rt)
+
+  rownames(peaklist) <- rownames(feat_int)
 
   homol <- nontarget::homol.search(peaklist,
                                    isotopes,
@@ -244,14 +246,45 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
 
   }
 
-  homol
-  # ## assign rownames to homol
-  # rownames(homol[[1]]) <- rownames(feat_int)
-  #
+  #homol
+
+  ## assign rownames to homol
+  #rownames(homol[[1]]) <- rownames(feat_int)
+
   # df <- homol[[1]] |>
   #   filter(`to ID` != "0") |>
   #   select (c("peak ID", "to ID", "m/z increment", "RT increment"))
-  #
+
   # df %>% separate_rows(`to ID`, `m/z increment`, `RT increment`)
+  #
+  # df <- homol[[1]] #|>
+  #   #filter(`to ID` != "0") |>
+  #  # select (c("peak ID", "HS IDs", "m/z increment", "RT increment"))
+  #
+  # df$`cluster_ID` <- row.names(df)
+  #
+  # df %>% separate_rows(`HS IDs`, `m/z increment`, `RT increment`, sep = "/")
+
+
+  df <- homol[[1]]
+
+  df$`cluster_ID` <- row.names(df)
+
+  df <- df %>% separate_rows(`to ID` , sep = "/")
+
+  df$to_cluster_ID <- NA
+
+  for (i in 1:nrow(df)) {
+    if (df[i,]$`to ID` != "0") {
+      df[i,]$to_cluster_ID <- df[df$`peak ID` == df[i,]$`to ID`,]$cluster_ID[1]
+
+    }else next
+  }
+
+  df |>
+    filter(`to ID` != "0") |>
+    separate_rows(`HS IDs`, `series level`,`HS cluster`, `m/z increment`, `RT increment`, sep = "/") |>
+    select(cluster_ID, to_cluster_ID, `peak ID`, `to ID`, `HS IDs`, `series level`, `m/z increment`, `RT increment`)
+
 
 }

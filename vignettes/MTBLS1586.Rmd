@@ -36,7 +36,9 @@ Installation re-load R and load required libraries.
 # installation of additional packages
 #devtools::install_github("tnaake/MetNet") 
 # note: Re-load R studio after installation
-devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+#devtools::install_github("MetClassNet/MetClassNetR", ref = "devel_liesa") 
+#devtools::install_github("blosloos/nontarget") 
+#devtools::install_github("blosloos/nontargetData") 
 
 
 # load required libraries
@@ -306,17 +308,20 @@ ABC
 
 
 ```{r homolseries}
-# homol <- qfeat_homol(x = mtbls1586_qf_pos,
-#                              assay_name = "mtbls1586_pos",
-#                       elements=c("C","H","O"), use_C=TRUE,
-#                       minmz=5, 	maxmz=50,
-#                       minrt=5,  maxrt=60,
-#                       ppm=FALSE,
-#                       mztol= 0.005,  rttol=5,
-#                       minlength=4,
-#                       mzfilter=FALSE,
-#                       spar=.45, 	R2=.98,
-#                       plotit=FALSE)
+homol <- qfeat_homol(x = mtbls1586_qf_pos,
+                             assay_name = "mtbls1586_pos",
+                      elements=c("C","H","O"), use_C=TRUE,
+                      minmz=5, 	maxmz=120,
+                      minrt=-30,  maxrt=30,
+                      ppm=TRUE,
+                      mztol= 5,  rttol=30,
+                      minlength=5,
+                      mzfilter=FALSE,
+                      #spar=.45, 	R2=.98,
+                      plotit=FALSE)
+
+
+  
 ```
 
 
@@ -408,12 +413,12 @@ Export of homologous series
 ```{r graph_export}
 # 
 # el <- as_tibble(homol[["Peaks in homologue series"]]) |>
-#     filter(`to ID` != "0") |> select (c("peak ID", "to ID",
+#     filter(`to ID` != "0") |> select (c("peak ID", "HS cluster",
 #                                          "m/z increment", "RT increment"))
 # 
-# g <- el |> select (c("peak ID", "to ID")) |> as.matrix |> graph_from_edgelist 
+# g <- el |> select(c("peak ID", "to ID")) |> as.matrix() |> graph_from_edgelist() |> as_data_frame()
 # 
-
+# 
 # ## Write to File
 # write_graph(g, "/tmp/g.gml", "gml")
 
