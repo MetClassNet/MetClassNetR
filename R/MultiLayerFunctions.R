@@ -97,7 +97,7 @@
 #' @export
 loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
   spectraSS = NULL, resPath, met2NetDir, configF, idenMetF, metF,
-  cleanMetF = TRUE, fixSpectra = TRUE) {
+  cleanMetF = TRUE) {
 
   # read peak list
   peakList <- readMaf(peakListF, ecol = intCol)
@@ -132,12 +132,6 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
       }
     }
 
-    ################################################################################ TO REMOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (fixSpectra)  {
-      spectra <- spectra[spectra$id %in% rownames(assay(peakList, 1))]
-    }
-
-    ################################################################################ TO REMOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # sanity checks
     checkSpectra(spectra)
     checkIdNamespace(peakList, spectra)
@@ -614,7 +608,7 @@ processMappings <- function(identMetF, pathToMappings, resFile) {
 
   # save multi-mappings in the original final
   write.table(
-    multiMappings,
+    unique(multiMappings),
     paste0(pathToMappings, resFile),
     row.names = FALSE,
     quote = FALSE,
@@ -668,10 +662,15 @@ makeMultiLayer <- function(inputData, expNetworks, pathToMappings) {
   # get list of files in the mapping folder
   mappingFiles <- list.files(pathToMappings)
 
-  # remove original mappings and keep only the processed ones
+  # remove original mappings and mapping files containing all the information
+  # (i.e., several extra columns)
   mappingFiles <-
     mappingFiles[
-      grep(mappingFiles, pattern = "OriginalRawMappings[.]txt$", invert = TRUE)
+      grep(
+        mappingFiles,
+        pattern = "(OriginalRawMappings[.]txt$)|(.+_AllInfo.csv$)",
+        invert = TRUE
+        )
     ]
 
   # create an empty data frame
@@ -817,9 +816,14 @@ calculateMultiLayerStats <- function(multiLayer, inputData) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
-makeFeqTable <- function(data, decreasing, name) {
-  # make table of frequencies
-  t <- as.data.frame(sort(table(data), decreasing = decreasing))
+makeFeqTable <- function(data, decreasing, name, sort = TRUE) {
+  if (sort == TRUE) {
+    # make table of frequencies
+    t <- as.data.frame(sort(table(data), decreasing = decreasing))
+  } else {
+    # make table of frequencies
+    t <- as.data.frame(table(data))
+  }
 
   # check if the resulting data frame has more than 1 column, which is expected
   if (ncol(t) > 1) {
@@ -851,7 +855,8 @@ makeFeqTable <- function(data, decreasing, name) {
 #  vertical - if TRUE, the bars will be vertical, otherwise, they will be
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
-makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
+makeBarPlot <-
+  function(resPath, data, xAxis, yAxis, title, vertical = TRUE, reorderXAxis) {
 
   # make plot
   p <-
@@ -1479,6 +1484,5 @@ getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
 
   return(colors)
 }
-
 
 
