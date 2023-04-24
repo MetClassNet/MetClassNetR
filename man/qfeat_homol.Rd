@@ -34,19 +34,8 @@ and builds \code{list} containing results from \code{homol.search} function of
 https://cran.r-project.org/web/packages/nontarget/index.html
 
 @return
-\code{list} of type homol with 6 entries. First entry contains dataframe
-with peaks (mass,intensity,rt,peak ID) and their homologue
-series relations (to ID,m/z increment,RT increment) within different
-homologue series (HS IDs,series level). Last column HS cluster states
-HS clusters into which a peak was assigned via its HS. Second entry
-contains the parameters used.
-The third list entry is a Dataframe listing all peaks (peak IDs) per
-homologue series (HS IDs), the underlying mean m/z & RT increments
-(m/z increments, RT increments) and the minimum and maximum RT changes
-between individual peaks of the series. The 4th entry stores used
-m/z restrictions. List of peak IDs per level in the individual series
-is stores in the 5th entry. The 6th entry contains List with
-superjacent HS IDs per group - for setdeb=c(3,...).
+\code{data.frame} edgelist of homologues series with columns "cluster_ID",
+"cluster_ID_to", "HSIDs", "mzincrement", "RTincrement".
 }
 \examples{
 ####### To be added

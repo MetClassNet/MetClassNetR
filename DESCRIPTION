@@ -1,6 +1,6 @@
 Package: MetClassNetR
 Title: Create and analize networks built from metabolomics Data
-Version: 0.0.0.9012
+Version: 0.0.0.92
 Authors@R: c(
            person(given = "Steffen", family = "Neumann",
            email = "sneumann@ipb-halle.de",
@@ -26,7 +26,8 @@ Depends:
     MsCoreUtils,
     MSnbase,
     mpmi,
-    QFeatures
+    QFeatures,
+    nontarget
 Imports:
     ggplot2,
     methods,
@@ -59,4 +60,4 @@ Remotes:
 License: Artistic-2.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
