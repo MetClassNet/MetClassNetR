@@ -6,7 +6,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: { os: ubuntu-20.04, r: '4.1', bioc: '3.14', cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
+    runs-on: { os: 'ubuntu-20.04', r: '4.1', bioc: '3.14', cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
     steps:
       - uses: actions/checkout@v2
 
