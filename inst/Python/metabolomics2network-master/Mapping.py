@@ -68,63 +68,95 @@ def multimapping(data, network_metabolites):
             mapping_identifiers = {}
             
 
-            for inchi in met["inchi"]:
-                if inchi != "" and inchi == mol["inchi"]:
-                    if "inchi" not in mapping_identifiers:
-                        mapping_identifiers["inchi"] = [inchi]
-                    else:
-                        mapping_identifiers["inchi"].append(inchi)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "inchi" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for inchi in met["inchi"]:
+                    if inchi != "" and inchi == mol["inchi"]:
+                        if "inchi" not in mapping_identifiers:
+                            mapping_identifiers["inchi"] = [inchi]
+                        else:
+                            mapping_identifiers["inchi"].append(inchi)
                                     
-            for chebi in met["chebi"]:
-                if chebi != "" and (chebi.replace('CHEBI:', '')).isdigit() and chebi == mol["chebi"]:
-                    if "chebi" not in mapping_identifiers:
-                        mapping_identifiers["chebi"] = [chebi]
-                    else:
-                        mapping_identifiers["chebi"].append(chebi)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "chebi" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for chebi in met["chebi"]:
+                    if chebi != "" and (chebi.replace('CHEBI:', '')).isdigit() and chebi == mol["chebi"]:
+                        if "chebi" not in mapping_identifiers:
+                            mapping_identifiers["chebi"] = [chebi]
+                        else:
+                            mapping_identifiers["chebi"].append(chebi)
                                         
-            for hmdb in met["hmdb"]:
-                if hmdb != "" and hmdb == mol["hmdb"]:
-                    if "hmdb" not in mapping_identifiers:
-                        mapping_identifiers["hmdb"] = [hmdb]
-                    else:
-                        mapping_identifiers["hmdb"].append(hmdb)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "hmdb" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for hmdb in met["hmdb"]:
+                    if hmdb != "" and hmdb == mol["hmdb"]:
+                        if "hmdb" not in mapping_identifiers:
+                            mapping_identifiers["hmdb"] = [hmdb]
+                        else:
+                            mapping_identifiers["hmdb"].append(hmdb)
                                     
-            for pubchem in met["pubchem"]:
-                if pubchem != "" and pubchem == mol["pubchem"]:
-                    if "pubchem" not in mapping_identifiers:
-                        mapping_identifiers["pubchem"] = [pubchem]
-                    else:
-                        mapping_identifiers["pubchem"].append(pubchem)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "pubchem" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for pubchem in met["pubchem"]:
+                    if pubchem != "" and pubchem == mol["pubchem"]:
+                        if "pubchem" not in mapping_identifiers:
+                            mapping_identifiers["pubchem"] = [pubchem]
+                        else:
+                            mapping_identifiers["pubchem"].append(pubchem)
                                         
-            for kegg in met["kegg"]:
-                if kegg != "" and kegg == mol["kegg"]:
-                    if "kegg" not in mapping_identifiers:
-                        mapping_identifiers["kegg"] = [kegg]
-                    else:
-                        mapping_identifiers["kegg"].append(kegg)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "kegg" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for kegg in met["kegg"]:
+                    if kegg != "" and kegg == mol["kegg"]:
+                        if "kegg" not in mapping_identifiers:
+                            mapping_identifiers["kegg"] = [kegg]
+                        else:
+                            mapping_identifiers["kegg"].append(kegg)
                                     
-            for smiles in met["smiles"]:
-                if smiles != "" and smiles == mol["smiles"] and "[*]" not in smiles: #do not count smiles with * which represent R groups (as we do exact mapping here)
-                    if "exact smiles" not in mapping_identifiers:
-                        mapping_identifiers["exact smiles"] = [smiles]
-                    else:
-                        mapping_identifiers["exact smiles"].append(smiles)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "smiles" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for smiles in met["smiles"]:
+                    if smiles != "" and smiles == mol["smiles"] and "[*]" not in smiles: #do not count smiles with * which represent R groups (as we do exact mapping here)
+                        if "exact smiles" not in mapping_identifiers:
+                            mapping_identifiers["exact smiles"] = [smiles]
+                        else:
+                            mapping_identifiers["exact smiles"].append(smiles)
                                         
-            for lmid in met["lmid"]:
-                if lmid != "" and lmid == mol["lmid"]: 
-                    if "lipidmaps" not in mapping_identifiers:
-                        mapping_identifiers["lipidmaps"] = [lmid]
-                    else:
-                        mapping_identifiers["lipidmaps"].append(lmid)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "lmid" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for lmid in met["lmid"]:
+                    if lmid != "" and lmid == mol["lmid"]: 
+                        if "lipidmaps" not in mapping_identifiers:
+                            mapping_identifiers["lipidmaps"] = [lmid]
+                        else:
+                            mapping_identifiers["lipidmaps"].append(lmid)
                         
-            for swissid in met["swissid"]:
-                if swissid != "" and swissid == mol["swissid"]:
-                    if "swisslipids" not in mapping_identifiers:
-                        mapping_identifiers["swisslipids"] = [swissid]
-                    else: 
-                        mapping_identifiers["swisslipids"].append(swissid)
-#                    elif len(mapping_identifiers)["swisslipids"] < 100: #fix a maximum number of id as some of them can match with as much as 6000 swisslipids identifiers, this huge number messes up the lines
-#                        mapping_identifiers["swisslipids"].append(swissid)
+            ### ---------------- START OF MY MODIFICATIONS --------------------------------------------------------------------
+            # check if there are inchi keys
+            if "swissid" in met:
+            ### ---------------- END OF MY MODIFICATIONS --------------------------------------------------------------------
+                for swissid in met["swissid"]:
+                    if swissid != "" and swissid == mol["swissid"]:
+                        if "swisslipids" not in mapping_identifiers:
+                            mapping_identifiers["swisslipids"] = [swissid]
+                        else: 
+                            mapping_identifiers["swisslipids"].append(swissid)
+    #                    elif len(mapping_identifiers)["swisslipids"] < 100: #fix a maximum number of id as some of them can match with as much as 6000 swisslipids identifiers, this huge number messes up the lines
+    #                        mapping_identifiers["swisslipids"].append(swissid)
             
             mapping_details = {"path" : path, "datasetname" : mol_name, "distance" : 0, "mapping type": "exact multimapping","identifiers": mapping_identifiers}
             if mapping_details["identifiers"] != {}:
@@ -132,9 +164,7 @@ def multimapping(data, network_metabolites):
         
         mol_to_metabolites[mol_name] = mapped
             
-       
     return mol_to_metabolites
- 
 
 
 """

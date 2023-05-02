@@ -11,7 +11,7 @@ makeMultiLayer(inputData, expNetworks, mappingF)
 
 \item{expNetworks}{\code{list}, list returned by the buildExpNet function}
 
-\item{mappingF}{\code{path}, path to file in table format containing the mapping between the
+\item{pathToMappings}{\code{path}, path to folder containing the file(s) with the mapping between the
 metabolites from the  experimental networks and those from the GSMN. Such
 mapping  can be obtained with tools such as Metabolomics2Networks (see
 the MultiLayerNetwork vignette). The file must contain at least 4 columns,

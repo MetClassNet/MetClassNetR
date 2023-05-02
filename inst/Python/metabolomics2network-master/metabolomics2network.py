@@ -105,7 +105,7 @@ metabolites = parse.parse_metabolites_json(args.network_metabolites_path)
 """
 # ------------------------- END ORIGINAL CODE ---------------------------------------------------------
 
-
+### *** This returns only `None` for each metabolite it looked for in Chebi!!!!
 metabolites_chebi_entities = mapping.convert_to_chebi_entities_once(metabolites)
 
 #initialising empty dictionaries so that they exist when we try to merge the results in the end

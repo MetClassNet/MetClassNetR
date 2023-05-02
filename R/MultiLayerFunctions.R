@@ -11,13 +11,16 @@
 #' @param peakListF
 #' `Path`, path to the TSV file that contains the peak list (one peak per row)
 #' in a MetaboLights-like format. The first row is the header (i.e., the list
-#' of columns' names). The file should contain at least 3 columns:
-#' "database_identifier" (ChEBI), "mass_to_charge", and "retention_time". It is
-#' to note that these column names are fixed. The TSV file can also contain
+#' of columns' names). The file should contain at least 4 columns:
+#' "database_identifier" (i.e., ChEBI), "metabolite_identification" (i.e.,
+#' metabolite name, if identified), "mass_to_charge", and "retention_time". It
+#' is to note that these column names are fixed. The TSV file can also contain
 #' intensity (or abundance) values. In this case, the column names are free
 #' (e.g., can be named after the samples), but no blank spaces are allowed and
 #' the first character must be a letter. In addition, all the abundances must
-#' be placed at the end of the table, i.e., in the last columns
+#' be placed at the end of the table, i.e., in the last columns. NOTE. Special
+#' characters, such as single quotes ("'"), and hashtag ("#"), are forbidden
+#' and the peak list file should not contain any of them
 #'
 #' @param intCol
 #' `numeric`, number of the first column containing the intensities or of the
@@ -63,11 +66,19 @@
 #' that were identified and that have a CHEBI id associated. The header of this
 #' file must match the aliases from the configuration file (configF)
 #'
-#' @param compF
-#' `path`, path to the TSV file containing the list of compounds in the GSMN of
-#' the organism of interest. They must contain at least two columns: ID and
-#' Chebi. An example can be found in
-#' extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
+#' @param metF
+#' `path`, path to the TSV file containing the list of metabolites in the GSMN
+#' of the organism of interest. They must contain at least two columns: ID and
+#' Chebi. It is important that all the metabolites have a chebi ID, that there
+#' is a single chebi ID per metabolite, and that it corresponds to the main
+#' chebi ID. If you are not sure that your list of chebi IDs fits these
+#' requirement, set the `cleanMetF` parameter to TRUE.
+#' An example of a correct list of metabolites can be found in
+#' extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMetWithMasses.tsv
+#'
+#' @param cleanMetF
+#' `boolean`, set it to TRUE if  you want to clean your metabolites' file, as
+#' previously described
 #'
 #' @import igraph Spectra
 #'
@@ -84,19 +95,36 @@
 #' # See the MultiLayerNetwork vignette
 #'
 #' @export
-loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
-  spectraSS = NULL, resPath, met2NetDir, configF, idenMetF, compF) {
+loadInputData <- function(peakListF, intCol = 23, transF = NULL,
+  spectraF = NULL, gsmnF, spectraSS = NULL, resPath, met2NetDir, configF,
+  idenMetF, metF, cleanMetF = TRUE) {
 
   # read peak list
-  peakList <- readMaf(peakListF, ecol = intCol)
-  data <- readr::read_tsv(peakListF) # read peak list file
+  data <- read.table(peakListF, sep = "\t", header = TRUE, quote = "")
+  rownames(data) <- data$id
+
+  # check column position of the first intensity values
+  if(length(intCol) == 1) {
+    if (is.na(intCol)) {
+      intCol <- 23:ncol(data)
+    } else {
+      intCol <- intCol:ncol(data)
+    }
+  }
+
+  # create QFeatures object containing peak list
+  peakList <-
+    readQFeatures(data, ecol = intCol, fnames = which(colnames(data) == "id"))
+
+  # read peak list (as tibble)
+  data <- readr::read_tsv(peakListF)
 
   # keep only identified metabolites
   identifiedMet <-
     data[!is.na(data$database_identifier), c("id", "database_identifier")]
 
   # check if there is a fragmentation spectra file
-  if (exists("spectraF")) {
+  if (!is.null(spectraF)) {
     # read fragmentation spectra
     spectra <-
       Spectra::Spectra(
@@ -106,7 +134,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
       )
 
     # check if sampling is to be done
-    if (!is.null(spectraSS)) {
+    if (exists("spectraSS") && !is.null(spectraSS)) {
 
       # check if sample size < current spectra size
       if (spectraSS < length(spectra)) {
@@ -117,17 +145,17 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
       }
     }
 
-    # sanity check
-    if (!checkSpectra(spectra)) {
-      stop(paste0("Bad spectra. Please check your file ", spectra))
-    }
+    # sanity checks
+    checkSpectra(spectra)
+    checkIdNamespace(peakList, spectra)
+
   } else {
     spectra <- NULL
   }
 
 
   # check if there is a transformations file
-  if (exists("transF")) {
+  if (!is.null(transF)) {
     # read transformations
     transformations <- readr::read_csv(transF, col_names = TRUE)
   } else {
@@ -135,7 +163,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
   }
 
   # read GSMN
-  gsmn <- igraph::read_graph(gsmnF, format = "gml")
+  gsmn <- igraph::as.undirected(igraph::read_graph(gsmnF, format = "gml"))
 
   ############################################################# TO REMOVE ????
   # remove compartments from the label of the nodes
@@ -151,9 +179,29 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
   gsmn <- igraph::set.vertex.attribute(gsmn, name = "name", value = labels)
   ############################################################# TO REMOVE ????
 
-  # sanity check
-  if (!checkQFeatures(peakList)) {
-    stop(paste0("Bad peak list. Please check your file ", peakListF))
+  # create results' path
+  dir.create(resPath, recursive = TRUE)
+
+  # check whether the metabolites' file is to be cleaned
+  if (cleanMetF == TRUE) {
+    # build command to run python code
+    com <-
+      paste0(
+        "python3 ",
+        find.package("MetClassNetR"),
+        "/Python/cleanMetaboliteTable.py ",
+        metF
+      )
+
+    # execute code
+    system(com)
+
+    # update metabolites' file name
+    metF <-
+      paste0(
+        substr(metF, 1, nchar(metF) - 4),
+        "_Processed.tsv"
+      )
   }
 
   return (
@@ -167,7 +215,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
       resPath = resPath,
       configF = configF,
       idenMetF = idenMetF,
-      compF = compF,
+      metF = metF,
       met2NetDir = met2NetDir
       )
     )
@@ -235,6 +283,12 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
 #' least 25% of correlation between the abundance values, either positive or
 #' negative)
 #'
+#' @param specSimThresh
+#' `numeric`, (optional) floating point number indicating the spectral
+#' similarity threshold to consider that two features have similar spectra. It
+#' is only needed if the spectral similarity network is to be built. The
+#' default value is 0.7
+#'
 #' @import igraph MetNet Spectra
 #'
 #' @return
@@ -248,7 +302,7 @@ loadInputData <- function(peakListF, intCol = 23, transF, spectraF, gsmnF,
 #' @export
 buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
   ppmMass = 10, ppmSpec = 0, tol = 0.005, corrModel = "pearson",
-  corrThresh = 0.25) {
+  corrThresh = 0.25, specSimThresh = 0.7) {
 
     # empty list to save the experimental networks
     expNet <- list()
@@ -280,7 +334,10 @@ buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
       }
 
       # build spectral similarity network
-      net <- buildSpecSimNet(inputData, tol, ppmSpec, massDiff, directed)
+      net <-
+        buildSpecSimNet(
+          inputData, tol, ppmSpec, specSimThresh, massDiff, directed
+          )
 
       # add network to the list
       expNet[["s"]] <- net
@@ -307,18 +364,22 @@ buildExpNet <- function(inputData, net2Build = "all", directed = FALSE,
 #  directed  - boolean value (TRUE/FALSE). If TRUE then the networks that are
 #              generated will be directed, and undirected otherwise. The
 #              default value is FALSE (i.e., undirected network)
-# OUTPUT: mass difference network as igraph object
+# OUTPUT: mass difference network as an igraph object
 buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
+  data <-
+    as.data.frame(rowData(inputData$peakList)[[names(inputData$peakList)]])
+  trans <- as.data.frame(inputData$transformations)
+
   # create mass difference adjacency matrix
-  massDiff <-
-    qfeat_structural(
-      x = inputData$peakList,
-      assay_name = names(inputData$peakList),
-      transformation = inputData$transformations,
-      var = c("name", "formula", "mass"),
-      ppm = ppmMass
-    )
+  massDiff  <-
+    MetNet::structural(
+      data,
+      trans,
+      var = c("name", "mass"),
+      ppm = ppmMass,
+      directed = directed
+      )
 
   # add row data
   rowData(massDiff) <-
@@ -341,34 +402,52 @@ buildMassDiffNet <- function(inputData, ppmMass, directed) {
 
 # Function to build the spectral similarity network
 # INPUTS:
-#  inputData - list returned by the loadInputData function
-#  tol       - absolute tolerance for spectral similarity calculus
-#  ppmSpec   - relative allowed error for spectral similarity calculus. It is
-#              only needed if the spectral similarity network is to be built.
-#              The default value is 0
-#  massDiff   - mass difference adjacency matrix as generated by MetNet
-#  directed  - boolean value (TRUE/FALSE). If TRUE then the networks that are
-#              generated will be directed, and undirected otherwise. The
-#              default value is FALSE (i.e., undirected network)
-# OUTPUT: spectral similarity network as igraph object
-buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
+#  inputData     - list returned by the loadInputData function
+#  tol           - absolute tolerance for spectral similarity calculus
+#  ppmSpec       - relative allowed error for spectral similarity calculus. It
+#                  is only needed if the spectral similarity network is to be
+#                  built. The default value is 0
+#  specSimThresh - spectral similarity threshold. Similarities equal or higher
+#                  than this value will be kept
+#  massDiff      - mass difference adjacency matrix as generated by MetNet
+#  directed      - boolean value (TRUE/FALSE). If TRUE then the networks that
+#                  are generated will be directed, and undirected otherwise. The
+#                  default value is FALSE (i.e., undirected network)
+# OUTPUT: spectral similarity network as an igraph object
+buildSpecSimNet <-
+  function(inputData, tol, ppmSpec, specSimThresh, massDiff, directed) {
+  # filter spectra 10 % of intensity to speed up calculus
+  filteredSpectra <-
+    Spectra::filterIntensity(
+      inputData$spectra,
+      function(x) { x > max(x, na.rm = TRUE) / 10 }
+      )
 
   # calculate spectral similarity
-   spectralSim <-
+  spectralSim <-
     spec_molNetwork(
-      inputData$spectra, MAPFUN = Spectra::joinPeaksGnps, methods = "gnps",
-      tolerance = tol, ppm = ppmSpec, type = "inner"
+      filteredSpectra,
+      MAPFUN = Spectra::joinPeaksGnps,
+#      methods = "gnps",
+      methods = "ndotproduct",
+      tolerance = tol,
+      ppm = ppmSpec,
+      type = "outer"
     )
 
   # add spectral similarity to the structural adjacency matrix from MetNet
   spectralSimA <-
     MetNet::addSpectralSimilarity(
-      am_structural = massDiff, ms2_similarity = spectralSim
+      am_structural = massDiff,
+      ms2_similarity = spectralSim
       )
 
   # get edges from the adjacency matrix
-  spectralSimDF <- as.data.frame(spectralSimA) |> filter(!is.na(gnps)) |>
-    filter(binary == 1) |> filter(Row != Col)
+  spectralSimDF <-
+    as.data.frame(spectralSimA) |>
+    filter(!is.na(ndotproduct)) |>
+    filter(Row != Col) |>
+    filter(ndotproduct >= specSimThresh)
 
   # create igraph object
   net <-
@@ -392,7 +471,7 @@ buildSpecSimNet <- function(inputData, tol, ppmSpec, massDiff, directed) {
 #              correlation calculus
 # corrThresh - floating point number indicating the correlation threshold to
 #              consider that two features are correlated
-# OUTPUT: correlation network as igraph object
+# OUTPUT: correlation network as an igraph object
 buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 
   # calculate correlation
@@ -452,25 +531,133 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 #' @export
 mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
+  pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
+  dir.create(pathToMappings)
+
   # generate command line to execute metabolites2Network
   com <-
     paste0(
       "python3 ",
       inputData$met2NetDir,
-      "metabolomics2network.py tsv ",
-      inputData$idenMetF,
+      "metabolomics2network.py",  # Python package file
+      " tsv ",                    # file_type
+      inputData$idenMetF,         # metabolomics_path
       " ",
-      inputData$compF,
+      inputData$metF,            # network_metabolites_path
       " ",
-      inputData$resPath,
+      pathToMappings,          # output_path
       resFile,
       " ",
-      inputData$configF,
-      " 2"
+      inputData$configF,          # conf_file_path
+      " 1,2"                        # mapping_types, 1: exact multimapping, 2: chebi class mapping
       )
 
   # execute code
   system(com)
+
+  # process the mappings to clean the results
+  processMappings(identMetF = inputData$idenMetF, pathToMappings, resFile)
+
+  return()
+}
+
+
+# Function to process the mapping data to clean it, i.e., remove empty
+# mappings, collapse multi-mappings and remove the ";"
+# INPUTS:
+#  identMetF      - file name containing the identified metabolites
+#  pathToMappings - path to the folder that contains the mappings generated
+#                   by map2network (Python tool)
+#  resFile        - name of the file to process
+# OUTPUT: nothing, but it generates 2 files: one with the original mappings
+#         and another one with the processed mappings
+processMappings <- function(identMetF, pathToMappings, resFile) {
+
+  # read mapping results
+  mapRes <- read.csv(paste0(pathToMappings, resFile), sep = "\t")
+
+  # remove rows that have no mapping to the GSMN and keep only interesting cols
+  mapRes <- mapRes[mapRes$mapped.on.id != "", 1:5]
+
+  # open file with the original annotations
+  anno <- read.csv(identMetF, sep = "\t")
+
+  colnames(anno)[2] <- c("originalChebi")
+
+  # merge mappings and original annotations data frames
+  mapRes <- merge(mapRes, anno, by.x = "metabolite.name", by.y = "id")
+
+  # check if feature names had a complement (i.e., "_N") and remove it
+  mapRes[, "metabolite.name"] <-
+    sapply(
+      mapRes[, "metabolite.name"],
+      function(featName) {
+        if (length(grep("_[0-9]{1,2}$", featName)) > 0) {
+          substr(featName, 1, nchar(featName)-2)
+        } else {
+          featName
+        }
+      }
+    )
+
+  # empty data frame to save the multi-mappings
+  multiMappings <- mapRes[0, ]
+
+  # check for multi-mappings and collapse them
+  for (i in seq_len(nrow(mapRes))) {
+
+    # collapse all mappings of current feature
+    collapsedMappings <-
+      lapply(
+        mapRes[i, 2:ncol(mapRes)],
+        function(X) {
+          X <- as.character(X)
+          strsplit(X, ";")
+          }
+        )
+
+    # add multi-mappings
+    multiMappings <-
+      rbind(
+        multiMappings,
+        cbind(
+          data.frame(
+            metabolite.name =
+              rep(mapRes[i, 1], length(collapsedMappings[[1]]))
+          ),
+          as.data.frame(
+            lapply(
+              collapsedMappings,
+              function(X) {
+                X[[1]][1:length(X[[1]])]
+              }
+            )
+          )
+        )
+      )
+  }
+
+  # save original mappings with a different name
+  write.table(
+    mapRes,
+    paste0(
+      pathToMappings,
+      gsub("[.].{3}$", "", resFile),
+      "_OriginalRawMappings.txt"
+    ),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
+
+  # save multi-mappings in the original final
+  write.table(
+    unique(multiMappings),
+    paste0(pathToMappings, resFile),
+    row.names = FALSE,
+    quote = FALSE,
+    sep = "\t"
+  )
 
   return()
 }
@@ -484,7 +671,7 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #'
 #' @description
 #' Function to make the multi-layer network by connecting the Genome-Scale
-#'Metabolic Network (GSMN) and the experimental networks
+#' Metabolic Network (GSMN) and the experimental networks
 #'
 #' @param inputData
 #' `list`, list returned by the `loadInputData` function
@@ -492,8 +679,8 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #' @param expNetworks
 #' `list`, list returned by the buildExpNet function
 #'
-#' @param mappingF
-#' `path`, path to file in table format containing the mapping between the
+#' @param pathToMappings
+#' `path`, path to folder containing the file(s) with the mapping between the
 #' metabolites from the  experimental networks and those from the GSMN. Such
 #' mapping  can be obtained with tools such as Metabolomics2Networks (see
 #' the MultiLayerNetwork vignette). The file must contain at least 4 columns,
@@ -514,39 +701,77 @@ mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 #' # See the MultiLayerNetwork vignette
 #'
 #' @export
-makeMultiLayer <- function(inputData, expNetworks, mappingF) {
+makeMultiLayer <- function(inputData, expNetworks, pathToMappings) {
 
-  # read table
-  mapping <- read.table(mappingF, header = TRUE, sep = "\t")
+  # get list of files in the mapping folder
+  mappingFiles <- list.files(pathToMappings)
 
-  # list of columns to keep
-  colsToKeep <-  c("metabolite.name", "mapped.on.id", "distance")
-
-  # filter list to keep only mapped nodes
-  mappingFiltered <- mapping[mapping$mapped.on.id != "", colsToKeep]
+  # remove original mappings and mapping files containing all the information
+  # (i.e., several extra columns)
+  mappingFiles <-
+    mappingFiles[
+      grep(
+        mappingFiles,
+        pattern = "(OriginalRawMappings[.]txt$)|(.+_AllInfo.csv$)",
+        invert = TRUE
+        )
+    ]
 
   # create an empty data frame
   interLayerEdges <-
     data.frame(
-      expNode = character(), gsmnNode = character(), distance = character()
-      )
+      expNode = character(),
+      gsmnNode = character(),
+      distance = character(),
+      chebi    = character(),
+      mapType  = character(),
+      msi      = numeric(),
+      mx1      = numeric(),
+      mx2      = numeric(),
+      bipN     = numeric()
+    )
 
-  # loop to collapse multiple mappings and get all the inter-layer edges
-  for (i in seq_len(nrow(mappingFiltered))) {
-    feat <- as.character(mappingFiltered[i, 1])
-    met <- mappingFiltered[i, 2]
-    dis <- mappingFiltered[i, 3]
+  # loop through mapping files
+  for (mapF in mappingFiles) {
+    # read table
+    mapping <-
+      read.table(paste0(pathToMappings, mapF), header = TRUE, sep = "\t")
 
-    # split metabolite names and distances, if needed
-    met <- unlist(str_split(str_remove(met, ";$"), ";"))
-    dis <- unlist(str_split(str_remove(dis, ";$"), ";"))
+    # loop to collapse multiple mappings and get all the inter-layer edges
+    for (i in seq_len(nrow(mapping))) {
+      feat <- as.character(mapping[i, "metabolite.name"])
+      met <- mapping[i, "mapped.on.id"]
+      dis <- mapping[i, "distance"]
+      chebi <- mapping[i, "chebi"]
+      msi <- ifelse(any(colnames(mapping) == "MSI"), mapping$MSI[i], -1)
 
-    # add current inter-layer edges
-    interLayerEdges <-
-      rbind(
-        interLayerEdges,
-        data.frame(expNode = feat, gsmnNode = met, distance = dis)
+      # get mapping type from the file name (e.g., ManualAnnotation) or from
+      # the table
+      mapType <-
+        ifelse(
+          any(colnames(mapping) == "annotationType"),
+          mapping$annotationType[i],
+          gsub(".*_(.*)[.]txt$", "\\1", mapF, perl = TRUE)
+          )
+
+      # add current inter-layer edges
+      interLayerEdges <-
+        rbind(
+          interLayerEdges,
+          data.frame(
+            expNode  = feat,
+            gsmnNode = met,
+            distance = dis,
+            chebi    = chebi,
+            mapType  = mapType,
+            msi      = msi,
+            mx1      = 1,   # multiplex # 1 contains the experimental networks
+            mx2      = 2,   # multiplex # 2 is the GSMN and has 1 layer
+            bipN     = 1    # bipartite interactions number
+          )
         )
+    }
+
   }
 
   # make a multi-layer network with the GSMN and the experimental networks
@@ -635,10 +860,30 @@ calculateMultiLayerStats <- function(multiLayer, inputData) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
-makeFeqTable <- function(data, decreasing, name) {
-  # make table of frequencies
-  t <- as.data.frame(sort(table(data), decreasing = decreasing))
-  colnames(t)[1] <- name
+makeFeqTable <- function(data, decreasing, name, sort = TRUE) {
+  if (sort == TRUE) {
+    # make table of frequencies
+    t <- as.data.frame(sort(table(data), decreasing = decreasing))
+  } else {
+    # make table of frequencies
+    t <- as.data.frame(table(data))
+  }
+
+  # check if the resulting data frame has more than 1 column, which is expected
+  if (ncol(t) > 1) {
+    colnames(t)[1] <- name
+  } else {
+    # no plot can be generated if there is a single column, so we need to make
+    # a new data frame. There is a single column when the table function returns
+    # a single value
+    t <- data.frame(
+      V1   = rownames(t),
+      Freq = t[, 1]
+    )
+
+    # set column name
+     colnames(t)[1] <- name
+  }
 
   return(t)
 }
@@ -654,7 +899,8 @@ makeFeqTable <- function(data, decreasing, name) {
 #  vertical - if TRUE, the bars will be vertical, otherwise, they will be
 #             horizontal
 # OUTPUT: none, but it saves the plot in the resPath directory
-makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
+makeBarPlot <-
+  function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   # make plot
   p <-
@@ -667,7 +913,9 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
     ggplot2::xlab(xAxis) +
     ggplot2::ylab(yAxis) +
     ggplot2::theme(
-      plot.title = element_text(hjust = 0.5, face = "bold", size = 16))
+      plot.title = ggplot2::element_text(hjust = 0.5, face = "bold", size = 16),
+      axis.text = ggplot2::element_text(size = 8)
+      )
 
   # check orientation
   if (vertical == TRUE) {
@@ -686,7 +934,7 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 
   # save plot
   ggplot2::ggsave(
-    paste0(resPath, str_replace_all(title, " ", "_"), ".png"),
+    paste0(resPath, stringr::str_replace_all(title, " ", "_"), ".png"),
     plot = p,
     dpi = 300
   )
@@ -729,16 +977,6 @@ makeBarPlot <- function(resPath, data, xAxis, yAxis, title, vertical = TRUE) {
 #'
 #' @export
 writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
-  # get list of edges
-  allEdges <- getEdgeList(multiLayer)
-
-  # save list of edges
-  write.csv(
-    allEdges,
-    paste0(inputData$resPath, "MultiLayer4Cytoscape_EdgeList.csv"),
-    row.names = FALSE,
-    quote = FALSE
-    )
 
   # get list of nodes
   allNodes <- getNodeList(multiLayer)
@@ -751,6 +989,107 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
     quote = FALSE
     )
 
+  # get list of edges
+  allEdges <- getEdgeList(multiLayer, allNodes)
+
+  # save list of edges
+  write.csv(
+    allEdges,
+    paste0(inputData$resPath, "MultiLayer4Cytoscape_EdgeList.csv"),
+    row.names = FALSE,
+    quote = FALSE
+  )
+
+  # save multilayer network in a format compatible with multixrank
+  # -- multiplex networks first
+  # get list of multiplex networks
+  mx <- unique(allEdges$mxNum)
+
+  # loop through all the multiplex networks
+  for (mxN in mx[mx > 0]) {
+    # set folder's path
+    dirPath <-
+      paste0(inputData$resPath, "multiXrankFolder/multiplex/", mxN, "/")
+
+    # create folder, if needed
+    if (dir.exists(dirPath) == FALSE) {
+      dir.create(dirPath, recursive = TRUE)
+    }
+
+    # get list of layers of current multiplex network
+    layers <- unique(allEdges$layerNum[allEdges$mxNum == mxN])
+
+    # loop through the layers
+    for (layerN in layers) {
+      # get edges from current layer
+      edgesLayer <-
+        allEdges[allEdges$layerNum == layerN & allEdges$mxNum == mxN, ]
+
+      # get node type of current layer
+      nodeType <-
+        unique(
+          allNodes$nodeType[
+            allNodes$node %in% rbind(edgesLayer$source, edgesLayer$target)
+          ]
+        )
+
+      # get nodes from current multiplex
+      nodesMx <- allNodes$numericId[allNodes$nodeType == nodeType]
+
+      # add artificial self-loops to each node so that they are retrievable
+      # by the random walk
+      edgesLayerNum <-
+        edgesLayer[, c("sourceNum", "targetNum")] %>%
+        rbind(data.frame(sourceNum = nodesMx, targetNum = nodesMx))
+
+      # save layer (only numeric source and target)
+      write.table(
+        edgesLayerNum,
+        paste0(dirPath, unique(edgesLayer$interaction), ".tsv"),
+        sep = "\t",
+        quote = FALSE,
+        row.names = FALSE,
+        col.names = FALSE
+        )
+    }
+  }
+
+  # -- bipartite interactions
+  # get list of multiplex networks
+  bp <- unique(allEdges$bipartiteNum)
+
+  # loop through all the multiplex networks
+  for (bpN in bp[bp > 0]) {
+    # set folder's path
+    dirPath <-
+      paste0(inputData$resPath, "multiXrankFolder/bipartite/")
+
+    # create folder, if needed
+    if (dir.exists(dirPath) == FALSE) {
+      dir.create(dirPath, recursive = TRUE)
+    }
+
+    # get list of edges from current bipartite network
+    edgesBip <- allEdges[allEdges$bipartiteNum == bpN, ]
+
+    # save bipartite interactions
+    write.table(
+      edgesBip[, c("sourceNum", "targetNum")],
+      paste0(
+        dirPath,
+        unique(edgesBip$mx1),
+        "_",
+        unique(edgesBip$mx2),
+        ".tsv"
+        ),
+      sep = "\t",
+      quote = FALSE,
+      row.names = FALSE,
+      col.names = FALSE
+    )
+  }
+
+  # check whether the network is to be visualized
   if (visualize == TRUE) {
     # get inter-layer edges
     inter <- allEdges[allEdges[[3]] == "InterLayer", ]
@@ -774,18 +1113,41 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
 
 
 # Function to get the list of edges in a multi-layer network
-# INPUT: multi-layer network
+# INPUTS:
+#   multiLayer - multi-layer network
+#   allNodes   - data frame containing all nodes (as returned by getNodeList)
 # OUTPUT: list of edges, including inter-layer ones
-getEdgeList <- function(multiLayer) {
+getEdgeList <- function(multiLayer, allNodes) {
   allEdges <-
     data.frame(
-      source = character(),
-      target = character(),
-      interaction = character()
+      source       = character(),
+      target       = character(),
+      interaction  = character(),
+      sourceNum    = numeric(),
+      targetNum    = numeric(),
+      layerNum     = numeric(),
+      mxNum        = numeric(),
+      bipartiteNum = numeric(),
+      mx1          = numeric(),
+      mx2          = numeric()
       )
 
   # get edge list of all the networks and paste it in a single data frame
   for (i in seq_len(length(multiLayer$layers))) {
+    # initialize variables
+    if (i == 1) {
+      currentType <- multiLayer$type[i]
+      layerNum <- 1
+      mxNum <- 1
+    } else {
+      if (multiLayer$type[i] == currentType) {
+        layerNum <- layerNum + 1
+      } else {
+        currentType <- multiLayer$type[i]
+        layerNum <- 1
+        mxNum <- mxNum + 1
+      }
+    }
 
     # get edge list
     edges <- igraph::as_edgelist(multiLayer$layers[[i]])
@@ -801,21 +1163,81 @@ getEdgeList <- function(multiLayer) {
             source = edges[, 1],
             target = edges[, 2],
             interaction =
-              paste(multiLayer$type[i], names(multiLayer$layers)[i], sep = "_")
+              paste(multiLayer$type[i], names(multiLayer$layers)[i], sep = "_"),
+            sourceNum =
+              sapply(
+                edges[, 1],
+                function(X) {
+                  allNodes$numericId[allNodes$node == X]
+                  }
+                ),
+            targetNum =
+              sapply(
+                edges[, 2],
+                function(X) {
+                  allNodes$numericId[allNodes$node == X]
+                }
+              ),
+            layerNum = rep(layerNum, nrow(edges)),
+            mxNum = rep(mxNum, nrow(edges)),
+            bipartiteNum = rep(0, nrow(edges)),
+            mx1 = rep(0, nrow(edges)),
+            mx2 = rep(0, nrow(edges))
           )
         )
     }
   }
 
-  # add inter-layer edges
+  # get numeric ID of target node. NOTE. This can be NULL if the corresponding
+  # node was removed from the network because it is a side compound
+  targetNum <-
+    sapply(
+      multiLayer$interLayerEdges[, 2],
+      function(X) {
+        compounds <- read.csv(inputData$metF, sep = "\t")
+
+        if (any(allNodes$node == X)) {
+          allNodes$numericId[allNodes$node == X]
+        }
+      }
+    )
+
+  # replace NULL values with NAs to be able to keep them after unlisting
+  targetNum[sapply(targetNum, is.null)] <- NA
+
+  # create data frame with inter-layer edges
+  interLayerE <-
+    data.frame(
+      source       = multiLayer$interLayerEdges[, 1],
+      target       = multiLayer$interLayerEdges[, 2],
+      interaction  = rep("InterLayer", nrow(multiLayer$interLayerEdges)),
+      sourceNum    =
+        sapply(
+          multiLayer$interLayerEdges[, 1],
+          function(X) {
+            allNodes$numericId[allNodes$node == X]
+          }
+        ),
+      targetNum    = unlist(targetNum),
+      # layer and multiplex numbers are 0 for the inter-layer edges
+      layerNum     = rep(0, nrow(multiLayer$interLayerEdges)),
+      mxNum        = rep(0, nrow(multiLayer$interLayerEdges)),
+      bipartiteNum = multiLayer$interLayerEdges$bipN,
+      mx1          = multiLayer$interLayerEdges$mx1,
+      mx2          = multiLayer$interLayerEdges$mx2
+    )
+
+  # remove inter-layer edges that include a side compound, i.e., NAs
+  if (any(is.na(interLayerE$targetNum))) {
+    interLayerE <- interLayerE[-which(is.na(interLayerE$targetNum)), ]
+  }
+
+
+  # add remaining inter-layer edges to the list
   allEdges <-
     rbind(
       allEdges,
-      data.frame(
-        source = multiLayer$interLayerEdges[, 1],
-        target = multiLayer$interLayerEdges[, 2],
-        interaction = "InterLayer"
-      )
+      interLayerE
     )
 
   return(allEdges)
@@ -833,6 +1255,7 @@ getNodeList <- function(multiLayer) {
   # initialize empty variables
   nodes <- list()
   nodeType <- list()
+  numericId <- list()
 
   # loop through the types of layers
   for (t in type) {
@@ -847,18 +1270,23 @@ getNodeList <- function(multiLayer) {
           )
         )
 
+    # add numeric id
+    numericId <- c(numericId, seq_len(length(n)) + length(nodes))
+
     # add nodes to the list
     nodes <- c(nodes, n)
 
     # add node type
     nodeType <- c(nodeType, rep(t, length(n)))
+
   }
 
   # create data frame
   allNodes <-
     data.frame(
       node = unlist(nodes),
-      nodeType = unlist(nodeType)
+      nodeType = unlist(nodeType),
+      numericId = unlist(numericId)
     )
 
   return(allNodes)
@@ -1059,3 +1487,5 @@ getColorTable <- function(nodeTypes, edgeTypes, fixedColors) {
 
   return(colors)
 }
+
+

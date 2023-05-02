@@ -1,7 +1,7 @@
 ---
 title: "MultiLayer"
 author: "Elva Novoa"
-date: '2022-06-08'
+date: '2022-09-07'
 output: pdf_document
 ---
 
@@ -74,7 +74,7 @@ The first step in this workflow is to load the input data, using the
     features that were identified and that have a CHEBI id associated. The
     header of this file must match the aliases from the configuration file
     (configF)
-11. `compF`. Path to the file that contains the list of compounds in the GSMN
+11. `metF`. Path to the file that contains the list of compounds in the GSMN
     of the organism of interest. They must contain at least two columns: ID 
     and Chebi. An example can be found in
     extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
@@ -131,12 +131,14 @@ inputData <-
           ), 
         package = "MetClassNetR"
         ),
-    compF = 
+    metF = 
       system.file(
-        paste0(path, "Metabolomics2NetworksData/WormJamMet.tsv"), 
+        paste0(path, "Metabolomics2NetworksData/WormJamMet_2019.tsv"), 
         package = "MetClassNetR"
         ), 
-    spectraSS = 50
+    spectraSS = 50,
+    fixSpectra = TRUE,
+    cleanMetF = FALSE
     ) 
 
 ```
@@ -241,8 +243,9 @@ mapMetToGSMN(inputData, resFile)
 Finally, we are ready to finish building the multi-layer network, joining the 
 experimental networks with the GSMN, thanks to the mappings we just obtained. 
 To this end, we call the `makeMultiLayer` function with the `inputData` object,
-the experimental networks (stored in `expNetworks`), and the name of the file 
-that contains the mappings. 
+the experimental networks (stored in `expNetworks`), and the path to the folder 
+that contains the mappings, which is called `GMSNMappings`, and it is located
+inside `inpuData$resPath`. 
 
 In order to visualize and/or save the multi-layer network as two files: one
 containing the list of edges and another one with the list of nodes, we call 
@@ -253,9 +256,9 @@ Please be aware that Cytoscape should be open if `visualize == TRUE`.
 
 
 ```{r multiLayer}
-mappingF <- paste0(inputData$resPath, resFile)
+pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
 
-multiLayer <- makeMultiLayer(inputData, expNetworks, mappingF)
+multiLayer <- makeMultiLayer(inputData, expNetworks, pathToMappings)
 
 writeMultiLayer(inputData, multiLayer, visualize = FALSE)
 ```
