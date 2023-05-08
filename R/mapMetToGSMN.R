@@ -22,7 +22,7 @@
 #' @return
 #' Data frame with the mappings and ontology-based distances.
 #'
-#' @author Sarah Scharfenberg
+#' @author Elva Novoa, Sarah Scharfenberg
 #'
 #' @export
 mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Res_Met2Net_MappedMet.txt", ...) {
@@ -30,7 +30,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
   if(method=="metabolomics2network"){
 
     ## call function
-    mapMetToGSMN_metabolomics2network(inputData, resFile)
+    .mapMetToGSMN_metabolomics2network(inputData, resFile)
   }
 
   # if(method=="molecularFormula"){
@@ -92,7 +92,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 # mapped.
 
 
-#' @name mapMetToGSMN_metabolomics2network
+#' @name .mapMetToGSMN_metabolomics2network
 #'
 #' @aliases mapMetToGSMN_metabolomics2network
 #'
@@ -115,7 +115,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 #' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
 #'
-mapMetToGSMN_metabolomics2network <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
+.mapMetToGSMN_metabolomics2network <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
     pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
     dir.create(pathToMappings)
