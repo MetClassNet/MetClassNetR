@@ -99,7 +99,7 @@ M_5hoxindoa	(5-hydroxyindol-3-yl)acetic acid	C10H9NO3	CHEBI:27823	191.058243148
 M_5HPET	5(S)-HPETE	C20H32O4	CHEBI:15632	336.230059504
 M_5htrp	5-hydroxytryptophan	C11H12N2O3	CHEBI:28171	220.084792244
 M_5mdr1p	S-methyl-5-thio-alpha-D-ribose 1-phosphate	C6H13O7PS	CHEBI:27859	260.011960386
-M_5mdru1p	S-methyl-5-thio-D-ribulose 1-phosphate	CHEBI:28096	CHEBI:28096	150.921603432
+M_5mdru1p	S-methyl-5-thio-D-ribulose 1-phosphate	C6H11O7PS	CHEBI:28096	150.921603432
 M_5mta	5'-S-methyl-5'-thioadenosine	C11H15N5O3S	CHEBI:17509	297.08956034
 M_5mthf	5-methyltetrahydrofolic acid	C20H25N7O6	CHEBI:15641	459.18663152
 M_5oxpro	5-oxoproline	C5H7NO3	CHEBI:16010	129.042593084
@@ -1111,7 +1111,7 @@ M_lpglyc	1-acyl-sn-glycero-3-phosphoglycerol	C7H14O9PR	CHEBI:62747
 M_mar	Maradolipid	C14H20O13R2	CHEBI:139545	
 M_mlclpn	1-monolysocardiolipin	C12H19O16P2R3	CHEBI:65106	
 M_naglc2p	N-acetyl-D-glucosaminyldiphosphodolichol	C28H51NO12P2(C5H8)n	CHEBI:18278	
-M_nmp	nucleoside monophosphate	CHEBI:17188	CHEBI:17188	
+M_nmp	nucleoside monophosphate	C5H10O7PR	CHEBI:17188	
 M_retest	all-trans-retinyl ester	C21H29O2R	CHEBI:63410	
 M_sphmyln	Sphingomyelin	C24H49N2O6PR	CHEBI:64583	
 M_urate	uric acid	C5H4N4O3	CHEBI:27226	

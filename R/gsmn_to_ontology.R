@@ -48,7 +48,6 @@
 #' delay=10 meaning that the script will wait 10 seconds after each request.
 #' The result will take much longer but will finish in the end.
 #'
-#' @note
 #'
 #' @return A csv file giving the most detailed classification per compound.
 #'

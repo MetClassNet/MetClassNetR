@@ -183,6 +183,7 @@ qfeat_statistical <- function(x, assay_name = "features",
 #' @import
 #' `MetNet`
 #' `QFeatures`
+#' `dplyr`
 #'
 #' @details
 #' `qfeat_structural` extracts required information from a `QFeatures` input
@@ -193,20 +194,8 @@ qfeat_statistical <- function(x, assay_name = "features",
 #'  https://cran.r-project.org/web/packages/nontarget/index.html
 #'
 #'  @return
-#'  `list` of type homol with 6 entries. First entry contains dataframe
-#'  with peaks (mass,intensity,rt,peak ID) and their homologue
-#'  series relations (to ID,m/z increment,RT increment) within different
-#'  homologue series (HS IDs,series level). Last column HS cluster states
-#'  HS clusters into which a peak was assigned via its HS. Second entry
-#'  contains the parameters used.
-#'  The third list entry is a Dataframe listing all peaks (peak IDs) per
-#'  homologue series (HS IDs), the underlying mean m/z & RT increments
-#'  (m/z increments, RT increments) and the minimum and maximum RT changes
-#'  between individual peaks of the series. The 4th entry stores used
-#'  m/z restrictions. List of peak IDs per level in the individual series
-#'  is stores in the 5th entry. The 6th entry contains List with
-#'  superjacent HS IDs per group - for setdeb=c(3,...).
-#'
+#'  `data.frame` edgelist of homologues series with columns "cluster_ID",
+#'  "cluster_ID_to", "HSIDs", "mzincrement", "RTincrement".
 #'
 #'
 #' @author Liesa Salzer,  \email{liesa.salzer@@helmholtz-muenchen.de}
@@ -221,7 +210,7 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
   feat_names <- as.data.frame(rowData(x[[assay_name]]))
 
   ## Extract feature definitions
-  featid <- feat_names$database_identifier
+  #featid <- feat_names$database_identifier
   rt <- feat_names$rtime
   mz <- feat_names$mz
 
@@ -229,8 +218,10 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
 
   ## Use peaklist
   peaklist <- data.frame(mass=mz,
-                         intensity=feat_int[,1],
+                         intensity=feat_int[,2],
                          rt=rt)
+
+  rownames(peaklist) <- rownames(feat_int)
 
   homol <- nontarget::homol.search(peaklist,
                                    isotopes,
@@ -244,14 +235,85 @@ qfeat_homol <- function(x, assay_name = "features", plot = FALSE, ...) {
 
   }
 
-  homol
-  # ## assign rownames to homol
-  # rownames(homol[[1]]) <- rownames(feat_int)
-  #
-  # df <- homol[[1]] |>
-  #   filter(`to ID` != "0") |>
-  #   select (c("peak ID", "to ID", "m/z increment", "RT increment"))
-  #
-  # df %>% separate_rows(`to ID`, `m/z increment`, `RT increment`)
+  # Extract homol series nodelist
+  homol <- homol[[1]]
+
+# add Feature ID
+homol$`cluster_ID` <- row.names(homol)
+
+# select only required col
+homol <- homol %>%
+  select(`peak ID`, `HS IDs`, `to ID`, `m/z increment`, `RT increment`, cluster_ID)
+
+# simplify colnames
+colnames(homol) <- c("peakID",
+                     "HSIDs",
+                     "toID",
+                     "mzincrement",
+                     "RTincrement", "cluster_ID")
+
+
+# create empty df with the same col as homol
+master = data.frame(matrix(nrow = 0,
+                           ncol = length(colnames(homol)))
+)
+
+colnames(master) = colnames(homol)
+
+# df contains only homol series
+# homol is node list of all features
+df <- homol %>% filter(toID != "0")
+
+
+## looping through rows of homol series in order to split the rows and keep
+## only the edges with full information (i.e. information in all columns)
+for (i in 1:nrow(df)) {
+  row <- df[i, ]
+  ## length of the edges with full information (i.e. peaks that have a
+  ## following peak in the homol series = toID )
+  len <- length(
+    strsplit(row$toID, split = "/")[[1]]
+  )
+  ## create temporary df with columns same as homol series and number of rows
+  ## corresponding to len (i.e. numbers of toID )
+  df_i = data.frame(matrix(nrow = len, ncol = length(colnames(row))))
+  colnames(df_i) = colnames(row)
+
+  df_i$peakID <-
+    row$peakID %>% as.numeric()
+
+  df_i$cluster_ID <-
+    row$cluster_ID
+
+  ## keep only the number of HSIDs corresponding to number of toID's (i.e. len)
+  df_i$HSIDs <-
+    strsplit(row$HSIDs, split = "/")[[1]][1:len]%>% as.numeric()
+
+  df_i$toID <-
+    strsplit(row$toID, split = "/")[[1]][1:len]%>% as.numeric()
+
+  df_i$mzincrement <-
+    strsplit(row$mzincrement, split = "/")[[1]][1:len]%>% as.numeric()
+
+  df_i$RTincrement <-
+    strsplit(row$RTincrement, split = "/")[[1]][1:len]%>% as.numeric()
+
+  ## add to master file
+  master <- rbind(master, df_i)
+
+}
+## get feature ID from 'toID' by using the initial homol file and
+## select only required cols
+left_join(master,
+                  homol %>%
+                    select(cluster_ID, peakID)  %>%
+                    dplyr::rename(cluster_ID_to = cluster_ID,
+                                  "toID" = peakID) %>%
+                    distinct(),
+                  by = "toID")  %>%
+  select("cluster_ID", "cluster_ID_to", "HSIDs",
+                "mzincrement", "RTincrement")
+
+
 
 }

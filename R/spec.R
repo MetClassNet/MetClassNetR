@@ -7,7 +7,7 @@ fillSpectra <- function(QFeatures, Spectra) {
   checkSpectra(Spectra)
 
   # switch backends
-  Spectra <- setBackend(Spectra, MsBackendDataFrame())
+  Spectra <- setBackend(Spectra, MsBackendMemory())
 
   ms1_data <- rowData(QFeatures[[1]])
   ms2_data <- spectraData(Spectra, c("id"))
