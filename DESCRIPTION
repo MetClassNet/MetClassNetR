@@ -38,7 +38,8 @@ Imports:
     RCy3,
     readr,
     Spectra,
-    UpSetR
+    UpSetR,
+    stringr
 Suggests:
     BiocStyle (>= 2.5.19),
     dplyr,
@@ -47,7 +48,6 @@ Suggests:
     knitr (>= 1.1.0),
     rmarkdown,
     roxygen2,
-    stringr,
     testthat,
     tidyverse, 
     ggraph, 
