@@ -20,6 +20,7 @@ Authors@R: c(
            )
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data as a network system. 
+BiocViews: MassSpectrometry
 Depends:
     igraph (>= 1.3.0),
     MetNet (>= 1.14.0), 
