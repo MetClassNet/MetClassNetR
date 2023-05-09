@@ -38,10 +38,11 @@ Imports:
     RCy3,
     readr,
     Spectra,
-    UpSetR
+    UpSetR,
+    dplyr,
+    stringr
 Suggests:
     BiocStyle (>= 2.5.19),
-    dplyr,
     ggrepel,
     grid,
     knitr (>= 1.1.0),
