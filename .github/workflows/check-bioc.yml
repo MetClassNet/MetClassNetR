@@ -52,7 +52,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-latest, r: '4.3', bioc: '3.17', cont: "bioconductor/bioconductor_docker:devel", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
+          - { os: ubuntu-latest, r: '4.3', bioc: '3.17', cont: "bioconductor/bioconductor_docker:RELEASE_3_17", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
 
 # Skip other OSes for now
 #          - { os: macOS-latest, r: '4.3', bioc: '3.18'}
@@ -60,8 +60,8 @@ jobs:
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
-#      NOT_CRAN: true
-      NOT_CRAN: false
+      NOT_CRAN: true
+#      NOT_CRAN: false
       TZ: UTC
       VDIFFR_RUN_TESTS: false
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
