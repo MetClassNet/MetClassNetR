@@ -504,60 +504,6 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
 }
 
 # mapMetToGSMN was moved to mapMetToGSMN.R
-# moved by Sarah Scharfenberg
-#
-
-
-pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
-  dir.create(pathToMappings)
-
-  # generate command line to execute metabolites2Network
-  com <-
-    paste0(
-      "python3 ",
-      inputData$met2NetDir,
-      "metabolomics2network.py",  # Python package file
-      " tsv ",                    # file_type
-      inputData$idenMetF,         # metabolomics_path
-      " ",
-      inputData$metF,            # network_metabolites_path
-      " ",
-      pathToMappings,          # output_path
-      resFile,
-      " ",
-      inputData$configF,          # conf_file_path
-      " 1,2"                        # mapping_types, 1: exact multimapping, 2: chebi class mapping
-
-      )
-  }
-
-  # save original mappings with a different name
-  write.table(
-    mapRes,
-    paste0(
-      pathToMappings,
-      gsub("[.].{3}$", "", resFile),
-      "_OriginalRawMappings.txt"
-    ),
-    row.names = FALSE,
-    quote = FALSE,
-    sep = "\t"
-  )
-
-  # save multi-mappings in the original final
-  write.table(
-    multiMappings,
-    paste0(pathToMappings, resFile),
-    row.names = FALSE,
-    quote = FALSE,
-    sep = "\t"
-  )
-
-  # process the mappings to clean the results
-  processMappings(identMetF = inputData$idenMetF, pathToMappings, resFile)
-
-  return()
-}
 
 
 # Function to process the mapping data to clean it, i.e., remove empty

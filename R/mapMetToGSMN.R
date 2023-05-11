@@ -40,26 +40,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
   #   mapMetToGSMN_molecularFormula()
   # }
   #
-  # if(method=="accurateMass"){
-  #
-  #   ## check parameter
-  #   ## call function
-  #
-  #   ## Michael add code here
-  #   mapMetToGSMN_accurateMass()
-  # }
-  #
-  # if(method=="class"){
-  #
-  #   ## check parameter
-  #     ## obo
-  #     ## take metabolites form input or input full list?
-  #
-  #   ## call function
-  #     ## one per chebi and chemont??
-  #     ## update this in documentation above
-  #   mapMetToGSMN_class()
-  # }
+
 }
 
 
