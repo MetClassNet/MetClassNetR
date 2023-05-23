@@ -95,6 +95,7 @@
 #' # See the MultiLayerNetwork vignette
 #'
 #' @export
+
 loadInputData <- function(peakListF, intCol = 23, transF = NULL,
   spectraF = NULL, gsmnF, spectraSS = NULL, resPath, met2NetDir, configF,
   idenMetF, metF, cleanMetF = TRUE) {
@@ -118,6 +119,7 @@ loadInputData <- function(peakListF, intCol = 23, transF = NULL,
 
   # read peak list (as tibble)
   data <- readr::read_tsv(peakListF)
+
 
   # keep only identified metabolites
   identifiedMet <-
@@ -501,65 +503,7 @@ buildCorrNet <- function(inputData, directed, corrModel, corrThresh) {
   return(net)
 }
 
-
-#' @name mapMetToGSMN
-#'
-#' @aliases mapMetToGSMN
-#'
-#' @title Map the experimental nodes to GSMN nodes
-#'
-#' @description
-#' Function to map the identified experimental nodes to the
-#' corresponding GSMN nodes, using the CHeBI ontology. This function calls the
-#' Metabolomics2Networks Python package
-#'
-#' @param inputData
-#' `list`, list returned by the `loadInputData` function
-#'
-#' @param resFile
-#' `character`, file name for the resulting mappings file. The default value is
-#' "Res_Met2Net_MappedMet.txt"
-#'
-#' @return
-#' Data frame with the mappings and ontology-based distances.
-#'
-#' @author Elva Novoa, \email{elva-maria.novoa-del-toro@@inrae.fr}
-#'
-#' @examples
-#' # See the MultiLayerNetwork vignette
-#'
-#' @export
-mapMetToGSMN <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
-
-  pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
-  dir.create(pathToMappings)
-
-  # generate command line to execute metabolites2Network
-  com <-
-    paste0(
-      "python3 ",
-      inputData$met2NetDir,
-      "metabolomics2network.py",  # Python package file
-      " tsv ",                    # file_type
-      inputData$idenMetF,         # metabolomics_path
-      " ",
-      inputData$metF,            # network_metabolites_path
-      " ",
-      pathToMappings,          # output_path
-      resFile,
-      " ",
-      inputData$configF,          # conf_file_path
-      " 1,2"                        # mapping_types, 1: exact multimapping, 2: chebi class mapping
-      )
-
-  # execute code
-  system(com)
-
-  # process the mappings to clean the results
-  processMappings(identMetF = inputData$idenMetF, pathToMappings, resFile)
-
-  return()
-}
+# mapMetToGSMN was moved to mapMetToGSMN.R
 
 
 # Function to process the mapping data to clean it, i.e., remove empty
@@ -706,6 +650,7 @@ makeMultiLayer <- function(inputData, expNetworks, pathToMappings) {
   # get list of files in the mapping folder
   mappingFiles <- list.files(pathToMappings)
 
+
   # remove original mappings and mapping files containing all the information
   # (i.e., several extra columns)
   mappingFiles <-
@@ -743,14 +688,18 @@ makeMultiLayer <- function(inputData, expNetworks, pathToMappings) {
       met <- mapping[i, "mapped.on.id"]
       dis <- mapping[i, "distance"]
       chebi <- mapping[i, "chebi"]
+
       msi <- ifelse(any(colnames(mapping) == "MSI"), mapping$MSI[i], -1)
+
 
       # get mapping type from the file name (e.g., ManualAnnotation) or from
       # the table
       mapType <-
         ifelse(
           any(colnames(mapping) == "annotationType"),
+
           mapping$annotationType[i],
+
           gsub(".*_(.*)[.]txt$", "\\1", mapF, perl = TRUE)
           )
 
@@ -860,6 +809,7 @@ calculateMultiLayerStats <- function(multiLayer, inputData) {
 #  name       - name to give to the column where the values of the input data
 #               will be stored
 # OUTPUT: table of frequencies
+
 makeFeqTable <- function(data, decreasing, name, sort = TRUE) {
   if (sort == TRUE) {
     # make table of frequencies
@@ -868,6 +818,7 @@ makeFeqTable <- function(data, decreasing, name, sort = TRUE) {
     # make table of frequencies
     t <- as.data.frame(table(data))
   }
+
 
   # check if the resulting data frame has more than 1 column, which is expected
   if (ncol(t) > 1) {
@@ -1011,10 +962,12 @@ writeMultiLayer <- function(inputData, multiLayer, visualize = FALSE) {
     dirPath <-
       paste0(inputData$resPath, "multiXrankFolder/multiplex/", mxN, "/")
 
+
     # create folder, if needed
     if (dir.exists(dirPath) == FALSE) {
       dir.create(dirPath, recursive = TRUE)
     }
+
 
     # get list of layers of current multiplex network
     layers <- unique(allEdges$layerNum[allEdges$mxNum == mxN])
@@ -1194,6 +1147,7 @@ getEdgeList <- function(multiLayer, allNodes) {
     sapply(
       multiLayer$interLayerEdges[, 2],
       function(X) {
+
         compounds <- read.csv(inputData$metF, sep = "\t")
 
         if (any(allNodes$node == X)) {

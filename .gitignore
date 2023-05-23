@@ -3,6 +3,6 @@
 .RData
 .Ruserdata
 .Rproj
-
-# Editor backup files
-*~
+MetClassNetR.Rproj
+*_classyfireR.db
+data

@@ -5,7 +5,7 @@ date: '2022-09-07'
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(MetClassNetR)
@@ -19,7 +19,7 @@ library(QFeatures)
 
 This vignette generates up to three experimental networks and connects them 
 to a Genome-Scale Metabolic Network (GSMN) using the ChEBI ontology tree 
-(`Metabolomics2Network` Python package). If an exact match if found, the 
+(`Metabolomics2Network` Python package). If an exact match is found, the 
 distance between the metabolites is zero, and it can be higher or lower than 
 zero, depending if the metabolite is mapped to a more general metabolite 
 (parent class) or to a more specific metabolite (child).
@@ -37,6 +37,7 @@ following packages:
 ## Load input data 
 
 The first step in this workflow is to load the input data, using the 
+
 `loadInputData` function, which has up to 11 input parameters:
 
 1.  `peakListF`. Path to the TSV file containing the peak list (one peak per 
@@ -79,6 +80,7 @@ The first step in this workflow is to load the input data, using the
     and Chebi. An example can be found in
     extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMet.tsv
 
+
 The output of the `loadInputData` function is a named list containing all the  
 data (i.e., peakList, spectra, transformations, and gsmn).
 
@@ -109,7 +111,7 @@ inputData <-
       system.file(
         paste0(path, "WormJam-GEM-20190101_L3_no-side_no-comp.gml"), 
         package = "MetClassNetR"
-        ), 
+        ),  
     resPath = "~/MetClassNetR_MultiLayerNetwork/", 
     met2NetDir = 
       paste0(
@@ -147,42 +149,8 @@ inputData <-
 
 The second step is to build up to three experimental networks, based on 
 spectral similarity, correlation, and mass difference. We build
-the experimental networks using the `buildExpNet` function, which has up to 
-7 input parameters:
-
-1. `inputData`. List returned by the `loadInputData` function.
-2. `net2Build`. List of experimental networks to build, according to the 
-   following options: 
-     * *"all"* generates 3 experimental networks: mass difference, correlation,
-       and spectral similarity,
-     * *"m"* builds the mass difference network,
-     * *"s"* builds the spectral similarity network,
-     * *"c"* builds the correlation network.
-   It is to note that combinations of "m", "s", and "c" are possible,
-   writing them separated by commas, e.g., c("m", "c") would generate the mass 
-   difference and correlation networks. The default value is "all".
-3. `directed`. Boolean value (TRUE/FALSE). If TRUE, all the experimental 
-   networks will be directed, and undirected otherwise. The default value is 
-   FALSE (i.e., undirected networks).
-4. `ppmMass`. Allowed error for mass differences calculus. This parameter is 
-   only needed if the mass difference network is to be built. The default value
-   is 10.
-5. `ppmSpec`. Relative allowed error for spectral similarity calculus. This
-   parameters is only needed if the spectral similarity network is to be built. 
-   The default value is 0.
-6. `tol`. Absolute tolerance for spectral similarity calculus. This parameter 
-   is only needed if the spectral similarity network is to be built. The  
-   default value is 0.005. 
-7. `corrModel`. Character vector containing the model(s) to be used for the 
-   correlation calculus. There are 11 models available: "lasso", "randomForest", 
-   "clr", "aracne", "pearson", "pearson_partial", "pearson_semipartial", 
-   "spearman", "spearman_partial", "spearman_semipartial", and "bayes". This 
-   parameter is only needed if the correlation network is to be built. The 
-   default value is "pearson_partial".
-8. `corrThresh`. Floating point number indicating the correlation threshold to 
-   consider that two features are correlated. It is only needed if the 
-   correlation network is to be built. The default value is 0.25 (i.e., at 
-   least 25% of correlation between the abundance values).
+the experimental networks using the `buildExpNet` function. This will
+take some minutes depending on your system.
 
 The output of the `buildExpNet` function is a list of experimental networks as 
 igraph objects.
@@ -211,33 +179,14 @@ metabolites in the GSMN, using the ChEBI id of such features. Notably, although
 it is possible to do exact matching and potentially have a low covering (i.e., 
 to have very few matches since not all the metabolites participate in known
 chemical reactions of a GSMN), we could also use ontologies (such as ChEBI) and 
-maximize the covering. The Python tool `Metabolomics2Network` (see 
-https://forgemia.inra.fr/metexplore/metabolomics2network) uses the ChEBI 
-ontology to localize a ChEBI id from the list of identified compounds, and it 
-gives as result the ChEBI id of the nearest metabolite that is present in the 
-GSMN, as well as the distance between them. 
-In order to run `Metabolomics2Network`, we need to call the 
-`mapMetToGSMN` function and pass the `inputData` object as input
-parameter. We can also choose the name of the resulting mappings file 
-(`resFile`), which per default is "Res_Met2Net_MappedMet.txt". 
-Such restulting file contains 12 columns, but we will focus on the first 5:
-1. `metabolite name`. Name of our metabolites, as defined in the list of 
-identified metabolites (`id` column from the file 
-`IdentifiedMet_MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling_v2_maf.tsv`)
-2. `mapped on id`. Id of the node from the GSMN to which the metabolite was 
-mapped (`ID` column from the file `WormJamMet.tsv`). 
-3. `mapping type`. Either `exact multimapping` or `chebi class mapping`, 
-depending on which type we selected when running `Metabolomics2Network`. Per 
-default, it is `chebi class mapping`.
-4. `distance`. Distance in the ontology between the original metabolite and the 
-metabolite to which it was mapped.
-5. `chebi`. ChEBI id of the metabolite to which the original metabolite was
-mapped.
+maximize the covering. 
 
 ```{r mapping}
+
+## Metabolomics2Network
 resFile <- "Res_Met2Net_MappedMet.txt"
 
-mapMetToGSMN(inputData, resFile)
+mapMetToGSMN(inputData, resFile, method="metabolomics2network")
 ```
 
 Finally, we are ready to finish building the multi-layer network, joining the 
@@ -275,5 +224,9 @@ in `inputData`.
 
 ```{r multiLayerStats}
 calculateMultiLayerStats(multiLayer, inputData)
+```
+
+```{r}
+sessionInfo()
 ```
 
