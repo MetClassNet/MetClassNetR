@@ -597,6 +597,9 @@ processMappings <- function(identMetF, pathToMappings, resFile) {
     quote = FALSE,
     sep = "\t"
   )
+  print(paste0("Original mappings saved to ",pathToMappings,
+    gsub("[.].{3}$", "", resFile),
+    "_OriginalRawMappings.txt"))
 
   # save multi-mappings in the original final
   write.table(
@@ -606,6 +609,7 @@ processMappings <- function(identMetF, pathToMappings, resFile) {
     quote = FALSE,
     sep = "\t"
   )
+  print(paste0("Multimappings saved to ",pathToMappings, resFile))
 
   return()
 }
