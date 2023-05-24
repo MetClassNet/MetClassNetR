@@ -16,7 +16,11 @@ Authors@R: c(
            person(given = "Elva Maria", family = "Novoa-del-Toro",
            email = "elva-maria.novoa-del-toro@inrae.fr",
            role = "aut",
-           comment = c(ORCID = "0000-0002-6135-5839"))
+           comment = c(ORCID = "0000-0002-6135-5839")),
+           person(given = "Sarah", family = "Scharfenberg",
+           email = "sscharfe@ipb-halle.de",
+           role = "ctb",
+           comment = c(ORCID = "0000-0001-9616-3493"))
            )
 Maintainer: Steffen Neumann <sneumann@ipb-halle.de>
 Description: MetClassNetR collects a tool set for integrating metabolomics data as a network system. 
