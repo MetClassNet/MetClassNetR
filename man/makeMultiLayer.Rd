@@ -4,7 +4,7 @@
 \alias{makeMultiLayer}
 \title{Make a multi-layer network}
 \usage{
-makeMultiLayer(inputData, expNetworks, mappingF)
+makeMultiLayer(inputData, expNetworks, pathToMappings)
 }
 \arguments{
 \item{inputData}{\code{list}, list returned by the \code{loadInputData} function}

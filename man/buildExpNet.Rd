@@ -12,7 +12,8 @@ buildExpNet(
   ppmSpec = 0,
   tol = 0.005,
   corrModel = "pearson",
-  corrThresh = 0.25
+  corrThresh = 0.25,
+  specSimThresh = 0.7
 )
 }
 \arguments{
@@ -58,6 +59,11 @@ threshold to consider that two features are correlated. It is only needed if
 the correlation network is to be built. The default value is 0.25 (i.e., at
 least 25\% of correlation between the abundance values, either positive or
 negative)}
+
+\item{specSimThresh}{\code{numeric}, (optional) floating point number indicating the spectral
+similarity threshold to consider that two features have similar spectra. It
+is only needed if the spectral similarity network is to be built. The
+default value is 0.7}
 }
 \value{
 List of experimental networks as igraph objects
