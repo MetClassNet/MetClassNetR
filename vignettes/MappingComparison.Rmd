@@ -7,6 +7,16 @@ output:
     toc: true
     theme: united
 ---
+```{r setup, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(MetClassNetR)
+library(MsCoreUtils)
+library(tidyverse)
+library(dplyr)
+library(QFeatures)
+```
+
 
 ## Overview
 
@@ -67,7 +77,6 @@ inputData <-
         paste0(path, "Metabolomics2NetworksData/WormJamMetWithMasses.tsv"), 
         package = "MetClassNetR"
         ), 
-    spectraSS = 50,
     cleanMetF = FALSE
     ) 
 
@@ -75,6 +84,14 @@ inputData <-
 
 
 ## Metabolomics2network
+
+```{r mapping}
+
+## Metabolomics2Network
+resFile <- "Res_Met2Net_MappedMet.txt"
+
+mapMetToGSMN(inputData, resFile, method="metabolomics2network")
+```
 
 ## Map by ID
 
