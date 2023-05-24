@@ -98,6 +98,13 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 .mapMetToGSMN_metabolomics2network <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
+    ## checks
+    if(inputData$met2NetDir==""){print("met2NetDir is empty");return()}
+    if(inputData$metF==""){print("metF is empty");return()}
+    if(inputData$resPath==""){print("resPath is empty");return()}
+    if(resFile==""){print("resFile is empty");return()}
+    if(inputData$configF==""){print("configF is empty");return()}
+
     pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
     dir.create(pathToMappings)
 

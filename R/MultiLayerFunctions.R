@@ -104,6 +104,10 @@ loadInputData <- function(peakListF, intCol = 23, transF = NULL,
   data <- read.table(peakListF, sep = "\t", header = TRUE, quote = "")
   rownames(data) <- data$id
 
+  # accordingt to readMaf
+  colnames(data)[colnames(data) == "mass_to_charge"] <- "mz"
+  colnames(data)[colnames(data) == "retention_time"] <- "rtime"
+
   # check column position of the first intensity values
   if(length(intCol) == 1) {
     if (is.na(intCol)) {
