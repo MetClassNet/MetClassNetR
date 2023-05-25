@@ -40,6 +40,7 @@ env:
   has_RUnit: 'false'
   has_BiocCheck: 'false'
   cache-version: 'cache-v1'
+  RSPM_ROOT: 'https://packagemanager.posit.co'
 
 jobs:
   build-check:
