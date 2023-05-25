@@ -24,6 +24,9 @@ This vignette aims to compare different mapping strategies included in the packa
 For a description how to generate a multilayer network see vignette MultiLayerNetwork.
 
 ## Preparation
+
+For this Vignettes we use data from MTBLS1586.
+
 ```{r loadData}
 # load("../VariablesFromVignette.RData")
 path <- "extdata/MTBLS1586/"
@@ -87,12 +90,15 @@ inputData <-
 
 ```{r mapping}
 
-## Metabolomics2Network
 resFile <- "Res_Met2Net_MappedMet.txt"
-
 mapMetToGSMN(inputData, resFile, method="metabolomics2network")
 ```
 
 ## Map by ID
+```{r mapping}
+mapMetToGSMN(inputData, method="id_inchikey")
+
+```
+
 
 ## Map by class
