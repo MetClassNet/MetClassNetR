@@ -39,7 +39,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 
 
     ## call function
-    .mapMetToGSMN_inchikey()
+    .mapMetToGSMN_inchikey(inputData)
   }
 
 
@@ -154,7 +154,8 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #' @return
 #'
 #' @author Sarah Scharfenberg
-.mapMetToGSMN_inchikey(inputData){
+#'
+.mapMetToGSMN_inchikey <- function(inputData){
 
   # get metadata from QFeatures object
   metadata <- rowData(inputData$peakList[[1]])
