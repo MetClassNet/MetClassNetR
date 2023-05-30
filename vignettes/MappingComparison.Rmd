@@ -96,9 +96,13 @@ mapMetToGSMN(inputData, resFile, method="metabolomics2network")
 
 ## Map by ID
 ```{r mapping}
+inputData <- annotate_chemical_properties(inputData)
 mapMetToGSMN(inputData, method="id_inchikey")
 
 ```
 
 
 ## Map by class
+
+
+

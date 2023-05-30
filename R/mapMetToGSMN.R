@@ -160,10 +160,76 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
   # get metadata from QFeatures object
   metadata <- rowData(inputData$peakList[[1]])
 
-  ## metadata$database_identifier
-  ## annotierte chebi ID
+  if(sum(!is.na(metadata$inchi))==0){
+    print("No InChIKeys annotated. Please add InChIKeys to your metadata or
+          try annotate_chemical_properties() before calling again.")
+  }
 
-  if(sum(!is.na(metadata$inchi))==0){ print("No inchis annotated."); return()}
+
+}
 
 
+
+#' @name annotate_chemical_properties
+#'
+#' @title Function to annotate InputData with chemical properties.
+#'
+#' @description This function retrieves chemical properties such as SMILES, InChI and InChIKey
+#' from ChEBI using the package webchem. Notice that there are ChEBI entries which have SMILES but
+#' no InChI/InChIKey annotated because of the possibility to represent variable ends with an *
+#' in SMILES but not in InChI/InChIKey.
+#'
+#' @param InputData QFeatures experiment
+#'
+#' @return QFeatures experiment similar to input and with chemical properties added to peakList RowData
+#'
+#' @author Sarah Scharfenberg
+#'
+#' @export
+
+annotate_chemical_properties <- function(inputData){
+
+  metadata <- rowData(inputData$peakList[[1]])
+
+  if(sum(!is.na(metadata$database_identifier))==0){
+    print("No database_identifier found to retrieve InChIKey from.")
+    return()
+  }else{
+    print("Trying to use database_identifier to retrieve InChIKeys from ChEBI.")
+
+   any_database_id <- metadata$database_identifier[metadata$database_identifier!=""][1]
+   if(!grepl("CHEBI:", any_database_id)){
+     print("database_identifyer does not contain ChEBI IDs")
+     return()
+   }else{
+    print("Found ChEBI IDs in database_identifier.")
+
+    all_entities <- webchem::chebi_comp_entity(metadata$database_identifier[metadata$database_identifier!=""])
+
+    all_inchikey <- sapply(metadata$database_identifier, function(id){ return(all_entities[[id]]$properties$inchikey)})
+    ## if there is no chebi id, the call will return NA, if there is a chebi id but no inchi annotated the call will return null
+    ## both are reported as empty strings in the result
+    all_inchikey <- lapply(all_inchikey,function(inchikey){if(is.null(inchikey)){return("")}else{return(inchikey)}})
+    all_inchikey <- lapply(all_inchikey,function(inchikey){if(is.na(inchikey)){return("")}else{return(inchikey)}})
+    all_inchikey <- unlist(all_inchikey)
+
+    all_inchi <- sapply(metadata$database_identifier, function(id){ return(all_entities[[id]]$properties$inchi)})
+    all_inchi <- lapply(all_inchi,function(inchi){if(is.null(inchi)){return("")}else{return(inchi)}})
+    all_inchi <- lapply(all_inchi,function(inchi){if(is.na(inchi)){return("")}else{return(inchi)}})
+    all_inchi <- unlist(all_inchi)
+
+    all_smiles <- sapply(metadata$database_identifier, function(id){ return(all_entities[[id]]$properties$smiles)})
+    all_smiles <- lapply(all_smiles,function(smiles){if(is.null(smiles)){return("")}else{return(smiles)}})
+    all_smiles <- lapply(all_smiles,function(smiles){if(is.na(smiles)){return("")}else{return(smiles)}})
+    all_smiles <- unlist(all_smiles)
+
+    dF <- DataFrame(inchi = all_inchi,
+                    inchikey = all_inchikey,
+                    smiles = all_smiles)
+
+    rowData(inputData$peakList) <- List(features = dF)
+       }
+  }
+
+    return(inputData)
 }
