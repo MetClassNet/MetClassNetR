@@ -35,9 +35,6 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 
   if(method=="id_inchikey"){
 
-    ## check parameter
-
-
     ## call function
     .mapMetToGSMN_inchikey(inputData)
   }
@@ -157,13 +154,38 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 .mapMetToGSMN_inchikey <- function(inputData){
 
-  # get metadata from QFeatures object
+  ## get metadata from QFeatures object
   metadata <- rowData(inputData$peakList[[1]])
 
   if(sum(!is.na(metadata$inchi))==0){
-    print("No InChIKeys annotated. Please add InChIKeys to your metadata or
-          try annotate_chemical_properties() before calling again.")
+    print(paste0("No InChIKeys annotated. Please add InChIKeys to your metadata or",
+          " try annotate_chemical_properties() before calling again."))
+    return()
   }
+
+  ## get inchikeys from igraph object of the GSMN
+  gsmn_data <- read.table(inputData$metF, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
+  n <- length(unique(gsmn_data$Chebi))
+
+  gsmn_metadata <- sapply(unique(gsmn_data$Chebi[1:15]), function(chebi_id){
+    prop <- webchem::chebi_comp_entity(chebi_id)[[1]]$properties
+    return(c(chebi_id,prop$inchi,prop$inchikey,prop$smiles))
+    })
+  gsmn_metadata <- t(gsmn_metadata)
+  colnames(gsmn_metadata) <- c("chebiid","inchi","inchikey","smiles")
+  write.table(gsmn_metadata,
+              file=paste0(pathToMappings,"GSMN_properties.tsv"),
+              row.names = FALSE,
+              col.names = TRUE,
+              sep=";")
+
+  ## map per inchikey
+
+
+  ## write results in mapping file
+ # <- c("metabolite.name","mapped.on.id","mapping.types","distance","chebi","originalChebi"
+#                   Cluster_0497	M_eicostet	chebi class mapping	-2	['82835']	CHEBI:132539
+
 
 
 }
