@@ -4,7 +4,7 @@
 \alias{.mapMetToGSMN_inchikey}
 \title{Map features to metabolites if the InChIKey is the same.}
 \usage{
-.mapMetToGSMN_inchikey(inputData)
+.mapMetToGSMN_inchikey(inputData, gsmnMetaFile = NULL)
 }
 \arguments{
 \item{inputData}{\code{list}, list returned by the \code{loadInputData} function}
