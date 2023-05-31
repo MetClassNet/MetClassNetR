@@ -152,34 +152,40 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 #' @author Sarah Scharfenberg
 #'
-.mapMetToGSMN_inchikey <- function(inputData){
+.mapMetToGSMN_inchikey <- function(inputData, gsmnMetaFile=NULL){
 
-  ## get metadata from QFeatures object
+  ## get inchikeys from QFeatures object
   metadata <- rowData(inputData$peakList[[1]])
 
   if(sum(!is.na(metadata$inchi))==0){
-    print(paste0("No InChIKeys annotated. Please add InChIKeys to your metadata or",
+    print(paste0("No InChIKeys annotated to the experiment. Please add InChIKeys to your metadata or",
           " try annotate_chemical_properties() before calling again."))
     return()
+  }else{
+    data_IK <- cbind(metadata$id,metadata$inchi)
   }
 
-  ## get inchikeys from igraph object of the GSMN
-  gsmn_data <- read.table(inputData$metF, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
-  n <- length(unique(gsmn_data$Chebi))
+  ## get inchis from gsmn
+  if(is.null(gsmnMetaFile)){
 
-  gsmn_metadata <- sapply(unique(gsmn_data$Chebi[1:15]), function(chebi_id){
-    prop <- webchem::chebi_comp_entity(chebi_id)[[1]]$properties
-    return(c(chebi_id,prop$inchi,prop$inchikey,prop$smiles))
-    })
-  gsmn_metadata <- t(gsmn_metadata)
-  colnames(gsmn_metadata) <- c("chebiid","inchi","inchikey","smiles")
-  write.table(gsmn_metadata,
-              file=paste0(pathToMappings,"GSMN_properties.tsv"),
-              row.names = FALSE,
-              col.names = TRUE,
-              sep=";")
+    gsmn_data <- read.table(inputData$metF, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
+    if(any(grepl("inchi",names(gsmn_data), ignore.case = TRUE))){
+      print(paste0("No InChIKeys annotated to the GSMN. Please add InChIKeys to your metadata or",
+                   "provide the information in a separate file. To retrieve chemical properties based on ChEBI Ids",
+                   " use getChemicalPropertiesFromChebi() to create such a file."))
+      return()
+    }else{
+      ikCol <- which(grepl("inchi",names(gsmn_data), ignore.case = TRUE))
+      gsmn_IK <- cbind(gsmn_data$ID,gsmn_data[,ikCol])
+    }
+  }else{
+    gsmn_data <- read.table(gsmnMetaFile, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
+    gsmn_IK <- cbind(gsmn_data$ID,gsmn_data[,ikCol])
 
-  ## map per inchikey
+  }
+
+
+  ## compare per inchikey
 
 
   ## write results in mapping file
@@ -191,8 +197,38 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 }
 
 
+#' @name getChemicalPropertiesFromChebi
+#'
+#' @title Function to retrieve chemical properties such as InChIKey, Smiles
+#' from a GSMN file containing ChEBI Ids.
+#'
+#' @export
+getChemicalPropertiesFromChebi <- function(fileIn, fileOut=NULL){
 
-#' @name annotate_chemical_properties
+  ## get inchikeys from igraph object of the GSMN
+  gsmn_data <- read.table(source, sep='\t', header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
+  n <- length(unique(gsmn_data$Chebi))
+
+  gsmn_metadata <- sapply(unique(gsmn_data$Chebi), function(chebi_id){
+    prop <- webchem::chebi_comp_entity(chebi_id)[[1]]$properties
+    return(c(chebi_id,prop$inchi,prop$inchikey,prop$smiles))
+    })
+  gsmn_metadata <- t(gsmn_metadata)
+  colnames(gsmn_metadata) <- c("chebiid","inchi","inchikey","smiles")
+
+  res <- cbind(gsmn_data,gsmn_metadata[gsmn_data$Chebi,2:4])
+
+  if(!is.null(fileOut)){
+     write.table(res,
+                file=fileOut,
+                row.names = FALSE,
+                col.names = TRUE,
+                sep='\t')
+  }
+  return(res)
+}
+
+#' @name annotateChemicalPropertiesToExperiment
 #'
 #' @title Function to annotate InputData with chemical properties.
 #'
@@ -209,7 +245,7 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 #' @export
 
-annotate_chemical_properties <- function(inputData){
+annotateChemicalPropertiesToExperiment <- function(inputData){
 
   metadata <- rowData(inputData$peakList[[1]])
 

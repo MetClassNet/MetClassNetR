@@ -96,7 +96,11 @@ mapMetToGSMN(inputData, resFile, method="metabolomics2network")
 
 ## Map by ID
 ```{r mapping}
-inputData <- annotate_chemical_properties(inputData)
+inputData <- annotateChemicalPropertiesToExperiment(inputData)
+
+# getChemicalPropertiesFromChebi(fileIn = inputData$metF, fileOut=paste0(inputData$resPath,"GSMN_properties.tsv"))
+# mapMetToGSMN(inputData, method="id_inchikey", gsmnMetaFile=paste0(inputData$resPath,"GSMN_properties.tsv") )
+
 mapMetToGSMN(inputData, method="id_inchikey")
 
 ```
