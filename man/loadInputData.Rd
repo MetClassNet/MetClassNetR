@@ -7,27 +7,31 @@
 loadInputData(
   peakListF,
   intCol = 23,
-  transF,
-  spectraF,
+  transF = NULL,
+  spectraF = NULL,
   gsmnF,
   spectraSS = NULL,
   resPath,
   met2NetDir,
   configF,
   idenMetF,
-  metF
+  metF,
+  cleanMetF = TRUE
 )
 }
 \arguments{
 \item{peakListF}{\code{Path}, path to the TSV file that contains the peak list (one peak per row)
 in a MetaboLights-like format. The first row is the header (i.e., the list
-of columns' names). The file should contain at least 3 columns:
-"database_identifier" (ChEBI), "mass_to_charge", and "retention_time". It is
-to note that these column names are fixed. The TSV file can also contain
+of columns' names). The file should contain at least 4 columns:
+"database_identifier" (i.e., ChEBI), "metabolite_identification" (i.e.,
+metabolite name, if identified), "mass_to_charge", and "retention_time". It
+is to note that these column names are fixed. The TSV file can also contain
 intensity (or abundance) values. In this case, the column names are free
 (e.g., can be named after the samples), but no blank spaces are allowed and
 the first character must be a letter. In addition, all the abundances must
-be placed at the end of the table, i.e., in the last columns}
+be placed at the end of the table, i.e., in the last columns. NOTE. Special
+characters, such as single quotes ("'"), and hashtag ("#"), are forbidden
+and the peak list file should not contain any of them}
 
 \item{intCol}{\code{numeric}, number of the first column containing the intensities or of the
 subset of columns to take the intensity values from. The default value is
@@ -71,7 +75,10 @@ is a single chebi ID per metabolite, and that it corresponds to the main
 chebi ID. If you are not sure that your list of chebi IDs fits these
 requirement, set the \code{cleanMetF} parameter to TRUE.
 An example of a correct list of metabolites can be found in
-extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMetWithMasses.tsv }
+extdata/MTBLS1586/Metabolomics2NetworksData/WormJamMetWithMasses.tsv}
+
+\item{cleanMetF}{\code{boolean}, set it to TRUE if  you want to clean your metabolites' file, as
+previously described}
 }
 \value{
 Named list containing all the data (peakList, spectra, transformations, and

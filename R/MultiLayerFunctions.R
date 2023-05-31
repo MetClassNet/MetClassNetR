@@ -104,6 +104,10 @@ loadInputData <- function(peakListF, intCol = 23, transF = NULL,
   data <- read.table(peakListF, sep = "\t", header = TRUE, quote = "")
   rownames(data) <- data$id
 
+  # accordingt to readMaf
+  colnames(data)[colnames(data) == "mass_to_charge"] <- "mz"
+  colnames(data)[colnames(data) == "retention_time"] <- "rtime"
+
   # check column position of the first intensity values
   if(length(intCol) == 1) {
     if (is.na(intCol)) {
@@ -593,6 +597,9 @@ processMappings <- function(identMetF, pathToMappings, resFile) {
     quote = FALSE,
     sep = "\t"
   )
+  print(paste0("Original mappings saved to ",pathToMappings,
+    gsub("[.].{3}$", "", resFile),
+    "_OriginalRawMappings.txt"))
 
   # save multi-mappings in the original final
   write.table(
@@ -602,6 +609,7 @@ processMappings <- function(identMetF, pathToMappings, resFile) {
     quote = FALSE,
     sep = "\t"
   )
+  print(paste0("Multimappings saved to ",pathToMappings, resFile))
 
   return()
 }

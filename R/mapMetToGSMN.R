@@ -33,19 +33,21 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
     .mapMetToGSMN_metabolomics2network(inputData, resFile)
   }
 
-  # if(method=="molecularFormula"){
-  #
-  #   ## check parameter
-  #   ## call function
-  #   mapMetToGSMN_molecularFormula()
-  # }
-  #
+  if(method=="id_inchikey"){
+
+    ## check parameter
+
+
+    ## call function
+    .mapMetToGSMN_inchikey(inputData)
+  }
+
 
 }
 
 
 ###################################################
-#      Singel functions not exported              #
+#      Single functions - not exported            #
 ###################################################
 
 
@@ -98,6 +100,13 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 #'
 .mapMetToGSMN_metabolomics2network <- function(inputData, resFile = "Res_Met2Net_MappedMet.txt") {
 
+    ## checks
+    if(inputData$met2NetDir==""){print("met2NetDir is empty");return()}
+    if(inputData$metF==""){print("metF is empty");return()}
+    if(inputData$resPath==""){print("resPath is empty");return()}
+    if(resFile==""){print("resFile is empty");return()}
+    if(inputData$configF==""){print("configF is empty");return()}
+
     pathToMappings <- paste0(inputData$resPath, "GSMNMappings/")
     dir.create(pathToMappings)
 
@@ -130,3 +139,31 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
 }
 
 
+
+#' @name .mapMetToGSMN_inchikey
+#'
+#' @title Map features to metabolites if the InChIKey is the same.
+#'
+#' @description
+#' Function to map the identified experimental nodes to the
+#' corresponding GSMN nodes, by InChIKey comparison.
+#'
+#' @param inputData
+#' `list`, list returned by the `loadInputData` function
+#'
+#' @return
+#'
+#' @author Sarah Scharfenberg
+#'
+.mapMetToGSMN_inchikey <- function(inputData){
+
+  # get metadata from QFeatures object
+  metadata <- rowData(inputData$peakList[[1]])
+
+  ## metadata$database_identifier
+  ## annotierte chebi ID
+
+  if(sum(!is.na(metadata$inchi))==0){ print("No inchis annotated."); return()}
+
+
+}

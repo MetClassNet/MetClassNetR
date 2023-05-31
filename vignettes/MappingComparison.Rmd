@@ -1,0 +1,104 @@
+---
+title: "Mapping Comparison"
+author: "Sarah Scharfenberg"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+```{r setup, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(MetClassNetR)
+library(MsCoreUtils)
+library(tidyverse)
+library(dplyr)
+library(QFeatures)
+```
+
+
+## Overview
+
+This vignette aims to compare different mapping strategies included in the package.
+For a description how to generate a multilayer network see vignette MultiLayerNetwork.
+
+## Preparation
+
+For this Vignettes we use data from MTBLS1586.
+
+```{r loadData}
+# load("../VariablesFromVignette.RData")
+path <- "extdata/MTBLS1586/"
+exp <- "MTBLS1586_LC-MS_positive_reverse-phase_metabolite_profiling"
+
+inputData <- 
+  loadInputData(
+    peakListF = 
+      system.file(
+        paste0(path, "m_", exp, "_v2_maf.tsv"), 
+        package = "MetClassNetR"
+        ), 
+    transF = 
+      system.file(
+        paste0(path, "transformations_MTBLS1586.csv"), 
+        package = "MetClassNetR"
+        ),
+    spectraF = 
+      system.file(
+        paste0(path, "ms2_", exp, ".mgf"), 
+        package = "MetClassNetR"
+        ), 
+    gsmnF = 
+      system.file(
+        paste0(path, "WormJam-GEM-20190101_L3_no-side_no-comp.gml"), 
+        package = "MetClassNetR"
+        ),  
+    resPath = "~/MetClassNetR_MultiLayerNetwork/", 
+    met2NetDir = 
+      paste0(
+        find.package("MetClassNetR"), 
+        "/Python/metabolomics2network-master/"
+        ),
+    configF =  
+      system.file(
+        paste0(path, "Metabolomics2NetworksData/JsonConf.txt"), 
+        package = "MetClassNetR"
+        ),
+    idenMetF =  
+      system.file(
+        paste0(
+          path, 
+          "Metabolomics2NetworksData/IdentifiedMet_", 
+          exp, 
+          "_v2_maf.tsv"
+          ), 
+        package = "MetClassNetR"
+        ),
+    metF = 
+      system.file(
+        paste0(path, "Metabolomics2NetworksData/WormJamMetWithMasses.tsv"), 
+        package = "MetClassNetR"
+        ), 
+    cleanMetF = FALSE
+    ) 
+
+```
+
+
+## Metabolomics2network
+
+```{r mapping}
+
+resFile <- "Res_Met2Net_MappedMet.txt"
+mapMetToGSMN(inputData, resFile, method="metabolomics2network")
+```
+
+## Map by ID
+```{r mapping}
+mapMetToGSMN(inputData, method="id_inchikey")
+
+```
+
+
+## Map by class
