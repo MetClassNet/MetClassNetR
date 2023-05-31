@@ -214,7 +214,7 @@ getChemicalPropertiesFromChebi <- function(fileIn, fileOut=NULL){
     return(c(chebi_id,prop$inchi,prop$inchikey,prop$smiles))
     })
   gsmn_metadata <- t(gsmn_metadata)
-  colnames(gsmn_metadata) <- c("chebiid","inchi","inchikey","smiles")
+  colnames(gsmn_metadata) <- c("Chebi","Inchi","Inchikey","Smiles")
 
   res <- cbind(gsmn_data,gsmn_metadata[gsmn_data$Chebi,2:4])
 
