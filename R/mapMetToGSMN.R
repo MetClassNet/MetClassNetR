@@ -168,20 +168,20 @@ mapMetToGSMN <- function(inputData, method="metabolomics2network", resFile = "Re
   ## get inchis from gsmn
   if(is.null(gsmnMetaFile)){
 
-    gsmn_data <- read.table(inputData$metF, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
-    if(any(grepl("inchi",names(gsmn_data), ignore.case = TRUE))){
+    gsmn_data <- read.table(inputData$metF, sep="\t", header=TRUE, stringsAsFactors = FALSE, quote="", comment.char = "")
+    if(!any(grepl("inchi$",names(gsmn_data), ignore.case = TRUE, perl=TRUE))){
       print(paste0("No InChIKeys annotated to the GSMN. Please add InChIKeys to your metadata or",
                    "provide the information in a separate file. To retrieve chemical properties based on ChEBI Ids",
                    " use getChemicalPropertiesFromChebi() to create such a file."))
       return()
     }else{
-      ikCol <- which(grepl("inchi",names(gsmn_data), ignore.case = TRUE))
-      gsmn_IK <- cbind(gsmn_data$ID,gsmn_data[,ikCol])
+      ikCol <- names(gsmn_data)[which(grepl("inchi$",names(gsmn_data), ignore.case = TRUE))]
+      gsmn_IK <- gsmn_data[,c("ID",ikCol)]
     }
   }else{
-    gsmn_data <- read.table(gsmnMetaFile, sep="\t", header=TRUE, stringsAsFactors = FALSE,quote="", comment.char = "")
-    gsmn_IK <- cbind(gsmn_data$ID,gsmn_data[,ikCol])
-
+    gsmn_data <- read.table(gsmnMetaFile, sep="\t", header=TRUE, stringsAsFactors = FALSE, quote="", comment.char = "")
+    ikCol <- names(gsmn_data)[which(grepl("inchi$",names(gsmn_data), ignore.case = TRUE))]
+    gsmn_IK <- gsmn_data[,c("ID",ikCol)]
   }
 
 
