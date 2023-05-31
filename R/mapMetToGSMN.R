@@ -223,7 +223,8 @@ getChemicalPropertiesFromChebi <- function(fileIn, fileOut=NULL){
                 file=fileOut,
                 row.names = FALSE,
                 col.names = TRUE,
-                sep='\t')
+                sep='\t',
+                quote=FALSE)
   }
   return(res)
 }
